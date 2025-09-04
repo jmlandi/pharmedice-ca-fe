@@ -1,103 +1,114 @@
-import Image from "next/image";
+import Image from 'next/image';
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+	return (
+		<main className="w-full h-screen flex flex-col md:flex-row overflow-x-clip">
+			{/* main image */}
+			<div className="">
+				<Image
+					src="/images/cientist.png"
+					alt="Imagem de boas-vindas à área do cliente da Pharmédice"
+					width={800}
+					height={600}
+					className="w-screen md:max-w-[65vw] h-auto md:h-screen object-cover md:rounded-r-3xl"
+				/>
+			</div>
+			{/* login area */}
+			<div className="flex flex-col w-full justify-start items-center h-screen p-5 gap-5">
+				{/* back to main site button */}
+				<a
+					href="https://pharmedice.com.br"
+					className="w-[100%] bg-gray-100 hover:bg-gray-200 text-foreground rounded-4xl px-5 py-1 flex flex-row gap-1 transition-all duration-200"
+				>
+					<Image
+						src="/icons/arrow.svg"
+						alt="Ícone de seta para esquerda"
+						width={16}
+						height={16}
+						className=""
+					/>
+					<p className="">Retorne para o site</p>
+				</a>
+				<div className="flex flex-col justify-around items-center h-full">
+					{/* logo and title */}
+					<div className="">
+						<Image
+							src="/icons/pharmedice-logo.svg"
+							alt="Logo da Pharmédice"
+							width={180}
+							height={180}
+							className="mt-10 mb-5"
+						/>
+						<h1 className="text-2xl font-bold text-center mb-2 text-[#527BC6]">
+							Área do Cliente
+						</h1>
+					</div>
+					{/* login form */}
+					<form className="flex flex-col gap-4 w-[300px] md:w-[400px]">
+						{/* input fields */}
+						<div className="flex flex-col gap-1">
+							<label className="flex flex-row gap-1 text-sm text-foreground">
+								<Image
+									src="/icons/account.svg"
+									alt="Ícone de usuário"
+									width={16}
+									height={16}
+									className="h-full w-auto"
+								/>
+								<p className="text-[#527BC6] font-bold text-md">E-mail:</p>
+							</label>
+							<input
+								type="email"
+								placeholder="Digite o e-mail da sua conta"
+								className="w-full px-4 py-2 border-none bg-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#527BC6] transition-all duration-200"
+							/>
+						</div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+						<div className="flex flex-col gap-1">
+							<label className="flex flex-row gap-1 text-sm text-foreground">
+								<Image
+									src="/icons/lock.svg"
+									alt="Ícone de cadeado"
+									width={16}
+									height={16}
+									className="h-full w-auto"
+								/>
+								<p className="text-[#527BC6] font-bold text-md">Senha:</p>
+							</label>
+							<input
+								type="password"
+								placeholder="Digite a senha da sua conta"
+								className="w-full px-4 py-2 border-none bg-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#527BC6] transition-all duration-200"
+							/>
+						</div>
+
+						{/* login buttons */}
+						<div className="flex flex-row items-center gap-2 justify-between">
+							<button
+								type="submit"
+								className="w-full h-full text-sm font-bold bg-[#527BC6] text-white rounded-3xl hover:bg-[#3b5aa1] hover:cursor-pointer transition-all duration-200"
+							>
+								Iniciar Sessão
+							</button>
+							<a href="#" className="w-full hover:opacity-60">
+								<Image
+									src="/icons/btn-google-light.svg"
+									alt="Botão de login com Google"
+									width={16}
+									height={16}
+									className="w-full h-auto"
+								/>
+							</a>
+						</div>
+						<p className="text-sm text-[#527BC6] w-full text-center">
+							Não tem uma conta?{' '}
+							<a href="#" className="underline">
+								Cadastre-se!
+							</a>
+						</p>
+					</form>
+				</div>
+			</div>
+		</main>
+	);
 }
