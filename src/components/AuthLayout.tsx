@@ -6,7 +6,11 @@ interface AuthLayoutProps {
 	navigationLinks?: React.ReactNode;
 }
 
-export default function AuthLayout({ children, title, navigationLinks }: AuthLayoutProps) {
+export default function AuthLayout({
+	children,
+	title,
+	navigationLinks,
+}: AuthLayoutProps) {
 	return (
 		<main className="w-full min-h-screen flex flex-col md:flex-row">
 			{/* main image - fixed on desktop */}
@@ -37,18 +41,18 @@ export default function AuthLayout({ children, title, navigationLinks }: AuthLay
 				</a>
 				<div className="flex flex-col justify-around items-center h-full w-full py-4">
 					{/* logo and title */}
-          <div className="flex-shrink-0 flex flex-col items-center">
-            <Image
-              src="/icons/pharmedice-logo.svg"
-              alt="Logo da Pharmédice"
-              width={150}
-              height={150}
-              className="mb-5"
-            />
-            <h1 className="text-2xl font-bold text-center mb-2 text-[#527BC6]">
-              {title}
-            </h1>
-          </div>
+					<div className="flex-shrink-0 flex flex-col items-center">
+						<Image
+							src="/icons/pharmedice-logo.svg"
+							alt="Logo da Pharmédice"
+							width={150}
+							height={150}
+							className="mb-5"
+						/>
+						<h1 className="text-2xl font-bold text-center mb-2 text-[#527BC6]">
+							{title}
+						</h1>
+					</div>
 					{/* auth form */}
 					<div className="flex-1 flex items-center justify-center w-full max-w-[450px] m-1 border-0 p-4 rounded-3xl shadow-lg bg-white">
 						{children}

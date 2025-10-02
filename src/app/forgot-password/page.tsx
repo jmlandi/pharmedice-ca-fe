@@ -5,6 +5,7 @@ import Link from 'next/link';
 import AuthLayout from '@/components/AuthLayout';
 import FormField from '@/components/FormField';
 import SubmitButton from '@/components/SubmitButton';
+import { useAlert } from '@/components/AlertProvider';
 import { isValidEmail } from '@/lib/utils';
 
 interface ForgotPasswordFormData {
@@ -12,6 +13,7 @@ interface ForgotPasswordFormData {
 }
 
 function ForgotPasswordForm() {
+	const { showError, showSuccess } = useAlert();
 	const [formData, setFormData] = useState<ForgotPasswordFormData>({
 		email: '',
 	});
@@ -19,17 +21,20 @@ function ForgotPasswordForm() {
 	const [errors, setErrors] = useState<Partial<ForgotPasswordFormData>>({});
 	const [isEmailSent, setIsEmailSent] = useState(false);
 
-	const handleInputChange = (field: keyof ForgotPasswordFormData, value: string) => {
-		setFormData(prev => ({
+	const handleInputChange = (
+		field: keyof ForgotPasswordFormData,
+		value: string
+	) => {
+		setFormData((prev) => ({
 			...prev,
-			[field]: value
+			[field]: value,
 		}));
 
 		// Clear error when user starts typing
 		if (errors[field]) {
-			setErrors(prev => ({
+			setErrors((prev) => ({
 				...prev,
-				[field]: undefined
+				[field]: undefined,
 			}));
 		}
 	};
@@ -49,11 +54,11 @@ function ForgotPasswordForm() {
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-		
+
 		if (!validateForm()) return;
 
 		setIsLoading(true);
-		
+
 		try {
 			// Here you would integrate with your Laravel API
 			console.log('Reset password request for:', formData.email);
@@ -62,14 +67,14 @@ function ForgotPasswordForm() {
 			//   headers: { 'Content-Type': 'application/json' },
 			//   body: JSON.stringify({ email: formData.email })
 			// });
-			
+
 			// Simulate API call
-			await new Promise(resolve => setTimeout(resolve, 2000));
-			
+			await new Promise((resolve) => setTimeout(resolve, 2000));
+
 			setIsEmailSent(true);
 		} catch (error) {
 			console.error('Erro ao enviar e-mail de recuperação:', error);
-			alert('Erro ao enviar e-mail. Tente novamente.');
+			showError('Erro ao enviar e-mail. Tente novamente.');
 		} finally {
 			setIsLoading(false);
 		}
@@ -79,11 +84,11 @@ function ForgotPasswordForm() {
 		setIsLoading(true);
 		try {
 			// Simulate API call to resend email
-			await new Promise(resolve => setTimeout(resolve, 1000));
-			alert('E-mail reenviado com sucesso!');
+			await new Promise((resolve) => setTimeout(resolve, 1000));
+			showSuccess('E-mail reenviado com sucesso!');
 		} catch (error) {
 			console.error('Erro ao reenviar e-mail:', error);
-			alert('Erro ao reenviar e-mail. Tente novamente.');
+			showError('Erro ao reenviar e-mail. Tente novamente.');
 		} finally {
 			setIsLoading(false);
 		}
@@ -94,26 +99,36 @@ function ForgotPasswordForm() {
 			<div className="flex flex-col gap-6 w-[300px] md:w-[400px] text-center">
 				<div className="flex flex-col gap-4">
 					<div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-						<svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+						<svg
+							className="w-10 h-10 text-green-600"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeWidth={2}
+								d="M5 13l4 4L19 7"
+							/>
 						</svg>
 					</div>
-					<h2 className="text-xl font-bold text-[#527BC6]">
-						E-mail Enviado!
-					</h2>
-          <p className="text-sm text-foreground">
-            Enviamos um link para redefinir sua senha para:{' '}
-      <span className="text-sm font-semibold text-[#527BC6]">
-        {formData.email}
-      </span>
-      </p>
-          <p className="text-xs text-foreground">
-            Cheque sua caixa de entrada e também a pasta de spam. O link para redefinir sua senha é válido por 1 hora. Caso não receba o e-mail, confirme se o endereço está correto e tente reenviar.
-          </p>
+					<h2 className="text-xl font-bold text-[#527BC6]">E-mail Enviado!</h2>
+					<p className="text-sm text-foreground">
+						Enviamos um link para redefinir sua senha para:{' '}
+						<span className="text-sm font-semibold text-[#527BC6]">
+							{formData.email}
+						</span>
+					</p>
+					<p className="text-xs text-foreground">
+						Cheque sua caixa de entrada e também a pasta de spam. O link para
+						redefinir sua senha é válido por 1 hora. Caso não receba o e-mail,
+						confirme se o endereço está correto e tente reenviar.
+					</p>
 				</div>
 
 				<div className="flex flex-col gap-3">
-					<SubmitButton 
+					<SubmitButton
 						type="button"
 						variant="secondary"
 						isLoading={isLoading}
@@ -122,7 +137,7 @@ function ForgotPasswordForm() {
 						{isLoading ? 'Reenviando...' : 'Reenviar E-mail'}
 					</SubmitButton>
 
-					<Link 
+					<Link
 						href="/login"
 						className="w-full h-12 flex items-center justify-center text-sm font-bold bg-[#527BC6] text-white rounded-3xl hover:bg-[#3b5aa1] hover:cursor-pointer transition-all duration-200"
 					>
@@ -134,13 +149,17 @@ function ForgotPasswordForm() {
 	}
 
 	return (
-		<form onSubmit={handleSubmit} className="flex flex-col gap-6 w-[300px] md:w-full md:max-w-[420px] md:p-1">
+		<form
+			onSubmit={handleSubmit}
+			className="flex flex-col gap-6 w-[300px] md:w-full md:max-w-[420px] md:p-1"
+		>
 			<div className="flex flex-col gap-4 text-center">
 				<h2 className="text-xl font-bold text-[#527BC6]">
 					Esqueceu sua senha?
 				</h2>
 				<p className="text-sm text-foreground">
-					Não se preocupe! Digite seu e-mail abaixo e enviaremos um link para você redefinir sua senha.
+					Não se preocupe! Digite seu e-mail abaixo e enviaremos um link para
+					você redefinir sua senha.
 				</p>
 			</div>
 
@@ -164,20 +183,20 @@ function ForgotPasswordForm() {
 
 export default function ForgotPasswordPage() {
 	const navigationLinks = (
-    <div className="flex flex-col gap-2 text-center">
-      <p className="text-sm text-[#527BC6]">
-        Lembrou sua senha?{' '}
-        <Link href="/login" className="underline hover:opacity-70">
-          Voltar ao login
-        </Link>
-      </p>
-      <p className="text-sm text-[#527BC6]">
-        Ainda não tem uma conta?{' '}
-        <Link href="/signup" className="underline hover:opacity-70">
-          Cadastre-se aqui
-        </Link>
-      </p>
-    </div>
+		<div className="flex flex-col gap-2 text-center">
+			<p className="text-sm text-[#527BC6]">
+				Lembrou sua senha?{' '}
+				<Link href="/login" className="underline hover:opacity-70">
+					Voltar ao login
+				</Link>
+			</p>
+			<p className="text-sm text-[#527BC6]">
+				Ainda não tem uma conta?{' '}
+				<Link href="/signup" className="underline hover:opacity-70">
+					Cadastre-se aqui
+				</Link>
+			</p>
+		</div>
 	);
 
 	return (

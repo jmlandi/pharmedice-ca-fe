@@ -11,7 +11,7 @@ import {
 	isValidCNPJ,
 	isValidPhone,
 	isValidName,
-	cleanString
+	cleanString,
 } from './src/lib/utils';
 
 console.log('Testing utility functions...\n');
@@ -21,7 +21,7 @@ console.log('Document formatting:');
 console.log('CPF:', formatDocument('12345678901')); // Should format as CPF
 console.log('CNPJ:', formatDocument('12345678000123')); // Should format as CNPJ
 
-// Test phone formatting  
+// Test phone formatting
 console.log('\nPhone formatting:');
 console.log('Phone:', formatPhone('11999887766')); // Should format as (11) 99988-7766
 

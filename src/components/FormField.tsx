@@ -23,7 +23,7 @@ export default function FormField({
 	error,
 	maxLength,
 	onChange,
-	className = ''
+	className = '',
 }: FormFieldProps) {
 	return (
 		<div className={`flex flex-col gap-1 mx-1 ${className}`}>
