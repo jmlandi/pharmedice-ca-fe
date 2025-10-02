@@ -5,6 +5,7 @@ import Link from 'next/link';
 import AuthLayout from '@/components/AuthLayout';
 import FormField from '@/components/FormField';
 import SubmitButton from '@/components/SubmitButton';
+import { useAlert } from '@/components/AlertProvider';
 import { isValidEmail } from '@/lib/utils';
 
 interface ForgotPasswordFormData {
@@ -12,6 +13,7 @@ interface ForgotPasswordFormData {
 }
 
 function ForgotPasswordForm() {
+	const { showError, showSuccess } = useAlert();
 	const [formData, setFormData] = useState<ForgotPasswordFormData>({
 		email: '',
 	});
@@ -69,7 +71,7 @@ function ForgotPasswordForm() {
 			setIsEmailSent(true);
 		} catch (error) {
 			console.error('Erro ao enviar e-mail de recuperação:', error);
-			alert('Erro ao enviar e-mail. Tente novamente.');
+			showError('Erro ao enviar e-mail. Tente novamente.');
 		} finally {
 			setIsLoading(false);
 		}
@@ -80,10 +82,10 @@ function ForgotPasswordForm() {
 		try {
 			// Simulate API call to resend email
 			await new Promise(resolve => setTimeout(resolve, 1000));
-			alert('E-mail reenviado com sucesso!');
+			showSuccess('E-mail reenviado com sucesso!');
 		} catch (error) {
 			console.error('Erro ao reenviar e-mail:', error);
-			alert('Erro ao reenviar e-mail. Tente novamente.');
+			showError('Erro ao reenviar e-mail. Tente novamente.');
 		} finally {
 			setIsLoading(false);
 		}

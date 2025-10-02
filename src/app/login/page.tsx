@@ -6,6 +6,7 @@ import Image from 'next/image';
 import AuthLayout from '@/components/AuthLayout';
 import FormField from '@/components/FormField';
 import SubmitButton from '@/components/SubmitButton';
+import { useAlert } from '@/components/AlertProvider';
 import { isValidEmail } from '@/lib/utils';
 
 interface LoginFormData {
@@ -14,6 +15,7 @@ interface LoginFormData {
 }
 
 function LoginForm() {
+	const { showError } = useAlert();
 	const [formData, setFormData] = useState<LoginFormData>({
 		email: '',
 		password: '',
@@ -76,7 +78,7 @@ function LoginForm() {
 			window.location.href = '/dashboard';
 		} catch (error) {
 			console.error('Erro ao fazer login:', error);
-			alert('Erro ao fazer login. Verifique suas credenciais.');
+			showError('Erro ao fazer login. Verifique suas credenciais.');
 		} finally {
 			setIsLoading(false);
 		}
@@ -138,12 +140,14 @@ function LoginForm() {
 
 export default function LoginPage() {
 	const navigationLinks = (
-		<p className="text-sm text-[#527BC6] w-full text-center">
-			Não tem uma conta?{' '}
-			<Link href="/signup" className="underline hover:opacity-70">
-				Cadastre-se!
-			</Link>
-		</p>
+		<div className="space-y-2 w-full text-center">
+			<p className="text-sm text-[#527BC6]">
+				Não tem uma conta?{' '}
+				<Link href="/signup" className="underline hover:opacity-70">
+					Cadastre-se!
+				</Link>
+			</p>
+		</div>
 	);
 
 	return (

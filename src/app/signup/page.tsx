@@ -5,6 +5,7 @@ import Link from 'next/link';
 import AuthLayout from '@/components/AuthLayout';
 import FormField from '@/components/FormField';
 import SubmitButton from '@/components/SubmitButton';
+import { useAlert } from '@/components/AlertProvider';
 import {
 	formatDocument,
 	formatPhone,
@@ -28,6 +29,7 @@ interface SignupFormData {
 }
 
 function SignupForm() {
+	const { showSuccess, showError } = useAlert();
 	const [formData, setFormData] = useState<SignupFormData>({
 		first_name: '',
 		last_name: '',
@@ -50,16 +52,34 @@ function SignupForm() {
 			formattedValue = formatPhone(value);
 		}
 
-		setFormData(prev => ({
-			...prev,
-			[field]: formattedValue
-		}));
+		setFormData(prev => {
+			const updatedData = {
+				...prev,
+				[field]: formattedValue
+			};
+
+			// Auto-fill nickname with first word of first_name
+			if (field === 'first_name' && formattedValue.trim()) {
+				const firstWord = formattedValue.trim().split(' ')[0];
+				updatedData.nickname = firstWord;
+			}
+
+			return updatedData;
+		});
 
 		// Clear error when user starts typing
 		if (errors[field]) {
 			setErrors(prev => ({
 				...prev,
 				[field]: undefined
+			}));
+		}
+
+		// Clear nickname error when first_name changes and auto-fills nickname
+		if (field === 'first_name' && value.trim() && errors.nickname) {
+			setErrors(prev => ({
+				...prev,
+				nickname: undefined
 			}));
 		}
 	};
@@ -117,10 +137,10 @@ function SignupForm() {
 			// Simulate API call
 			await new Promise(resolve => setTimeout(resolve, 2000));
 			
-			alert('Conta criada com sucesso!');
+			showSuccess('Conta criada com sucesso!');
 		} catch (error) {
 			console.error('Erro ao criar conta:', error);
-			alert('Erro ao criar conta. Tente novamente.');
+			showError('Erro ao criar conta. Tente novamente.');
 		} finally {
 			setIsLoading(false);
 		}
