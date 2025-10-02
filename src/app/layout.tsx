@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Montserrat, Montserrat_Alternates } from 'next/font/google';
 import './globals.css';
 import { AlertProvider } from '../components/AlertProvider';
+import { LoadingProvider } from '../components/LoadingProvider';
 
 const montserrat = Montserrat({
 	variable: '--font-montserrat',
@@ -29,7 +30,9 @@ export default function RootLayout({
 			<body
 				className={`${montserrat.variable} ${montserratAlternates.variable} antialiased`}
 			>
-				<AlertProvider>{children}</AlertProvider>
+				<LoadingProvider>
+					<AlertProvider>{children}</AlertProvider>
+				</LoadingProvider>
 			</body>
 		</html>
 	);
