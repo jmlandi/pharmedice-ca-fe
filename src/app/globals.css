@@ -25,3 +25,85 @@ body {
 * {
 	transition: all 0.3s ease-in-out;
 }
+
+/* Loading animations */
+@keyframes shimmer {
+	0% {
+		background-position: -200% 0;
+	}
+	100% {
+		background-position: 200% 0;
+	}
+}
+
+.animate-shimmer {
+	background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+}
+
+/* Improved pulse animation */
+@keyframes pulse-smooth {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.6;
+	}
+}
+
+.animate-pulse {
+	animation: pulse-smooth 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Loading bar improvements */
+.loading-bar {
+	background: linear-gradient(
+		90deg,
+		var(--pharmedice-blue) 0%,
+		rgba(82, 123, 198, 0.8) 25%,
+		rgba(82, 123, 198, 1) 50%,
+		rgba(82, 123, 198, 0.8) 75%,
+		var(--pharmedice-blue) 100%
+	);
+	background-size: 200% 100%;
+	animation: shimmer 1s ease-in-out infinite;
+}
+
+/* Shine animation for loading bar */
+@keyframes shine {
+	0% {
+		transform: translateX(-100%) skewX(-12deg);
+	}
+	100% {
+		transform: translateX(300%) skewX(-12deg);
+	}
+}
+
+/* Smooth page transitions */
+.page-transition-enter {
+	opacity: 0;
+	transform: translateY(20px);
+}
+
+.page-transition-enter-active {
+	opacity: 1;
+	transform: translateY(0);
+	transition:
+		opacity 0.5s ease-out,
+		transform 0.5s ease-out;
+}
+
+.page-transition-exit {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.page-transition-exit-active {
+	opacity: 0;
+	transform: translateY(-20px);
+	transition:
+		opacity 0.3s ease-in,
+		transform 0.3s ease-in;
+}

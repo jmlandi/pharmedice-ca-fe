@@ -6,6 +6,7 @@ import AuthLayout from '@/components/AuthLayout';
 import FormField from '@/components/FormField';
 import SubmitButton from '@/components/SubmitButton';
 import { useAlert } from '@/components/AlertProvider';
+import { useLoading } from '@/components/LoadingProvider';
 import {
 	formatDocument,
 	formatPhone,
@@ -30,6 +31,7 @@ interface SignupFormData {
 
 function SignupForm() {
 	const { showSuccess, showError } = useAlert();
+	const { startLoading, stopLoading } = useLoading();
 	const [formData, setFormData] = useState<SignupFormData>({
 		first_name: '',
 		last_name: '',
@@ -136,6 +138,7 @@ function SignupForm() {
 		if (!validateForm()) return;
 
 		setIsLoading(true);
+		startLoading();
 
 		try {
 			// Here you would integrate with your Laravel API
@@ -155,6 +158,7 @@ function SignupForm() {
 			showError('Erro ao criar conta. Tente novamente.');
 		} finally {
 			setIsLoading(false);
+			stopLoading();
 		}
 	};
 

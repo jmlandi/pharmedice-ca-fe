@@ -6,6 +6,7 @@ import AuthLayout from '@/components/AuthLayout';
 import FormField from '@/components/FormField';
 import SubmitButton from '@/components/SubmitButton';
 import { useAlert } from '@/components/AlertProvider';
+import { useLoading } from '@/components/LoadingProvider';
 import { isValidEmail } from '@/lib/utils';
 
 interface ForgotPasswordFormData {
@@ -14,6 +15,7 @@ interface ForgotPasswordFormData {
 
 function ForgotPasswordForm() {
 	const { showError, showSuccess } = useAlert();
+	const { startLoading, stopLoading } = useLoading();
 	const [formData, setFormData] = useState<ForgotPasswordFormData>({
 		email: '',
 	});
@@ -58,6 +60,7 @@ function ForgotPasswordForm() {
 		if (!validateForm()) return;
 
 		setIsLoading(true);
+		startLoading();
 
 		try {
 			// Here you would integrate with your Laravel API
@@ -77,11 +80,13 @@ function ForgotPasswordForm() {
 			showError('Erro ao enviar e-mail. Tente novamente.');
 		} finally {
 			setIsLoading(false);
+			stopLoading();
 		}
 	};
 
 	const handleResendEmail = async () => {
 		setIsLoading(true);
+		startLoading();
 		try {
 			// Simulate API call to resend email
 			await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -91,6 +96,7 @@ function ForgotPasswordForm() {
 			showError('Erro ao reenviar e-mail. Tente novamente.');
 		} finally {
 			setIsLoading(false);
+			stopLoading();
 		}
 	};
 

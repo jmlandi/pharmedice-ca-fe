@@ -7,6 +7,7 @@ import AuthLayout from '@/components/AuthLayout';
 import FormField from '@/components/FormField';
 import SubmitButton from '@/components/SubmitButton';
 import { useAlert } from '@/components/AlertProvider';
+import { useLoading } from '@/components/LoadingProvider';
 import { isValidEmail } from '@/lib/utils';
 
 interface LoginFormData {
@@ -16,6 +17,7 @@ interface LoginFormData {
 
 function LoginForm() {
 	const { showError } = useAlert();
+	const { startLoading, stopLoading } = useLoading();
 	const [formData, setFormData] = useState<LoginFormData>({
 		email: '',
 		password: '',
@@ -61,6 +63,7 @@ function LoginForm() {
 		if (!validateForm()) return;
 
 		setIsLoading(true);
+		startLoading();
 
 		try {
 			// Here you would integrate with your Laravel API
@@ -81,6 +84,7 @@ function LoginForm() {
 			showError('Erro ao fazer login. Verifique suas credenciais.');
 		} finally {
 			setIsLoading(false);
+			stopLoading();
 		}
 	};
 

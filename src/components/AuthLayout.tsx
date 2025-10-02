@@ -1,4 +1,6 @@
 import Image from 'next/image';
+import OptimizedImage from './OptimizedImage';
+import PageTransition from './PageTransition';
 
 interface AuthLayoutProps {
 	children: React.ReactNode;
@@ -15,11 +17,12 @@ export default function AuthLayout({
 		<main className="w-full min-h-screen flex flex-col md:flex-row">
 			{/* main image - fixed on desktop */}
 			<div className="md:fixed md:left-0 md:top-0 md:w-[60vw] md:h-screen md:z-10">
-				<Image
+				<OptimizedImage
 					src="/images/cientist.png"
 					alt="Imagem de boas-vindas à área do cliente da Pharmédice"
 					width={800}
 					height={600}
+					priority={true}
 					className="w-screen md:w-full h-auto md:h-screen object-cover md:rounded-r-3xl"
 				/>
 			</div>
@@ -41,27 +44,36 @@ export default function AuthLayout({
 				</a>
 				<div className="flex flex-col justify-around items-center h-full w-full py-4">
 					{/* logo and title */}
-					<div className="flex-shrink-0 flex flex-col items-center">
-						<Image
-							src="/icons/pharmedice-logo.svg"
-							alt="Logo da Pharmédice"
-							width={150}
-							height={150}
-							className="mb-5"
-						/>
-						<h1 className="text-2xl font-bold text-center mb-2 text-[#527BC6]">
-							{title}
-						</h1>
-					</div>
+					<PageTransition>
+						<div className="flex-shrink-0 flex flex-col items-center">
+							<OptimizedImage
+								src="/icons/pharmedice-logo.svg"
+								alt="Logo da Pharmédice"
+								width={150}
+								height={150}
+								className="mb-5"
+								priority={true}
+							/>
+							<h1 className="text-2xl font-bold text-center mb-2 text-[#527BC6]">
+								{title}
+							</h1>
+						</div>
+					</PageTransition>
+
 					{/* auth form */}
-					<div className="flex-1 flex items-center justify-center w-full max-w-[450px] m-1 border-0 p-4 rounded-3xl shadow-lg bg-white">
-						{children}
-					</div>
+					<PageTransition className="flex-1 flex items-center justify-center w-full max-w-[450px]">
+						<div className="w-full m-1 border-0 p-4 rounded-3xl shadow-lg bg-white">
+							{children}
+						</div>
+					</PageTransition>
+
 					{/* navigation links */}
 					{navigationLinks && (
-						<div className="flex-shrink-0 mt-4 w-full max-w-[500px]">
-							{navigationLinks}
-						</div>
+						<PageTransition>
+							<div className="flex-shrink-0 mt-4 w-full max-w-[500px]">
+								{navigationLinks}
+							</div>
+						</PageTransition>
 					)}
 				</div>
 			</div>
