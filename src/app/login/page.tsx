@@ -24,16 +24,16 @@ function LoginForm() {
 	const [errors, setErrors] = useState<Partial<LoginFormData>>({});
 
 	const handleInputChange = (field: keyof LoginFormData, value: string) => {
-		setFormData(prev => ({
+		setFormData((prev) => ({
 			...prev,
-			[field]: value
+			[field]: value,
 		}));
 
 		// Clear error when user starts typing
 		if (errors[field]) {
-			setErrors(prev => ({
+			setErrors((prev) => ({
 				...prev,
-				[field]: undefined
+				[field]: undefined,
 			}));
 		}
 	};
@@ -57,11 +57,11 @@ function LoginForm() {
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-		
+
 		if (!validateForm()) return;
 
 		setIsLoading(true);
-		
+
 		try {
 			// Here you would integrate with your Laravel API
 			console.log('Login attempt:', formData.email);
@@ -70,10 +70,10 @@ function LoginForm() {
 			//   headers: { 'Content-Type': 'application/json' },
 			//   body: JSON.stringify(formData)
 			// });
-			
+
 			// Simulate API call
-			await new Promise(resolve => setTimeout(resolve, 1500));
-			
+			await new Promise((resolve) => setTimeout(resolve, 1500));
+
 			// On success, redirect to dashboard
 			window.location.href = '/dashboard';
 		} catch (error) {
@@ -85,7 +85,10 @@ function LoginForm() {
 	};
 
 	return (
-		<form onSubmit={handleSubmit} className="flex flex-col gap-4 w-[300px] md:w-full md:max-w-[420px] md:p-1">
+		<form
+			onSubmit={handleSubmit}
+			className="flex flex-col gap-4 w-[300px] md:w-full md:max-w-[420px] md:p-1"
+		>
 			<FormField
 				label="E-mail"
 				icon="/icons/account.svg"
@@ -110,7 +113,7 @@ function LoginForm() {
 
 			{/* Forgot password link */}
 			<div className="flex justify-end">
-				<Link 
+				<Link
 					href="/forgot-password"
 					className="text-xs text-[#527BC6] hover:opacity-70 transition-opacity duration-200"
 				>
@@ -124,7 +127,7 @@ function LoginForm() {
 					{isLoading ? 'Entrando...' : 'Iniciar Sessão'}
 				</SubmitButton>
 				{/* Google login button - await for MVP approval */}
-        {/* <a href="#" className="w-full hover:opacity-60">
+				{/* <a href="#" className="w-full hover:opacity-60">
 					<Image
 						src="/icons/btn-google-light.svg"
 						alt="Botão de login com Google"

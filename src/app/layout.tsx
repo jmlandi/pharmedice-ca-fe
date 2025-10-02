@@ -29,9 +29,7 @@ export default function RootLayout({
 			<body
 				className={`${montserrat.variable} ${montserratAlternates.variable} antialiased`}
 			>
-				<AlertProvider>
-					{children}
-				</AlertProvider>
+				<AlertProvider>{children}</AlertProvider>
 			</body>
 		</html>
 	);

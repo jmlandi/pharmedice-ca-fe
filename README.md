@@ -30,14 +30,14 @@ Este é o front-end da área do cliente da Pharmédice. Fornece uma área para c
 
 ### Comandos Disponíveis
 
-| Comando         | Descrição                           |
-|-----------------|-------------------------------------|
-| `npm run dev`   | Iniciar servidor de desenvolvimento (Turbopack) |
-| `npm run build` | Compilar a aplicação (Turbopack)    |
-| `npm start`     | Iniciar o servidor de produção      |
-| `npm run lint`  | Executar ESLint para análise de código |
-| `npm run format`| Formatar código com Prettier        |
-| `npm run format:check` | Verificar formatação do código com Prettier |
+| Comando                | Descrição                                       |
+| ---------------------- | ----------------------------------------------- |
+| `npm run dev`          | Iniciar servidor de desenvolvimento (Turbopack) |
+| `npm run build`        | Compilar a aplicação (Turbopack)                |
+| `npm start`            | Iniciar o servidor de produção                  |
+| `npm run lint`         | Executar ESLint para análise de código          |
+| `npm run format`       | Formatar código com Prettier                    |
+| `npm run format:check` | Verificar formatação do código com Prettier     |
 
 ### Rotas
 
@@ -80,6 +80,7 @@ src/
 ### Integração com API
 
 A aplicação está preparada para integração com API Laravel. Atualize os endpoints da API em:
+
 - `/app/login/page.tsx` - Endpoint de login
 - `/app/signup/page.tsx` - Endpoint de cadastro
 - `/app/forgot-password/page.tsx` - Endpoint de redefinição de senha
@@ -108,4 +109,5 @@ Para mais detalhes, consulte `ALERTS.md` ou acesse `/alerts-demo`.
 - CPF ou CNPJ (com formatação automática)
 
 ---
+
 Sinta-se à vontade para contribuir ou abrir issues!

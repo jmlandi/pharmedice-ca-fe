@@ -26,15 +26,15 @@ import { useCustomAlert } from '@/lib/useCustomAlert';
 
 ```tsx
 function MyComponent() {
-  const { showSuccess, showError, showWarning, showInfo } = useAlert();
-  
-  const handleAction = () => {
-    // Substituir: alert('Sucesso!')
-    showSuccess('Operação realizada com sucesso!');
-    
-    // Substituir: alert('Erro!')
-    showError('Erro ao processar solicitação.');
-  };
+	const { showSuccess, showError, showWarning, showInfo } = useAlert();
+
+	const handleAction = () => {
+		// Substituir: alert('Sucesso!')
+		showSuccess('Operação realizada com sucesso!');
+
+		// Substituir: alert('Erro!')
+		showError('Erro ao processar solicitação.');
+	};
 }
 ```
 
@@ -42,40 +42,42 @@ function MyComponent() {
 
 ```tsx
 function MyComponent() {
-  const { showConfirm } = useAlert();
-  
-  const handleDelete = () => {
-    showConfirm(
-      'Tem certeza que deseja excluir este item?',
-      () => {
-        // Ação confirmada
-        console.log('Item excluído');
-      },
-      {
-        title: 'Confirmar Exclusão',
-        confirmText: 'Excluir',
-        cancelText: 'Cancelar',
-        type: 'error'
-      }
-    );
-  };
+	const { showConfirm } = useAlert();
+
+	const handleDelete = () => {
+		showConfirm(
+			'Tem certeza que deseja excluir este item?',
+			() => {
+				// Ação confirmada
+				console.log('Item excluído');
+			},
+			{
+				title: 'Confirmar Exclusão',
+				confirmText: 'Excluir',
+				cancelText: 'Cancelar',
+				type: 'error',
+			}
+		);
+	};
 }
 ```
 
 ## Migração de Alertas Existentes
 
 ### Antes (Alertas do Navegador)
+
 ```tsx
 // ❌ Alerta padrão do navegador
 alert('Erro ao fazer login. Verifique suas credenciais.');
 
 // ❌ Confirmação padrão do navegador
 if (confirm('Tem certeza?')) {
-  deleteItem();
+	deleteItem();
 }
 ```
 
 ### Depois (Alertas Personalizados)
+
 ```tsx
 // ✅ Alerta personalizado
 showError('Erro ao fazer login. Verifique suas credenciais.');
@@ -88,12 +90,12 @@ showConfirm('Tem certeza?', () => deleteItem());
 
 ### Tipos de Alerta
 
-| Método | Descrição | Cor |
-|--------|-----------|-----|
-| `showSuccess(message, duration?)` | Alerta de sucesso | Verde |
-| `showError(message, duration?)` | Alerta de erro | Vermelho |
-| `showWarning(message, duration?)` | Alerta de aviso | Amarelo |
-| `showInfo(message, duration?)` | Alerta informativo | Azul |
+| Método                            | Descrição          | Cor      |
+| --------------------------------- | ------------------ | -------- |
+| `showSuccess(message, duration?)` | Alerta de sucesso  | Verde    |
+| `showError(message, duration?)`   | Alerta de erro     | Vermelho |
+| `showWarning(message, duration?)` | Alerta de aviso    | Amarelo  |
+| `showInfo(message, duration?)`    | Alerta informativo | Azul     |
 
 ### Parâmetros
 
@@ -107,6 +109,7 @@ showConfirm(message, onConfirm, options?)
 ```
 
 **Parâmetros:**
+
 - `message: string` - Mensagem de confirmação
 - `onConfirm: () => void` - Callback executado ao confirmar
 - `options?`:
@@ -121,6 +124,7 @@ showConfirm(message, onConfirm, options?)
 ### Cores e Estilos
 
 Os alertas usam as cores definidas no `globals.css`:
+
 - Azul Pharmédice: `var(--pharmedice-blue)` (#527BC6)
 - Fonte: Montserrat
 - Bordas arredondadas: `rounded-3xl`
