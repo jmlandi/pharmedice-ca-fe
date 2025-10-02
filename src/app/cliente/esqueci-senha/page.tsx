@@ -144,7 +144,7 @@ function ForgotPasswordForm() {
 					</SubmitButton>
 
 					<Link
-						href="/login"
+						href="/cliente/login"
 						className="w-full h-12 flex items-center justify-center text-sm font-bold bg-[#527BC6] text-white rounded-3xl hover:bg-[#3b5aa1] hover:cursor-pointer transition-all duration-200"
 					>
 						Voltar ao Login
@@ -192,13 +192,13 @@ export default function ForgotPasswordPage() {
 		<div className="flex flex-col gap-2 text-center">
 			<p className="text-sm text-[#527BC6]">
 				Lembrou sua senha?{' '}
-				<Link href="/login" className="underline hover:opacity-70">
+				<Link href="/cliente/login" className="underline hover:opacity-70">
 					Voltar ao login
 				</Link>
 			</p>
 			<p className="text-sm text-[#527BC6]">
 				Ainda não tem uma conta?{' '}
-				<Link href="/signup" className="underline hover:opacity-70">
+				<Link href="/cliente/cadastro" className="underline hover:opacity-70">
 					Cadastre-se aqui
 				</Link>
 			</p>

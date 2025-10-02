@@ -274,7 +274,7 @@ export default function SignupPage() {
 	const navigationLinks = (
 		<p className="text-sm text-[#527BC6] w-full text-center">
 			Já tem uma conta?{' '}
-			<Link href="/login" className="underline hover:opacity-70">
+			<Link href="/cliente/login" className="underline hover:opacity-70">
 				Faça login!
 			</Link>
 		</p>

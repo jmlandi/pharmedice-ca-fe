@@ -1,14 +1,14 @@
 ## Área do Cliente Pharmédice - Front-End
 
-Este é o front-end da área do cliente da Pharmédice. Fornece uma área para clientes acessarem informações de pedidos, documentos, atualizações e notícias.
+Este é o front-end da plataforma Pharmédice, contendo tanto a **Área do Cliente** quanto a **Área Administrativa**. Fornece uma interface completa para clientes acessarem informações de pedidos, documentos e notícias, além de um painel administrativo para gerenciamento da plataforma.
 
 ### Funcionalidades
 
-- **Sistema de Autenticação**
-  - Login do usuário com e-mail e senha
-  - Cadastro de usuário com validação completa de formulários
-  - Recuperação de senha com link de redefinição por e-mail
-  - Integração com Google OAuth (placeholder)
+- **Sistema de Autenticação Duplo**
+  - **Área do Cliente**: Login, cadastro e recuperação de senha para clientes
+  - **Área Administrativa**: Sistema separado para administradores com validação de domínio corporativo
+  - Validação completa de formulários em ambas as áreas
+  - Integração com Google OAuth (placeholder para clientes)
 
 - **Sistema de Alertas Personalizados**
   - Alertas customizados que substituem os alertas padrão do navegador
@@ -16,17 +16,24 @@ Este é o front-end da área do cliente da Pharmédice. Fornece uma área para c
   - Modal de confirmação personalizado
   - Design consistente com a identidade visual do projeto
 
+- **Área Administrativa Restrita**
+  - Acesso limitado a domínios corporativos (@pharmedice.com.br, @marcoslandi.com)
+  - Campos simplificados para cadastro de administradores
+  - Dashboard com métricas e controles administrativos
+  - Navegação completamente isolada da área do cliente
+
 - **Validação de Formulários**
   - Validação em tempo real para todos os campos de entrada
-  - Formatação e validação de documentos CPF/CNPJ
-  - Formatação de números de telefone brasileiros
-  - Validação de e-mail
+  - Formatação e validação de documentos CPF/CNPJ (área do cliente)
+  - Formatação de números de telefone brasileiros (área do cliente)
+  - Validação de e-mail com verificação de domínio (área administrativa)
   - Requisitos de força de senha
 
 - **Design Responsivo**
   - Abordagem mobile-first
   - Design consistente em todas as telas de autenticação
-  - Interface em português (PT-BR)
+  - Interface completamente em português (PT-BR)
+  - Rotas padronizadas em português
 
 ### Comandos Disponíveis
 
@@ -41,11 +48,21 @@ Este é o front-end da área do cliente da Pharmédice. Fornece uma área para c
 
 ### Rotas
 
-- `/` - Redireciona para página de login
-- `/login` - Autenticação do usuário
-- `/signup` - Cadastro de usuário
-- `/forgot-password` - Recuperação de senha
-- `/dashboard` - Painel do usuário (após autenticação)
+#### **Área do Cliente**
+- `/` - Redireciona para `/cliente/login`
+- `/cliente/login` - Autenticação do cliente
+- `/cliente/cadastro` - Cadastro de cliente
+- `/cliente/esqueci-senha` - Recuperação de senha do cliente
+- `/cliente/painel` - Dashboard do cliente (após autenticação)
+
+#### **Área Administrativa**
+- `/admin` - Página inicial da área administrativa
+- `/admin/entrar` - Login de administradores
+- `/admin/cadastro` - Cadastro de administradores (domínios restritos)
+- `/admin/esqueci-senha` - Recuperação de senha administrativa
+- `/admin/painel` - Dashboard administrativo
+
+#### **Outras Rotas**
 - `/alerts-demo` - Demonstração do sistema de alertas personalizados
 
 ### Stack Tecnológico
@@ -59,31 +76,47 @@ Este é o front-end da área do cliente da Pharmédice. Fornece uma área para c
 
 ```
 src/
-├── app/                    # Páginas do Next.js App Router
-│   ├── login/             # Página de login
-│   ├── signup/            # Página de cadastro
-│   ├── forgot-password/   # Recuperação de senha
-│   ├── dashboard/         # Painel protegido
-│   └── alerts-demo/       # Demonstração de alertas
-├── components/            # Componentes UI reutilizáveis
-│   ├── AuthLayout.tsx     # Layout de autenticação
-│   ├── FormField.tsx      # Componente de campo de formulário
-│   ├── SubmitButton.tsx   # Componente de botão
-│   ├── Alert.tsx          # Componente de alerta personalizado
-│   ├── AlertProvider.tsx  # Provedor de contexto de alertas
-│   └── ConfirmModal.tsx   # Modal de confirmação
+├── app/                       # Páginas do Next.js App Router
+│   ├── cliente/              # Área do Cliente
+│   │   ├── login/            # Login do cliente
+│   │   ├── cadastro/         # Cadastro do cliente
+│   │   ├── esqueci-senha/    # Recuperação de senha do cliente
+│   │   └── painel/           # Dashboard do cliente
+│   ├── admin/                # Área Administrativa
+│   │   ├── page.tsx          # Página inicial administrativa
+│   │   ├── entrar/           # Login administrativo
+│   │   ├── cadastro/         # Cadastro administrativo
+│   │   ├── esqueci-senha/    # Recuperação de senha administrativa
+│   │   └── painel/           # Dashboard administrativo
+│   ├── alerts-demo/          # Demonstração de alertas
+│   └── page.tsx              # Página inicial (redireciona para /cliente/login)
+├── components/               # Componentes UI reutilizáveis
+│   ├── AuthLayout.tsx        # Layout de autenticação
+│   ├── FormField.tsx         # Componente de campo de formulário
+│   ├── SubmitButton.tsx      # Componente de botão
+│   ├── Alert.tsx             # Componente de alerta personalizado
+│   ├── AlertProvider.tsx     # Provedor de contexto de alertas
+│   └── ConfirmModal.tsx      # Modal de confirmação
 └── lib/
-    ├── utils.ts           # Funções utilitárias (validação, formatação)
-    └── useCustomAlert.ts  # Hook personalizado para alertas
+    ├── utils.ts              # Funções utilitárias (validação, formatação)
+    └── useCustomAlert.ts     # Hook personalizado para alertas
 ```
 
 ### Integração com API
 
 A aplicação está preparada para integração com API Laravel. Atualize os endpoints da API em:
 
-- `/app/login/page.tsx` - Endpoint de login
-- `/app/signup/page.tsx` - Endpoint de cadastro
-- `/app/forgot-password/page.tsx` - Endpoint de redefinição de senha
+#### **Endpoints da Área do Cliente**
+- `/app/cliente/login/page.tsx` - Endpoint de login do cliente
+- `/app/cliente/cadastro/page.tsx` - Endpoint de cadastro do cliente
+- `/app/cliente/esqueci-senha/page.tsx` - Endpoint de redefinição de senha do cliente
+
+#### **Endpoints da Área Administrativa**
+- `/app/admin/entrar/page.tsx` - Endpoint de login administrativo
+- `/app/admin/cadastro/page.tsx` - Endpoint de cadastro administrativo
+- `/app/admin/esqueci-senha/page.tsx` - Endpoint de redefinição de senha administrativa
+
+> **Nota**: A validação de domínios corporativos deve ser implementada no backend para garantir que apenas e-mails @pharmedice.com.br e @marcoslandi.com possam criar contas administrativas.
 
 ### Sistema de Alertas
 
@@ -97,8 +130,9 @@ O projeto inclui um sistema completo de alertas personalizados que substitui os 
 
 Para mais detalhes, consulte `ALERTS.md` ou acesse `/alerts-demo`.
 
-### Campos de Cadastro do Usuário
+### Campos de Cadastro
 
+#### **Cadastro de Cliente**
 - Primeiro Nome
 - Segundo Nome
 - Como gostaria de ser chamado (Apelido)
@@ -107,6 +141,23 @@ Para mais detalhes, consulte `ALERTS.md` ou acesse `/alerts-demo`.
 - Senha
 - Confirmação de senha
 - CPF ou CNPJ (com formatação automática)
+
+#### **Cadastro de Administrador**
+- Primeiro Nome
+- Segundo Nome
+- Apelido
+- E-mail Corporativo (domínios restritos)
+- Senha
+- Confirmação de senha
+
+### Segurança
+
+- **Área do Cliente**: Aberta para qualquer e-mail válido
+- **Área Administrativa**: Restrita aos domínios corporativos:
+  - `@pharmedice.com.br`
+  - `@marcoslandi.com`
+- **Isolamento**: As duas áreas são completamente isoladas, sem navegação cruzada
+- **Validação**: Validação de domínio tanto no frontend quanto no backend (recomendado)
 
 ---
 
