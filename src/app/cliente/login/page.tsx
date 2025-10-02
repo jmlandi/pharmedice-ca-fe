@@ -118,7 +118,7 @@ function LoginForm() {
 			{/* Forgot password link */}
 			<div className="flex justify-end">
 				<Link
-					href="/forgot-password"
+					href="/cliente/esqueci-senha"
 					className="text-xs text-[#527BC6] hover:opacity-70 transition-opacity duration-200"
 				>
 					Esqueceu sua senha?
@@ -150,7 +150,7 @@ export default function LoginPage() {
 		<div className="space-y-2 w-full text-center">
 			<p className="text-sm text-[#527BC6]">
 				Não tem uma conta?{' '}
-				<Link href="/signup" className="underline hover:opacity-70">
+				<Link href="/cliente/cadastro" className="underline hover:opacity-70">
 					Cadastre-se!
 				</Link>
 			</p>
