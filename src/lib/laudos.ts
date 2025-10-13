@@ -1,4 +1,5 @@
 import api, { ApiResponse, Laudo, PaginatedResponse } from './api';
+import config from './config';
 
 // Interface para upload de laudo
 export interface UploadLaudoData {
@@ -103,7 +104,7 @@ export class LaudosService {
 	// Obter URL de download (alternativo)
 	static getDownloadUrl(id: string): string {
 		const token = localStorage.getItem('token');
-		return `http://localhost:8000/api/laudos/${id}/download?token=${token}`;
+		return `${config.apiUrl}/laudos/${id}/download?token=${token}`;
 	}
 
 	// Validar arquivo antes do upload
