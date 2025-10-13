@@ -12,7 +12,7 @@ import {
 	isValidPhone,
 	isValidName,
 	cleanString,
-} from './src/lib/utils';
+} from '../../src/lib/utils';
 
 console.log('Testing utility functions...\n');
 
