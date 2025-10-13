@@ -1,13 +1,6 @@
 import axios from 'axios';
 import config from './config';
 
-// Runtime validation for API URL
-if (typeof window !== 'undefined' && config.apiUrl.includes('localhost') && window.location.hostname !== 'localhost') {
-	console.error('🚨 API URL mismatch: Using localhost API in non-localhost environment!');
-	console.error('Current hostname:', window.location.hostname);
-	console.error('API URL:', config.apiUrl);
-}
-
 // Configuração base da API
 const api = axios.create({
 	baseURL: `${config.apiUrl}/`,

@@ -26,8 +26,14 @@ export default function EnvDebugPage() {
 					<div className="space-y-2 font-mono text-sm">
 						<div>
 							<span className="font-semibold">API URL:</span>{' '}
-							<span className="bg-gray-100 px-2 py-1 rounded">
+							<span className="bg-green-100 px-2 py-1 rounded text-green-800">
 								{config.apiUrl}
+							</span>
+						</div>
+						<div>
+							<span className="font-semibold">Status:</span>{' '}
+							<span className="bg-green-100 px-2 py-1 rounded text-green-800">
+								HARDCODED - Stable
 							</span>
 						</div>
 						<div>
