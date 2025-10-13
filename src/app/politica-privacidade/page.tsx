@@ -11,11 +11,6 @@ export default function PrivacyPolicyPage() {
 					Voltar ao Cadastro de Cliente
 				</Link>
 			</p>
-			<p>
-				<Link href="/admin/cadastro" className="underline hover:opacity-70">
-					Voltar ao Cadastro de Admin
-				</Link>
-			</p>
 		</div>
 	);
 
