@@ -78,6 +78,13 @@ cp .env.example .env.local
 ```
 
 2. **Configure as variáveis necessárias**:
+
+```bash
+# API Configuration - URL da API backend
+NEXT_PUBLIC_API_URL=https://your-production-api-url.com/api
+```
+
+**Para deployment no AWS Amplify**: Configure `NEXT_PUBLIC_API_URL` como uma variável de ambiente/secret no console do Amplify.
 ```env
 # API Configuration
 NEXT_PUBLIC_API_URL=http://localhost:8000/api

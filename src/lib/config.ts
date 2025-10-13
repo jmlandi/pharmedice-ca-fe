@@ -1,6 +1,6 @@
-// API Configuration - Hardcoded for production stability
+// API Configuration - Uses environment variable with localhost fallback
 export const config = {
-	apiUrl: 'http://54.82.6.59:8000/api',
+	apiUrl: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api',
 } as const;
 
 export default config;
