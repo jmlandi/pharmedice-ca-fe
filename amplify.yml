@@ -16,11 +16,13 @@ frontend:
         - echo "Environment variables check:"
         - echo "NODE_ENV = $NODE_ENV"
         - echo "NEXT_PUBLIC_API_URL = $NEXT_PUBLIC_API_URL"
-        - echo "Building application..."
+        - echo "Building Next.js application..."
         - npm run build
     postBuild:
       commands:
         - echo "Build completed successfully"
+        - echo "Listing build artifacts:"
+        - ls -la out/ || echo "Static export not found, using server build"
   artifacts:
     baseDirectory: .next
     files:
