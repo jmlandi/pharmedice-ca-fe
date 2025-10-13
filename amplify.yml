@@ -1,0 +1,31 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - echo "Starting pre-build phase"
+        - echo "Node version:"
+        - node --version
+        - echo "NPM version:"
+        - npm --version
+        - echo "Installing dependencies..."
+        - npm ci
+    build:
+      commands:
+        - echo "Starting build phase"
+        - echo "Environment variables check:"
+        - echo "NODE_ENV = $NODE_ENV"
+        - echo "NEXT_PUBLIC_API_URL = $NEXT_PUBLIC_API_URL"
+        - echo "Building application..."
+        - npm run build
+    postBuild:
+      commands:
+        - echo "Build completed successfully"
+  artifacts:
+    baseDirectory: .next
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
+      - .next/cache/**/*

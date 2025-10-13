@@ -91,6 +91,22 @@ NEXT_PUBLIC_API_URL=http://localhost:8000/api
 
 > **Nota**: As variáveis com prefixo `NEXT_PUBLIC_` são expostas ao cliente (browser). Use apenas para dados não sensíveis.
 
+#### Deploy AWS Amplify
+
+Para deployar no AWS Amplify, configure as variáveis de ambiente no console:
+
+1. **No AWS Amplify Console:**
+   - Vá para a seção "Environment variables"
+   - Adicione: `NEXT_PUBLIC_API_URL` = sua URL de produção da API
+
+2. **Verificar configuração:**
+   - Acesse `/debug-env` após o deploy para verificar se as variáveis estão carregadas
+   - Remove esta rota em produção
+
+3. **Build configuration:**
+   - O arquivo `amplify.yml` já está configurado
+   - As variáveis são validadas durante o build
+
 ### Stack Tecnológico
 
 - [Next.js](https://nextjs.org/) 15 (App Router)
