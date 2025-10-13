@@ -74,7 +74,7 @@ export const formatPhone = (value: string): string => {
 	}
 };
 
-// Password strength validation
+// Password strength validation (seguindo os requisitos do backend)
 export const validatePasswordStrength = (
 	password: string
 ): {
@@ -87,16 +87,24 @@ export const validatePasswordStrength = (
 		errors.push('Senha deve ter pelo menos 8 caracteres');
 	}
 
+	if (password.length > 50) {
+		errors.push('Senha deve ter no máximo 50 caracteres');
+	}
+
 	if (!/[A-Z]/.test(password)) {
-		errors.push('Senha deve conter pelo menos uma letra maiúscula');
+		errors.push('Senha deve conter pelo menos uma letra maiúscula (A-Z)');
 	}
 
 	if (!/[a-z]/.test(password)) {
-		errors.push('Senha deve conter pelo menos uma letra minúscula');
+		errors.push('Senha deve conter pelo menos uma letra minúscula (a-z)');
 	}
 
 	if (!/\d/.test(password)) {
-		errors.push('Senha deve conter pelo menos um número');
+		errors.push('Senha deve conter pelo menos um número (0-9)');
+	}
+
+	if (!/[@$!%*?&]/.test(password)) {
+		errors.push('Senha deve conter pelo menos um caractere especial (@$!%*?&)');
 	}
 
 	return {

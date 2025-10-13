@@ -8,6 +8,7 @@ import SubmitButton from '@/components/SubmitButton';
 import { useAlert } from '@/components/AlertProvider';
 import { useLoading } from '@/components/LoadingProvider';
 import { isValidEmail } from '@/lib/utils';
+import { solicitarRecuperacaoSenha } from '@/lib/api';
 
 interface AdminForgotPasswordFormData {
 	email: string;
@@ -71,19 +72,21 @@ function AdminForgotPasswordForm() {
 		startLoading();
 
 		try {
-			// TODO: Implementar chamada da API para recuperação de senha de admin
-			console.log('Admin forgot password data:', formData);
-			
-			// Simulação de delay da API
-			await new Promise(resolve => setTimeout(resolve, 1000));
-			
-			setIsEmailSent(true);
-			showSuccess(
-				'E-mail de recuperação enviado! Verifique sua caixa de entrada e spam.'
-			);
-		} catch (error) {
-			console.error('Erro na recuperação de senha do admin:', error);
-			showError('Erro interno do servidor. Tente novamente mais tarde.');
+			// Chama a API de recuperação de senha
+			const response = await solicitarRecuperacaoSenha({
+				email: formData.email
+			});
+
+			if (response.sucesso) {
+				setIsEmailSent(true);
+				showSuccess(response.mensagem);
+			} else {
+				showError(response.mensagem || 'Erro ao enviar e-mail. Tente novamente.');
+			}
+		} catch (error: any) {
+			console.error('Erro ao enviar e-mail de recuperação:', error);
+			const errorMessage = error.response?.data?.mensagem || 'Erro ao enviar e-mail. Tente novamente.';
+			showError(errorMessage);
 		} finally {
 			setIsLoading(false);
 			stopLoading();
@@ -95,11 +98,20 @@ function AdminForgotPasswordForm() {
 		startLoading();
 
 		try {
-			// TODO: Implementar reenvio de e-mail
-			await new Promise(resolve => setTimeout(resolve, 1000));
-			showSuccess('E-mail reenviado com sucesso!');
-		} catch (error) {
-			showError('Erro ao reenviar e-mail. Tente novamente.');
+			// Reenvia o e-mail de recuperação
+			const response = await solicitarRecuperacaoSenha({
+				email: formData.email
+			});
+
+			if (response.sucesso) {
+				showSuccess('E-mail reenviado com sucesso!');
+			} else {
+				showError(response.mensagem || 'Erro ao reenviar e-mail. Tente novamente.');
+			}
+		} catch (error: any) {
+			console.error('Erro ao reenviar e-mail:', error);
+			const errorMessage = error.response?.data?.mensagem || 'Erro ao reenviar e-mail. Tente novamente.';
+			showError(errorMessage);
 		} finally {
 			setIsLoading(false);
 			stopLoading();

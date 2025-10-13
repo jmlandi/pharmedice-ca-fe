@@ -158,8 +158,8 @@ function SignupForm() {
 			newErrors.nickname = 'O apelido deve ter pelo menos 3 caracteres';
 		} else if (formData.nickname.length > 30) {
 			newErrors.nickname = 'O apelido deve ter no máximo 30 caracteres';
-		} else if (!/^[A-Za-z0-9]+$/.test(formData.nickname)) {
-			newErrors.nickname = 'O apelido deve conter apenas letras e números';
+		} else if (!/^[A-Za-zÀ-ÿ0-9\s]+$/.test(formData.nickname)) {
+			newErrors.nickname = 'O apelido deve conter apenas letras, números e espaços';
 		}
 
 		// Validação do telefone
@@ -269,8 +269,65 @@ function SignupForm() {
 			router.push('/cliente/painel');
 		} catch (error: any) {
 			console.error('Erro ao criar conta:', error);
-			const message = error?.response?.data?.message || error?.message || 'Erro ao criar conta. Tente novamente.';
-			showError(message);
+			
+			// Tratar erro 422 com erros específicos de validação
+			if (error?.response?.status === 422 && error?.response?.data?.erros) {
+				const serverErrors: SignupFormErrors = {};
+				const apiErrors = error.response.data.erros;
+				
+				// Mapear erros da API para os campos do formulário
+				Object.keys(apiErrors).forEach(field => {
+					let formField: keyof SignupFormErrors;
+					
+					// Mapear campos da API para campos do formulário
+					switch (field) {
+						case 'primeiro_nome':
+							formField = 'first_name';
+							break;
+						case 'segundo_nome':
+							formField = 'last_name';
+							break;
+						case 'apelido':
+							formField = 'nickname';
+							break;
+						case 'telefone':
+							formField = 'phone_number';
+							break;
+						case 'numero_documento':
+							formField = 'document_number';
+							break;
+						case 'data_nascimento':
+							formField = 'birth_date';
+							break;
+						case 'senha':
+							formField = 'password';
+							break;
+						case 'senha_confirmation':
+						case 'confirmacao_senha':
+							formField = 'confirmPassword';
+							break;
+						case 'aceite_termos_uso':
+							formField = 'accept_terms_of_use';
+							break;
+						case 'aceite_politica_privacidade':
+							formField = 'accept_privacy_policy';
+							break;
+						default:
+							formField = field as keyof SignupFormErrors;
+					}
+					
+					// Usar a primeira mensagem de erro para o campo
+					if (apiErrors[field] && apiErrors[field].length > 0) {
+						serverErrors[formField] = apiErrors[field][0];
+					}
+				});
+				
+				setErrors(serverErrors);
+				showError('Por favor, corrija os erros nos campos destacados.');
+			} else {
+				const message = error?.response?.data?.mensagem || error?.response?.data?.message || error?.message || 'Erro ao criar conta. Tente novamente.';
+				showError(message);
+			}
 		} finally {
 			setIsLoading(false);
 			stopLoading();

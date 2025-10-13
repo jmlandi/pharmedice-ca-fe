@@ -8,24 +8,24 @@ import SubmitButton from '@/components/SubmitButton';
 import { useAlert } from '@/components/AlertProvider';
 import { useLoading } from '@/components/LoadingProvider';
 import { isValidEmail } from '@/lib/utils';
-import { solicitarRecuperacaoSenha } from '@/lib/api';
+import { reenviarVerificacaoEmail } from '@/lib/api';
 
-interface ForgotPasswordFormData {
+interface ResendVerificationFormData {
 	email: string;
 }
 
-function ForgotPasswordForm() {
+function ResendVerificationForm() {
 	const { showError, showSuccess } = useAlert();
 	const { startLoading, stopLoading } = useLoading();
-	const [formData, setFormData] = useState<ForgotPasswordFormData>({
+	const [formData, setFormData] = useState<ResendVerificationFormData>({
 		email: '',
 	});
 	const [isLoading, setIsLoading] = useState(false);
-	const [errors, setErrors] = useState<Partial<ForgotPasswordFormData>>({});
+	const [errors, setErrors] = useState<Partial<ResendVerificationFormData>>({});
 	const [isEmailSent, setIsEmailSent] = useState(false);
 
 	const handleInputChange = (
-		field: keyof ForgotPasswordFormData,
+		field: keyof ResendVerificationFormData,
 		value: string
 	) => {
 		setFormData((prev) => ({
@@ -43,7 +43,7 @@ function ForgotPasswordForm() {
 	};
 
 	const validateForm = (): boolean => {
-		const newErrors: Partial<ForgotPasswordFormData> = {};
+		const newErrors: Partial<ResendVerificationFormData> = {};
 
 		if (!formData.email.trim()) {
 			newErrors.email = 'Campo obrigatório';
@@ -64,8 +64,7 @@ function ForgotPasswordForm() {
 		startLoading();
 
 		try {
-			// Chama a API de recuperação de senha
-			const response = await solicitarRecuperacaoSenha({
+			const response = await reenviarVerificacaoEmail({
 				email: formData.email
 			});
 
@@ -73,11 +72,11 @@ function ForgotPasswordForm() {
 				setIsEmailSent(true);
 				showSuccess(response.mensagem);
 			} else {
-				showError(response.mensagem || 'Erro ao enviar e-mail. Tente novamente.');
+				showError(response.mensagem || 'Erro ao reenviar e-mail. Tente novamente.');
 			}
 		} catch (error: any) {
-			console.error('Erro ao enviar e-mail de recuperação:', error);
-			const errorMessage = error.response?.data?.mensagem || 'Erro ao enviar e-mail. Tente novamente.';
+			console.error('Erro ao reenviar e-mail de verificação:', error);
+			const errorMessage = error.response?.data?.mensagem || 'Erro ao reenviar e-mail. Tente novamente.';
 			showError(errorMessage);
 		} finally {
 			setIsLoading(false);
@@ -85,12 +84,11 @@ function ForgotPasswordForm() {
 		}
 	};
 
-	const handleResendEmail = async () => {
+	const handleResendAgain = async () => {
 		setIsLoading(true);
 		startLoading();
 		try {
-			// Reenvia o e-mail de recuperação
-			const response = await solicitarRecuperacaoSenha({
+			const response = await reenviarVerificacaoEmail({
 				email: formData.email
 			});
 
@@ -113,9 +111,9 @@ function ForgotPasswordForm() {
 		return (
 			<div className="flex flex-col gap-6 w-[300px] md:w-[400px] text-center">
 				<div className="flex flex-col gap-4">
-					<div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+					<div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
 						<svg
-							className="w-10 h-10 text-green-600"
+							className="w-10 h-10 text-blue-600"
 							fill="none"
 							stroke="currentColor"
 							viewBox="0 0 24 24"
@@ -124,21 +122,20 @@ function ForgotPasswordForm() {
 								strokeLinecap="round"
 								strokeLinejoin="round"
 								strokeWidth={2}
-								d="M5 13l4 4L19 7"
+								d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
 							/>
 						</svg>
 					</div>
-					<h2 className="text-xl font-bold text-[#527BC6]">E-mail Enviado!</h2>
+					<h2 className="text-xl font-bold text-[#527BC6]">E-mail de Verificação Enviado!</h2>
 					<p className="text-sm text-foreground">
-						Enviamos um link para redefinir sua senha para:{' '}
+						Enviamos um novo link de verificação para:{' '}
 						<span className="text-sm font-semibold text-[#527BC6]">
 							{formData.email}
 						</span>
 					</p>
 					<p className="text-xs text-foreground">
-						Cheque sua caixa de entrada e também a pasta de spam. O link para
-						redefinir sua senha é válido por 1 hora. Caso não receba o e-mail,
-						confirme se o endereço está correto e tente reenviar.
+						Cheque sua caixa de entrada e também a pasta de spam. O link de verificação é válido por 1 hora. 
+						Clique no link para confirmar seu e-mail e acessar sua conta.
 					</p>
 				</div>
 
@@ -147,13 +144,13 @@ function ForgotPasswordForm() {
 						type="button"
 						variant="secondary"
 						isLoading={isLoading}
-						onClick={handleResendEmail}
+						onClick={handleResendAgain}
 					>
-						{isLoading ? 'Reenviando...' : 'Reenviar E-mail'}
+						{isLoading ? 'Reenviando...' : 'Reenviar Novamente'}
 					</SubmitButton>
 
 					<Link
-						href="/cliente/login"
+						href="/cliente/entrar"
 						className="w-full h-12 flex items-center justify-center text-sm font-bold bg-[#527BC6] text-white rounded-3xl hover:bg-[#3b5aa1] hover:cursor-pointer transition-all duration-200"
 					>
 						Voltar ao Login
@@ -166,15 +163,14 @@ function ForgotPasswordForm() {
 	return (
 		<form
 			onSubmit={handleSubmit}
-			className="flex flex-col gap-6 w-[300px] md:w-full md:max-w-[420px] md:p-1"
+			className="flex flex-col gap-4 w-[300px] md:w-full md:max-w-[420px] md:p-1"
 		>
-			<div className="flex flex-col gap-4 text-center">
+			<div className="flex flex-col gap-4 text-center mb-2">
 				<h2 className="text-xl font-bold text-[#527BC6]">
-					Esqueceu sua senha?
+					Reenviar Verificação de E-mail
 				</h2>
 				<p className="text-sm text-foreground">
-					Não se preocupe! Digite seu e-mail abaixo e enviaremos um link para
-					você redefinir sua senha.
+					Não recebeu o e-mail de verificação? Digite seu e-mail abaixo e enviaremos um novo link.
 				</p>
 			</div>
 
@@ -189,20 +185,31 @@ function ForgotPasswordForm() {
 				onChange={(value) => handleInputChange('email', value)}
 			/>
 
+			{/* Informações importantes */}
+			<div className="bg-blue-50 border border-blue-200 p-4 rounded-lg">
+				<h4 className="text-sm font-bold text-blue-600 mb-2">📧 Sobre a Verificação:</h4>
+				<ul className="text-xs text-blue-700 space-y-1">
+					<li>• O link de verificação expira em 60 minutos</li>
+					<li>• Verifique também a pasta de spam</li>
+					<li>• Você receberá o e-mail em alguns minutos</li>
+					<li>• Após verificar, poderá acessar sua conta normalmente</li>
+				</ul>
+			</div>
+
 			<SubmitButton isLoading={isLoading}>
-				{isLoading ? 'Enviando...' : 'Enviar Link de Redefinição'}
+				{isLoading ? 'Enviando...' : 'Reenviar E-mail de Verificação'}
 			</SubmitButton>
 		</form>
 	);
 }
 
-export default function ForgotPasswordPage() {
+export default function ClienteReenviarVerificacaoPage() {
 	const navigationLinks = (
 		<div className="flex flex-col gap-2 text-center">
 			<p className="text-sm text-[#527BC6]">
-				Lembrou sua senha?{' '}
+				Já verificou seu e-mail?{' '}
 				<Link href="/cliente/entrar" className="underline hover:opacity-70">
-					Voltar ao login
+					Fazer login
 				</Link>
 			</p>
 			<p className="text-sm text-[#527BC6]">
@@ -216,7 +223,7 @@ export default function ForgotPasswordPage() {
 
 	return (
 		<AuthLayout title="Área do Cliente" navigationLinks={navigationLinks}>
-			<ForgotPasswordForm />
+			<ResendVerificationForm />
 		</AuthLayout>
 	);
 }

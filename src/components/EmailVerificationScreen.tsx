@@ -7,6 +7,7 @@ import { useAlert } from './AlertProvider';
 import { useLoading } from './LoadingProvider';
 import SubmitButton from './SubmitButton';
 import { AuthService } from '@/lib/auth';
+import { reenviarVerificacaoEmailAutenticado } from '@/lib/api';
 
 interface EmailVerificationScreenProps {
   onVerificationComplete: () => void;
@@ -59,13 +60,18 @@ export default function EmailVerificationScreen({ onVerificationComplete }: Emai
     startLoading();
 
     try {
-      await AuthService.resendEmailVerification();
-      showSuccess('Email de verificação reenviado com sucesso!');
-      setCanResend(false);
-      setCountdown(60); // 1 minuto de espera
+      const response = await reenviarVerificacaoEmailAutenticado();
+      
+      if (response.sucesso) {
+        showSuccess(response.mensagem || 'Email de verificação reenviado com sucesso!');
+        setCanResend(false);
+        setCountdown(60); // 1 minuto de espera
+      } else {
+        showError(response.mensagem || 'Erro ao reenviar email de verificação');
+      }
     } catch (error: any) {
       console.error('Erro ao reenviar verificação:', error);
-      const message = error?.message || 'Erro ao reenviar email de verificação';
+      const message = error?.response?.data?.mensagem || error?.message || 'Erro ao reenviar email de verificação';
       showError(message);
     } finally {
       setIsResending(false);

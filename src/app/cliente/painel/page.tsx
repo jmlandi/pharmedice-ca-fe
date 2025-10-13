@@ -230,10 +230,10 @@ function ClientePainelContent() {
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="mb-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-2">
-              Meus Laudos Técnicos
+              Laudos Técnicos
             </h2>
             <p className="text-gray-600">
-              Visualize e faça download dos seus laudos técnicos
+              Visualize e faça download dos laudos técnicos disponíveis.
             </p>
           </div>
 

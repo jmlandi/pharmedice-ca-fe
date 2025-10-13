@@ -87,3 +87,69 @@ export interface PaginatedResponse<T> {
   per_page: number;
   total: number;
 }
+
+// Interfaces para recuperação de senha
+export interface SolicitarRecuperacaoSenhaRequest {
+  email: string;
+}
+
+export interface RedefinirSenhaRequest {
+  email: string;
+  token: string;
+  senha: string;
+  confirmacao_senha: string;
+}
+
+export interface RedefinirSenhaResponse {
+  email: string;
+  nome: string;
+}
+
+// Funções para recuperação de senha
+export const solicitarRecuperacaoSenha = async (data: SolicitarRecuperacaoSenhaRequest): Promise<ApiResponse> => {
+  const response = await api.post('auth/solicitar-recuperacao-senha', data);
+  return response.data;
+};
+
+export const redefinirSenha = async (data: RedefinirSenhaRequest): Promise<ApiResponse<RedefinirSenhaResponse>> => {
+  const response = await api.post('auth/redefinir-senha', data);
+  return response.data;
+};
+
+// Interfaces para verificação de e-mail
+export interface VerificarEmailRequest {
+  id: string;
+  hash: string;
+  expires: string;
+  signature: string;
+}
+
+export interface ReenviarVerificacaoEmailRequest {
+  email: string;
+}
+
+export interface VerificarEmailResponse {
+  sucesso: boolean;
+  mensagem: string;
+  usuario: {
+    email: string;
+    email_verificado: boolean;
+    verificado_em: string;
+  };
+}
+
+// Funções para verificação de e-mail
+export const verificarEmail = async (data: VerificarEmailRequest): Promise<ApiResponse<VerificarEmailResponse>> => {
+  const response = await api.post('auth/verificar-email', data);
+  return response.data;
+};
+
+export const reenviarVerificacaoEmail = async (data: ReenviarVerificacaoEmailRequest): Promise<ApiResponse> => {
+  const response = await api.post('auth/reenviar-verificacao-email-publico', data);
+  return response.data;
+};
+
+export const reenviarVerificacaoEmailAutenticado = async (): Promise<ApiResponse> => {
+  const response = await api.post('auth/reenviar-verificacao-email');
+  return response.data;
+};
