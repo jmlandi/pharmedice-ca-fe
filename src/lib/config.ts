@@ -1,6 +1,6 @@
-// API Configuration - Uses environment variable with localhost fallback
+// API Configuration - Hardcoded for production
 export const config = {
-	apiUrl: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api',
+	apiUrl: 'https://api.pharmedice.com.br/api',
 } as const;
 
 export default config;

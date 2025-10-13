@@ -1,65 +1,35 @@
-# AWS Amplify Gen 2 Deployment Guide
+# AWS Amplify Deployment Guide
 
-This project uses **AWS Amplify Gen 2** with `@aws-amplify/backend` for full-stack deployment.
+This project is a standard Next.js application configured for AWS Amplify hosting.
 
-## Environment Variables Configuration
+## API Configuration
 
-### Required Environment Variables
+The API URL is hardcoded in the application:
 
-Configure these in the AWS Amplify Console under **App Settings > Environment variables**:
+| Configuration | Value |
+|---------------|-------|
+| API URL | `https://api.pharmedice.com.br/api` |
+| Location | `src/lib/config.ts` |
 
-| Variable Name | Description | Example Value |
-|---------------|-------------|---------------|
-| `NEXT_PUBLIC_API_URL` | Backend API URL | `https://api.pharmedice.com.br/api` |
+## Build Configuration
 
-### How to Configure Environment Variables
-
-1. **Access Amplify Console**
-   - Go to [AWS Amplify Console](https://console.aws.amazon.com/amplify/)
-   - Select your app
-
-2. **Navigate to Environment Variables**
-   - Click on **App settings** in the left sidebar
-   - Click on **Environment variables**
-   - Click **Manage variables**
-
-3. **Add Variables**
-   - Click **Add variable**
-   - Enter variable name: `NEXT_PUBLIC_API_URL`
-   - Enter variable value: `https://your-api-domain.com/api`
-   - Click **Save**
-
-4. **Redeploy**
-   - Go to **Hosting > Build history**
-   - Click **Redeploy this version** or push new code to trigger build
-
-## Amplify Gen 2 Configuration
-
-### Backend Configuration (`amplify/backend.ts`)
-- Uses `@aws-amplify/backend` for full-stack deployment
-- Automatic resource management
-- Environment variables handled by Amplify
-
-### Build Configuration (`amplify.yml`)
-- **Backend Phase**: Runs `npx ampx generate`
-- **Frontend Phase**: Standard Next.js build
+### `amplify.yml`
 - **Framework**: Next.js 15.5.2 with Turbopack
 - **Build Command**: `npm run build`
 - **Build Directory**: `.next`
 - **Node Version**: Detected automatically
-- **Cache**: Node modules, Next.js cache, and npm cache
+- **Cache**: Node modules and Next.js cache
 
 ## Important Notes
 
 ### Next.js Configuration
-- **No `output: 'standalone'`** - Amplify handles deployment
-- **Environment variables** are automatically available to Next.js
-- **Build artifacts** are served from `.next` directory
+- Standard Next.js build process
+- API URL hardcoded in `src/lib/config.ts`
+- Build artifacts served from `.next` directory
 
 ### Security
-- Use **HTTPS** URLs for production API
+- API URL: `https://api.pharmedice.com.br/api`
 - Configure **CORS** on your backend to allow requests from Amplify domain
-- Consider using **AWS Secrets Manager** for sensitive configuration
 
 ### Troubleshooting
 
@@ -75,15 +45,11 @@ Configure these in the AWS Amplify Console under **App Settings > Environment va
 
 ## Local Development
 
-For local development, create `.env.local`:
+For local development, the application will use the production API:
+- **API URL**: `https://api.pharmedice.com.br/api`
+- **Location**: `src/lib/config.ts`
 
-```bash
-# Copy from example
-cp .env.example .env.local
-
-# Edit .env.local with your local API URL
-NEXT_PUBLIC_API_URL=http://localhost:8000/api
-```
+To use a local API during development, modify `src/lib/config.ts` temporarily.
 
 ## Deployment Process
 
@@ -107,7 +73,7 @@ NEXT_PUBLIC_API_URL=http://localhost:8000/api
 Amplify supports branch-based deployments:
 
 - **main/master**: Production environment
-- **develop**: Staging environment
+- **develop**: Staging environment  
 - **feature/***: Preview environments
 
-Each branch can have different environment variables configured.
+All branches use the same hardcoded API URL: `https://api.pharmedice.com.br/api`

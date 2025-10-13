@@ -1,12 +1,4 @@
-version: 1.0
-backend:
-  phases:
-    build:
-      commands:
-        - echo "Installing backend dependencies..."
-        - npm ci --cache .npm --prefer-offline --no-audit
-        - echo "Generating Amplify backend..."
-        - npx ampx generate
+version: 1
 frontend:
   phases:
     preBuild:
@@ -16,21 +8,16 @@ frontend:
         - node --version
         - echo "NPM version:"
         - npm --version
-        - echo "Installing frontend dependencies..."
-        - npm ci --no-audit
+        - echo "Installing dependencies..."
+        - npm install --no-audit
     build:
       commands:
         - echo "Starting build phase"
-        - echo "Environment variables check:"
-        - echo "NODE_ENV = $NODE_ENV"
-        - echo "NEXT_PUBLIC_API_URL = $NEXT_PUBLIC_API_URL"
         - echo "Building Next.js application..."
         - npm run build
     postBuild:
       commands:
         - echo "Build completed successfully"
-        - echo "Listing build artifacts:"
-        - ls -la .next/ || echo "Build directory not found"
   artifacts:
     baseDirectory: .next
     files:
@@ -39,4 +26,3 @@ frontend:
     paths:
       - node_modules/**/*
       - .next/cache/**/*
-      - .npm/**/*

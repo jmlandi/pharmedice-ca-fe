@@ -8,13 +8,9 @@
 		"start": "next start",
 		"lint": "eslint",
 		"format": "npx prettier . --write",
-		"format:check": "npx prettier . --check",
-		"amplify:dev": "npx ampx sandbox",
-		"amplify:build": "npx ampx generate"
+		"format:check": "npx prettier . --check"
 	},
 	"dependencies": {
-		"@aws-amplify/backend": "^1.16.1",
-		"aws-amplify": "^6.15.7",
 		"axios": "^1.12.2",
 		"next": "15.5.2",
 		"prettier": "^3.6.2",
