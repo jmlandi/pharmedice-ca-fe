@@ -1,4 +1,6 @@
-# AWS Amplify Deployment Guide
+# AWS Amplify Gen 2 Deployment Guide
+
+This project uses **AWS Amplify Gen 2** with `@aws-amplify/backend` for full-stack deployment.
 
 ## Environment Variables Configuration
 
@@ -31,15 +33,21 @@ Configure these in the AWS Amplify Console under **App Settings > Environment va
    - Go to **Hosting > Build history**
    - Click **Redeploy this version** or push new code to trigger build
 
-## Build Configuration
+## Amplify Gen 2 Configuration
 
-The app uses `amplify.yml` for build configuration:
+### Backend Configuration (`amplify/backend.ts`)
+- Uses `@aws-amplify/backend` for full-stack deployment
+- Automatic resource management
+- Environment variables handled by Amplify
 
+### Build Configuration (`amplify.yml`)
+- **Backend Phase**: Runs `npx ampx generate`
+- **Frontend Phase**: Standard Next.js build
 - **Framework**: Next.js 15.5.2 with Turbopack
 - **Build Command**: `npm run build`
 - **Build Directory**: `.next`
 - **Node Version**: Detected automatically
-- **Cache**: Node modules and Next.js cache
+- **Cache**: Node modules, Next.js cache, and npm cache
 
 ## Important Notes
 

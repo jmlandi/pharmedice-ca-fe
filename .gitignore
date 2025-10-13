@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# AWS Amplify
+amplify_outputs.json
+.amplify/
+amplifyconfiguration.json
+.secret-*

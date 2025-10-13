@@ -4,6 +4,7 @@ import './globals.css';
 import { AlertProvider } from '../components/AlertProvider';
 import { LoadingProvider } from '../components/LoadingProvider';
 import { AuthProvider } from '../components/AuthProvider';
+import '../lib/amplify'; // Initialize Amplify configuration
 
 const montserrat = Montserrat({
 	variable: '--font-montserrat',
