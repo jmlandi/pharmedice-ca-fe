@@ -19,6 +19,11 @@ const montserratAlternates = Montserrat_Alternates({
 export const metadata: Metadata = {
 	title: 'Pharmédice | Área do Cliente',
 	description: 'Área do cliente da Pharmédice | Laudos, pedidos e mais',
+	icons: {
+		icon: '/icons/pharmedice-logo.svg',
+		shortcut: '/icons/pharmedice-logo.svg',
+		apple: '/icons/pharmedice-logo.svg',
+	},
 };
 
 export default function RootLayout({
