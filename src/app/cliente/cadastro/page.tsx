@@ -1,12 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import AuthLayout from '@/components/AuthLayout';
 import FormField from '@/components/FormField';
 import SubmitButton from '@/components/SubmitButton';
 import { useAlert } from '@/components/AlertProvider';
 import { useLoading } from '@/components/LoadingProvider';
+import { useAuth } from '@/components/AuthProvider';
 import {
 	formatDocument,
 	formatPhone,
@@ -27,11 +29,33 @@ interface SignupFormData {
 	password: string;
 	confirmPassword: string;
 	document_number: string;
+	birth_date: string;
+	accept_email_communications: boolean;
+	accept_sms_communications: boolean;
+	accept_whatsapp_communications: boolean;
+	accept_terms_of_use: boolean;
+	accept_privacy_policy: boolean;
+}
+
+interface SignupFormErrors {
+	first_name?: string;
+	last_name?: string;
+	nickname?: string;
+	phone_number?: string;
+	email?: string;
+	password?: string;
+	confirmPassword?: string;
+	document_number?: string;
+	birth_date?: string;
+	accept_terms_of_use?: string;
+	accept_privacy_policy?: string;
 }
 
 function SignupForm() {
+	const router = useRouter();
 	const { showSuccess, showError } = useAlert();
 	const { startLoading, stopLoading } = useLoading();
+	const { registerUser, isLoggedIn, isAdmin } = useAuth();
 	const [formData, setFormData] = useState<SignupFormData>({
 		first_name: '',
 		last_name: '',
@@ -41,17 +65,33 @@ function SignupForm() {
 		password: '',
 		confirmPassword: '',
 		document_number: '',
+		birth_date: '',
+		accept_email_communications: true,
+		accept_sms_communications: true,
+		accept_whatsapp_communications: true,
+		accept_terms_of_use: false,
+		accept_privacy_policy: false,
 	});
 	const [isLoading, setIsLoading] = useState(false);
-	const [errors, setErrors] = useState<Partial<SignupFormData>>({});
+	const [errors, setErrors] = useState<SignupFormErrors>({});
 
-	const handleInputChange = (field: keyof SignupFormData, value: string) => {
+	// Redirecionar se já estiver logado
+	useEffect(() => {
+		if (isLoggedIn) {
+			const redirectTo = isAdmin ? '/admin/painel' : '/cliente/painel';
+			router.push(redirectTo);
+		}
+	}, [isLoggedIn, isAdmin, router]);
+
+	const handleInputChange = (field: keyof SignupFormData, value: string | boolean) => {
 		let formattedValue = value;
 
+		if (typeof value === 'string') {
 		if (field === 'document_number') {
 			formattedValue = formatDocument(value);
-		} else if (field === 'phone_number') {
-			formattedValue = formatPhone(value);
+			} else if (field === 'phone_number') {
+				formattedValue = formatPhone(value);
+			}
 		}
 
 		setFormData((prev) => {
@@ -61,7 +101,7 @@ function SignupForm() {
 			};
 
 			// Auto-fill nickname with first word of first_name
-			if (field === 'first_name' && formattedValue.trim()) {
+			if (field === 'first_name' && typeof formattedValue === 'string' && formattedValue.trim()) {
 				const firstWord = formattedValue.trim().split(' ')[0];
 				updatedData.nickname = firstWord;
 			}
@@ -70,7 +110,7 @@ function SignupForm() {
 		});
 
 		// Clear error when user starts typing
-		if (errors[field]) {
+		if (field in errors && errors[field as keyof SignupFormErrors]) {
 			setErrors((prev) => ({
 				...prev,
 				[field]: undefined,
@@ -78,7 +118,7 @@ function SignupForm() {
 		}
 
 		// Clear nickname error when first_name changes and auto-fills nickname
-		if (field === 'first_name' && value.trim() && errors.nickname) {
+		if (field === 'first_name' && typeof value === 'string' && value.trim() && errors.nickname) {
 			setErrors((prev) => ({
 				...prev,
 				nickname: undefined,
@@ -87,45 +127,109 @@ function SignupForm() {
 	};
 
 	const validateForm = (): boolean => {
-		const newErrors: Partial<SignupFormData> = {};
+		const newErrors: SignupFormErrors = {};
 
-		if (!formData.first_name.trim()) newErrors.first_name = 'Campo obrigatório';
-		else if (!isValidName(formData.first_name))
-			newErrors.first_name = 'Nome inválido';
+		// Validação do primeiro nome
+		if (!formData.first_name.trim()) {
+			newErrors.first_name = 'O primeiro nome é obrigatório';
+		} else if (formData.first_name.length < 2) {
+			newErrors.first_name = 'O primeiro nome deve ter pelo menos 2 caracteres';
+		} else if (formData.first_name.length > 50) {
+			newErrors.first_name = 'O primeiro nome deve ter no máximo 50 caracteres';
+		} else if (!/^[A-Za-zÀ-ÿ\s]+$/.test(formData.first_name)) {
+			newErrors.first_name = 'O primeiro nome deve conter apenas letras e espaços';
+		}
 
-		if (!formData.last_name.trim()) newErrors.last_name = 'Campo obrigatório';
-		else if (!isValidName(formData.last_name))
-			newErrors.last_name = 'Nome inválido';
+		// Validação do segundo nome
+		if (!formData.last_name.trim()) {
+			newErrors.last_name = 'O segundo nome é obrigatório';
+		} else if (formData.last_name.length < 2) {
+			newErrors.last_name = 'O segundo nome deve ter pelo menos 2 caracteres';
+		} else if (formData.last_name.length > 50) {
+			newErrors.last_name = 'O segundo nome deve ter no máximo 50 caracteres';
+		} else if (!/^[A-Za-zÀ-ÿ\s]+$/.test(formData.last_name)) {
+			newErrors.last_name = 'O segundo nome deve conter apenas letras e espaços';
+		}
 
-		if (!formData.nickname.trim()) newErrors.nickname = 'Campo obrigatório';
-		if (!formData.phone_number.trim())
-			newErrors.phone_number = 'Campo obrigatório';
-		else if (!isValidPhone(formData.phone_number))
-			newErrors.phone_number = 'Telefone inválido';
+		// Validação do apelido
+		if (!formData.nickname.trim()) {
+			newErrors.nickname = 'O apelido é obrigatório';
+		} else if (formData.nickname.length < 3) {
+			newErrors.nickname = 'O apelido deve ter pelo menos 3 caracteres';
+		} else if (formData.nickname.length > 30) {
+			newErrors.nickname = 'O apelido deve ter no máximo 30 caracteres';
+		} else if (!/^[A-Za-z0-9]+$/.test(formData.nickname)) {
+			newErrors.nickname = 'O apelido deve conter apenas letras e números';
+		}
 
-		if (!formData.email.trim()) newErrors.email = 'Campo obrigatório';
-		else if (!isValidEmail(formData.email)) newErrors.email = 'E-mail inválido';
+		// Validação do telefone
+		if (!formData.phone_number.trim()) {
+			newErrors.phone_number = 'O telefone é obrigatório';
+		} else if (!isValidPhone(formData.phone_number)) {
+			newErrors.phone_number = 'O telefone deve estar no formato (XX) XXXXX-XXXX ou (XX) XXXX-XXXX';
+		}
 
-		if (!formData.password.trim()) newErrors.password = 'Campo obrigatório';
-		else if (formData.password.length < 6)
-			newErrors.password = 'Senha deve ter pelo menos 6 caracteres';
+		// Validação do email
+		if (!formData.email.trim()) {
+			newErrors.email = 'O email é obrigatório';
+		} else if (!isValidEmail(formData.email)) {
+			newErrors.email = 'O email deve ter um formato válido';
+		} else if (formData.email.length > 255) {
+			newErrors.email = 'O email deve ter no máximo 255 caracteres';
+		}
 
-		if (!formData.confirmPassword.trim())
-			newErrors.confirmPassword = 'Campo obrigatório';
-		else if (formData.password !== formData.confirmPassword)
-			newErrors.confirmPassword = 'Senhas não conferem';
+		// Validação da senha
+		if (!formData.password.trim()) {
+			newErrors.password = 'A senha é obrigatória';
+		} else if (formData.password.length < 8) {
+			newErrors.password = 'A senha deve ter pelo menos 8 caracteres';
+		} else if (formData.password.length > 50) {
+			newErrors.password = 'A senha deve ter no máximo 50 caracteres';
+		} else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/.test(formData.password)) {
+			newErrors.password = 'A senha deve conter pelo menos: 1 letra minúscula, 1 maiúscula, 1 número e 1 caractere especial (@$!%*?&)';
+		}
 
-		if (!formData.document_number.trim())
-			newErrors.document_number = 'Campo obrigatório';
-		else {
+		// Validação da confirmação de senha
+		if (!formData.confirmPassword.trim()) {
+			newErrors.confirmPassword = 'A confirmação da senha é obrigatória';
+		} else if (formData.password !== formData.confirmPassword) {
+			newErrors.confirmPassword = 'A confirmação da senha deve ser igual à senha';
+		}
+
+		// Validação do CPF/CNPJ
+		if (!formData.document_number.trim()) {
+			newErrors.document_number = 'O CPF ou CNPJ é obrigatório';
+		} else {
 			const cleanDoc = cleanString(formData.document_number);
-			if (
-				!isValidCPF(formData.document_number) &&
-				!isValidCNPJ(formData.document_number)
-			) {
-				newErrors.document_number =
-					'CPF deve ter 11 dígitos ou CNPJ deve ter 14 dígitos';
+			if (!isValidCPF(formData.document_number) && !isValidCNPJ(formData.document_number)) {
+				newErrors.document_number = 'CPF deve ter 11 dígitos ou CNPJ deve ter 14 dígitos';
 			}
+		}
+
+		// Validação da data de nascimento
+		if (!formData.birth_date.trim()) {
+			newErrors.birth_date = 'A data de nascimento é obrigatória';
+		} else {
+			const birthDate = new Date(formData.birth_date);
+			const today = new Date();
+			const minDate = new Date('1900-01-01');
+			
+			if (isNaN(birthDate.getTime())) {
+				newErrors.birth_date = 'A data de nascimento deve ser uma data válida';
+			} else if (birthDate >= today) {
+				newErrors.birth_date = 'A data de nascimento deve ser anterior a hoje';
+			} else if (birthDate <= minDate) {
+				newErrors.birth_date = 'A data de nascimento deve ser posterior a 1900';
+			}
+		}
+
+		// Validação dos termos obrigatórios
+		if (!formData.accept_terms_of_use) {
+			newErrors.accept_terms_of_use = 'É obrigatório aceitar os termos de uso';
+		}
+
+		if (!formData.accept_privacy_policy) {
+			newErrors.accept_privacy_policy = 'É obrigatório aceitar a política de privacidade';
 		}
 
 		setErrors(newErrors);
@@ -141,21 +245,32 @@ function SignupForm() {
 		startLoading();
 
 		try {
-			// Here you would integrate with your Laravel API
-			const cleanedData = {
-				...formData,
-				phone_number: cleanString(formData.phone_number),
-				document_number: cleanString(formData.document_number),
+			// Preparar dados no formato esperado pela API
+			const registerData = {
+				primeiro_nome: formData.first_name,
+				segundo_nome: formData.last_name,
+				apelido: formData.nickname,
+				email: formData.email,
+				senha: formData.password,
+				senha_confirmation: formData.confirmPassword,
+				confirmacao_senha: formData.confirmPassword,
+				telefone: formData.phone_number,
+				numero_documento: cleanString(formData.document_number),
+				data_nascimento: formData.birth_date,
+				aceite_comunicacoes_email: formData.accept_email_communications,
+				aceite_comunicacoes_sms: formData.accept_sms_communications,
+				aceite_comunicacoes_whatsapp: formData.accept_whatsapp_communications,
+				aceite_termos_uso: formData.accept_terms_of_use,
+				aceite_politica_privacidade: formData.accept_privacy_policy,
 			};
-			console.log('Form data to send:', cleanedData);
 
-			// Simulate API call
-			await new Promise((resolve) => setTimeout(resolve, 2000));
-
-			showSuccess('Conta criada com sucesso!');
-		} catch (error) {
+			await registerUser(registerData);
+			showSuccess('Conta criada com sucesso! Você já está logado.');
+			router.push('/cliente/painel');
+		} catch (error: any) {
 			console.error('Erro ao criar conta:', error);
-			showError('Erro ao criar conta. Tente novamente.');
+			const message = error?.response?.data?.message || error?.message || 'Erro ao criar conta. Tente novamente.';
+			showError(message);
 		} finally {
 			setIsLoading(false);
 			stopLoading();
@@ -165,7 +280,7 @@ function SignupForm() {
 	return (
 		<form
 			onSubmit={handleSubmit}
-			className="flex flex-col gap-4 w-[300px] md:w-full md:max-w-[420px] md:p-1 max-h-[70vh] overflow-y-auto"
+			className="flex flex-col gap-4 w-[300px] md:w-full md:max-w-[420px] md:p-1 max-h-[80vh] overflow-y-auto"
 		>
 			{/* <div className="flex flex-col gap-2 mb-2">
 				<p className="w-full text-center font-extralight text-white bg-[#527BC6] rounded-lg p-2">
@@ -207,11 +322,11 @@ function SignupForm() {
 			/>
 
 			<FormField
-				label="Número Celular"
+				label="Número Celular/Telefone"
 				icon="/icons/account.svg"
 				iconAlt="Ícone de telefone"
 				type="tel"
-				placeholder="(11) 99999-9999"
+				placeholder="(11) 91234-1234 ou (11) 1234-1234"
 				value={formData.phone_number}
 				error={errors.phone_number}
 				maxLength={15}
@@ -228,6 +343,17 @@ function SignupForm() {
 				error={errors.document_number}
 				maxLength={18}
 				onChange={(value) => handleInputChange('document_number', value)}
+			/>
+
+			<FormField
+				label="Data de Nascimento"
+				icon="/icons/account.svg"
+				iconAlt="Ícone de calendário"
+				type="date"
+				placeholder=""
+				value={formData.birth_date}
+				error={errors.birth_date}
+				onChange={(value) => handleInputChange('birth_date', value)}
 			/>
 
 			<FormField
@@ -263,6 +389,84 @@ function SignupForm() {
 				onChange={(value) => handleInputChange('confirmPassword', value)}
 			/>
 
+			{/* Seção de Preferências de Comunicação */}
+			<div className="flex flex-col gap-3 mt-4">
+				<h3 className="text-sm font-medium text-gray-700">Preferências de Comunicação:</h3>
+				
+				<label className="flex items-center gap-2 text-sm text-gray-600">
+					<input
+						type="checkbox"
+						checked={formData.accept_email_communications}
+						onChange={(e) => handleInputChange('accept_email_communications', e.target.checked)}
+						className="rounded border-gray-300 text-[#527BC6] focus:ring-[#527BC6]"
+					/>
+					Aceito receber comunicações por e-mail
+				</label>
+
+				<label className="flex items-center gap-2 text-sm text-gray-600">
+					<input
+						type="checkbox"
+						checked={formData.accept_sms_communications}
+						onChange={(e) => handleInputChange('accept_sms_communications', e.target.checked)}
+						className="rounded border-gray-300 text-[#527BC6] focus:ring-[#527BC6]"
+					/>
+					Aceito receber comunicações por SMS
+				</label>
+
+				<label className="flex items-center gap-2 text-sm text-gray-600">
+					<input
+						type="checkbox"
+						checked={formData.accept_whatsapp_communications}
+						onChange={(e) => handleInputChange('accept_whatsapp_communications', e.target.checked)}
+						className="rounded border-gray-300 text-[#527BC6] focus:ring-[#527BC6]"
+					/>
+					Aceito receber comunicações por WhatsApp
+				</label>
+			</div>
+
+			{/* Seção de Termos Obrigatórios */}
+			<div className="flex flex-col gap-3 mt-4">
+				<h3 className="text-sm font-medium text-gray-700">Termos e Condições:</h3>
+				
+				<label className="flex items-start gap-2 text-sm text-gray-600">
+					<input
+						type="checkbox"
+						checked={formData.accept_terms_of_use}
+						onChange={(e) => handleInputChange('accept_terms_of_use', e.target.checked)}
+						className="rounded border-gray-300 text-[#527BC6] focus:ring-[#527BC6] mt-0.5"
+					/>
+					<span>
+						Li e aceito os{' '}
+						<a href="/termos-uso" target="_blank" className="text-[#527BC6] underline hover:opacity-70">
+							Termos de Uso
+						</a>{' '}
+						<span className="text-red-500">*</span>
+					</span>
+				</label>
+				{errors.accept_terms_of_use && (
+					<span className="text-red-500 text-xs">{errors.accept_terms_of_use}</span>
+				)}
+
+				<label className="flex items-start gap-2 text-sm text-gray-600">
+					<input
+						type="checkbox"
+						checked={formData.accept_privacy_policy}
+						onChange={(e) => handleInputChange('accept_privacy_policy', e.target.checked)}
+						className="rounded border-gray-300 text-[#527BC6] focus:ring-[#527BC6] mt-0.5"
+					/>
+					<span>
+						Li e aceito a{' '}
+						<a href="/politica-privacidade" target="_blank" className="text-[#527BC6] underline hover:opacity-70">
+							Política de Privacidade
+						</a>{' '}
+						<span className="text-red-500">*</span>
+					</span>
+				</label>
+				{errors.accept_privacy_policy && (
+					<span className="text-red-500 text-xs">{errors.accept_privacy_policy}</span>
+				)}
+			</div>
+
 			<SubmitButton isLoading={isLoading}>
 				{isLoading ? 'Criando conta...' : 'Criar Conta'}
 			</SubmitButton>
@@ -274,7 +478,7 @@ export default function SignupPage() {
 	const navigationLinks = (
 		<p className="text-sm text-[#527BC6] w-full text-center">
 			Já tem uma conta?{' '}
-			<Link href="/cliente/login" className="underline hover:opacity-70">
+			<Link href="/cliente/entrar" className="underline hover:opacity-70">
 				Faça login!
 			</Link>
 		</p>

@@ -1,124 +1,321 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import OptimizedImage from '@/components/OptimizedImage';
 import PageTransition from '@/components/PageTransition';
+import ProtectedRoute from '@/components/ProtectedRoute';
+import { useAuth } from '@/components/AuthProvider';
+import { useAlert } from '@/components/AlertProvider';
+import { LaudosService } from '@/lib/laudos';
+import { Laudo } from '@/lib/api';
 
-type ModuleCardProps = { name: string; redirect: string };
-
-const modules: ModuleCardProps[] = [
-	{ name: 'Informações de Pedidos', redirect: '#' },
-	{ name: 'Consultar Laudo(s) Técnico(s)', redirect: '#' },
-	{ name: 'Novidades, Avisos e Comunidade', redirect: '#' },
-	{ name: 'Dados da Sua Conta', redirect: '#' },
-];
-
-function ModuleCard({ name, redirect }: ModuleCardProps) {
-	return (
-		<Link
-			href={redirect}
-			className="block w-full rounded-lg bg-[#527BC6] px-4 py-2 text-left text-white text-xs hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#527BC6]/50"
-		>
-			{name}
-		</Link>
-	);
+interface LaudoCardProps {
+  laudo: Laudo;
+  onDownload: (id: string) => void;
 }
 
-function ModuleList() {
-	return (
-		<div className="grid w-full gap-2">
-			{modules.map((m) => (
-				<ModuleCard key={m.name} {...m} />
-			))}
-		</div>
-	);
+function LaudoCard({ laudo, onDownload }: LaudoCardProps) {
+  return (
+    <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+      <div className="flex items-start justify-between mb-4">
+        <div className="flex-1">
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">
+            {laudo.titulo}
+          </h3>
+          <p className="text-gray-600 text-sm mb-3">
+            {laudo.descricao}
+          </p>
+          <p className="text-xs text-gray-500">
+            Criado em: {LaudosService.formatDate(laudo.created_at)}
+          </p>
+        </div>
+        <div className="ml-4">
+          <Image
+            src="/icons/document.svg"
+            alt="Laudo"
+            width={24}
+            height={24}
+            className="text-blue-600"
+          />
+        </div>
+      </div>
+      
+      <div className="flex gap-2">
+        <button
+          onClick={() => onDownload(laudo.id)}
+          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          <Image
+            src="/icons/download.svg"
+            alt="Download"
+            width={16}
+            height={16}
+          />
+          Download
+        </button>
+      </div>
+    </div>
+  );
 }
 
-export default function Modules() {
-	const [open, setOpen] = useState(false);
+function SearchBar({ 
+  value, 
+  onChange, 
+  onSearch 
+}: { 
+  value: string; 
+  onChange: (value: string) => void; 
+  onSearch: () => void; 
+}) {
+  return (
+    <div className="flex gap-2 mb-6">
+      <div className="flex-1 relative">
+        <input
+          type="text"
+          placeholder="Buscar laudos por título ou descrição..."
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          onKeyPress={(e) => e.key === 'Enter' && onSearch()}
+          className="w-full px-4 py-2 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        />
+        <Image
+          src="/icons/search.svg"
+          alt="Buscar"
+          width={20}
+          height={20}
+          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+        />
+      </div>
+      <button
+        onClick={onSearch}
+        className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+      >
+        Buscar
+      </button>
+    </div>
+  );
+}
 
-	return (
-		<main className="min-h-screen flex flex-col md:flex-row">
-			{/* Mobile header (hidden on md+) */}
-			<PageTransition>
-				<header className="sticky top-0 z-20 flex items-center justify-between bg-white px-4 py-3 shadow md:hidden">
-					<div className="flex items-center gap-3">
-						<OptimizedImage
-							src="/icons/pharmedice-logo.svg"
-							alt="Logo da Pharmédice"
-							width={40}
-							height={40}
-							className="rounded"
-						/>
-						<span className="text-sm font-bold text-[#527BC6]">
-							Área do Cliente
-						</span>
-					</div>
-					<button
-						onClick={() => setOpen((v) => !v)}
-						aria-expanded={open}
-						aria-controls="mobile-modules"
-						className="rounded-lg border px-3 py-2 text-sm hover:bg-gray-50"
-					>
-						{open ? 'Fechar' : 'Menu'}
-					</button>
-				</header>
-			</PageTransition>
+function ClientePainelContent() {
+  const router = useRouter();
+  const { user, isLoggedIn, isAdmin, logout } = useAuth();
+  const { showError, showSuccess } = useAlert();
+  const [laudos, setLaudos] = useState<Laudo[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isSearching, setIsSearching] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
-			{/* Mobile dropdown menu (collapsible) */}
-			<PageTransition>
-				<div
-					id="mobile-modules"
-					className={`md:hidden bg-white px-4 transition-[max-height] duration-300 ease-in-out overflow-hidden ${
-						open ? 'max-h-96 py-3 border-b' : 'max-h-0'
-					}`}
-				>
-					<ModuleList />
-				</div>
-			</PageTransition>
+  // Verificar se é admin e redirecionar
+  useEffect(() => {
+    if (isAdmin) {
+      router.push('/admin/painel');
+      return;
+    }
+  }, [isAdmin, router]);
 
-			{/* Desktop sidebar (no border/shadow) */}
-			<PageTransition>
-				<nav className="hidden md:flex md:w-[20%] md:min-w-[240px] md:max-w-[320px] bg-white p-6 flex-col items-center shadow-none">
-					<OptimizedImage
-						src="/icons/pharmedice-logo.svg"
-						alt="Logo da Pharmédice"
-						width={100}
-						height={100}
-						className="mt-2 mb-2"
-					/>
-					<h1 className="mb-4 text-center text-base font-bold text-[#527BC6]">
-						Área do Cliente
-					</h1>
-					<ModuleList />
-				</nav>
-			</PageTransition>
+  // Carregar laudos
+  useEffect(() => {
+    if (!isAdmin) {
+      loadLaudos();
+    }
+  }, [isAdmin, currentPage]);
 
-			{/* Main content */}
-			<PageTransition>
-				<section className="flex-1 bg-gray-50">
-					<div className="mx-auto flex max-w-2xl flex-col items-center justify-center p-6 md:h-full">
-						<h2 className="mb-3 text-center text-xl font-bold text-[#527BC6] md:text-2xl">
-							<span className="font-light">Bem-vindo à</span> Área do Cliente
-						</h2>
-						<p className="text-center text-gray-700 text-sm md:text-base">
-							Aqui você pode acessar informações sobre seus pedidos, consultar
-							laudos técnicos, ficar por dentro das novidades e gerenciar os
-							dados da sua conta.
-						</p>
+  const loadLaudos = async () => {
+    try {
+      setLoading(true);
+      const response = await LaudosService.list(currentPage);
+      setLaudos(response.data);
+      setTotalPages(response.last_page);
+    } catch (error: any) {
+      console.error('Erro ao carregar laudos:', error);
+      showError('Erro ao carregar laudos. Tente novamente.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
-						{/* Quick access grid on mobile */}
-						<div className="mt-6 w-full md:hidden">
-							<h3 className="mb-2 text-sm font-semibold text-gray-800">
-								Acessos rápidos
-							</h3>
-							<ModuleList />
-						</div>
-					</div>
-				</section>
-			</PageTransition>
-		</main>
-	);
+  const handleSearch = async () => {
+    if (!searchTerm.trim()) {
+      loadLaudos();
+      return;
+    }
+
+    try {
+      setIsSearching(true);
+      const response = await LaudosService.search(searchTerm);
+      setLaudos(response.data);
+      setTotalPages(response.last_page);
+    } catch (error: any) {
+      console.error('Erro ao buscar laudos:', error);
+      showError('Erro ao buscar laudos. Tente novamente.');
+    } finally {
+      setIsSearching(false);
+    }
+  };
+
+  const handleDownload = async (laudoId: string) => {
+    try {
+      const blob = await LaudosService.download(laudoId);
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.download = `laudo_${laudoId}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+      showSuccess('Download iniciado!');
+    } catch (error: any) {
+      console.error('Erro ao fazer download:', error);
+      showError('Erro ao fazer download do laudo. Tente novamente.');
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      showSuccess('Logout realizado com sucesso!');
+      router.push('/');
+    } catch (error) {
+      console.error('Erro no logout:', error);
+    }
+  };
+
+  if (!isLoggedIn || isAdmin) {
+    return null; // Será redirecionado
+  }
+
+  return (
+    <PageTransition>
+      <div className="min-h-screen bg-gray-50">
+        {/* Header */}
+        <header className="bg-white shadow-sm border-b">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center h-16">
+              <div className="flex items-center gap-4">
+                <OptimizedImage
+                  src="/icons/pharmedice-logo.svg"
+                  alt="Logo da Pharmédice"
+                  width={72}
+                  height={24}
+                  className="max-h-8"
+                />
+                <h1 className="text-xl font-semibold text-gray-900">
+                  Área do Cliente
+                </h1>
+              </div>
+              
+              <div className="flex items-center gap-4">
+                <span className="text-sm text-gray-600">
+                  Olá, {user?.primeiro_nome}!
+                </span>
+                <button
+                  onClick={handleLogout}
+                  className="text-sm text-red-600 hover:text-red-700 transition-colors"
+                >
+                  Sair
+                </button>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        {/* Main Content */}
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              Meus Laudos Técnicos
+            </h2>
+            <p className="text-gray-600">
+              Visualize e faça download dos seus laudos técnicos
+            </p>
+          </div>
+
+          <SearchBar
+            value={searchTerm}
+            onChange={setSearchTerm}
+            onSearch={handleSearch}
+          />
+
+          {loading || isSearching ? (
+            <div className="flex justify-center items-center py-12">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+              <span className="ml-2 text-gray-600">
+                {isSearching ? 'Buscando...' : 'Carregando...'}
+              </span>
+            </div>
+          ) : laudos.length === 0 ? (
+            <div className="text-center py-12">
+              <Image
+                src="/icons/document.svg"
+                alt="Nenhum laudo"
+                width={64}
+                height={64}
+                className="mx-auto mb-4 opacity-50"
+              />
+              <h3 className="text-lg font-medium text-gray-900 mb-2">
+                {searchTerm ? 'Nenhum laudo encontrado' : 'Nenhum laudo disponível'}
+              </h3>
+              <p className="text-gray-600">
+                {searchTerm 
+                  ? 'Tente buscar com outros termos.' 
+                  : 'Seus laudos aparecerão aqui quando estiverem disponíveis.'}
+              </p>
+            </div>
+          ) : (
+            <>
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {laudos.map((laudo) => (
+                  <LaudoCard
+                    key={laudo.id}
+                    laudo={laudo}
+                    onDownload={handleDownload}
+                  />
+                ))}
+              </div>
+
+              {/* Paginação */}
+              {totalPages > 1 && (
+                <div className="flex justify-center items-center gap-2 mt-8">
+                  <button
+                    onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                    disabled={currentPage === 1}
+                    className="px-3 py-1 rounded border disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                  >
+                    Anterior
+                  </button>
+                  
+                  <span className="px-4 py-1">
+                    Página {currentPage} de {totalPages}
+                  </span>
+                  
+                  <button
+                    onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                    disabled={currentPage === totalPages}
+                    className="px-3 py-1 rounded border disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                  >
+                    Próxima
+                  </button>
+                </div>
+              )}
+            </>
+          )}
+        </main>
+      </div>
+    </PageTransition>
+  );
+}
+
+export default function ClientePainel() {
+  return (
+    <ProtectedRoute requireEmailVerification={true}>
+      <ClientePainelContent />
+    </ProtectedRoute>
+  );
 }

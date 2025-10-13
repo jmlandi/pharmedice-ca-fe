@@ -1,13 +1,15 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import AuthLayout from '@/components/AuthLayout';
 import FormField from '@/components/FormField';
 import SubmitButton from '@/components/SubmitButton';
 import { useAlert } from '@/components/AlertProvider';
 import { useLoading } from '@/components/LoadingProvider';
+import { useAuth } from '@/components/AuthProvider';
 import { isValidEmail } from '@/lib/utils';
 
 interface AdminLoginFormData {
@@ -16,14 +18,23 @@ interface AdminLoginFormData {
 }
 
 function AdminLoginForm() {
-	const { showError } = useAlert();
+	const router = useRouter();
+	const { showError, showSuccess } = useAlert();
 	const { startLoading, stopLoading } = useLoading();
+	const { login, isLoggedIn, isAdmin } = useAuth();
 	const [formData, setFormData] = useState<AdminLoginFormData>({
 		email: '',
 		password: '',
 	});
 	const [isLoading, setIsLoading] = useState(false);
 	const [errors, setErrors] = useState<Partial<AdminLoginFormData>>({});
+
+	// Redirecionar se já estiver logado como admin
+	useEffect(() => {
+		if (isLoggedIn && isAdmin) {
+			router.push('/admin/painel');
+		}
+	}, [isLoggedIn, isAdmin, router]);
 
 	const handleInputChange = (field: keyof AdminLoginFormData, value: string) => {
 		setFormData((prev) => ({
@@ -70,17 +81,19 @@ function AdminLoginForm() {
 		startLoading();
 
 		try {
-			// TODO: Implementar chamada da API para login de admin
-			console.log('Admin login data:', formData);
-			
-			// Simulação de delay da API
-			await new Promise(resolve => setTimeout(resolve, 1000));
-			
-			// TODO: Redirecionar para dashboard do admin após sucesso
-			showError('Login de admin ainda não implementado no backend');
-		} catch (error) {
+			await login({
+				email: formData.email,
+				senha: formData.password,
+			});
+
+			showSuccess('Login realizado com sucesso!');
+			// O redirecionamento será gerenciado pelo ProtectedRoute
+			// Se o email não estiver verificado, será mostrada a tela de verificação
+			router.push('/admin/painel');
+		} catch (error: any) {
 			console.error('Erro no login do admin:', error);
-			showError('Erro interno do servidor. Tente novamente mais tarde.');
+			const message = error?.response?.data?.message || error?.message || 'Erro interno do servidor. Tente novamente mais tarde.';
+			showError(message);
 		} finally {
 			setIsLoading(false);
 			stopLoading();

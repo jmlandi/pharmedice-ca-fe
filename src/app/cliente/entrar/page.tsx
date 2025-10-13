@@ -1,13 +1,15 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import AuthLayout from '@/components/AuthLayout';
 import FormField from '@/components/FormField';
 import SubmitButton from '@/components/SubmitButton';
 import { useAlert } from '@/components/AlertProvider';
 import { useLoading } from '@/components/LoadingProvider';
+import { useAuth } from '@/components/AuthProvider';
 import { isValidEmail } from '@/lib/utils';
 
 interface LoginFormData {
@@ -16,14 +18,24 @@ interface LoginFormData {
 }
 
 function LoginForm() {
-	const { showError } = useAlert();
+	const router = useRouter();
+	const { showError, showSuccess } = useAlert();
 	const { startLoading, stopLoading } = useLoading();
+	const { login, isLoggedIn, isAdmin } = useAuth();
 	const [formData, setFormData] = useState<LoginFormData>({
 		email: '',
 		password: '',
 	});
 	const [isLoading, setIsLoading] = useState(false);
 	const [errors, setErrors] = useState<Partial<LoginFormData>>({});
+
+	// Redirecionar se já estiver logado
+	useEffect(() => {
+		if (isLoggedIn) {
+			const redirectTo = isAdmin ? '/admin/painel' : '/cliente/painel';
+			router.push(redirectTo);
+		}
+	}, [isLoggedIn, isAdmin, router]);
 
 	const handleInputChange = (field: keyof LoginFormData, value: string) => {
 		setFormData((prev) => ({
@@ -66,22 +78,19 @@ function LoginForm() {
 		startLoading();
 
 		try {
-			// Here you would integrate with your Laravel API
-			console.log('Login attempt:', formData.email);
-			// const response = await fetch('/api/login', {
-			//   method: 'POST',
-			//   headers: { 'Content-Type': 'application/json' },
-			//   body: JSON.stringify(formData)
-			// });
+			await login({
+				email: formData.email,
+				senha: formData.password,
+			});
 
-			// Simulate API call
-			await new Promise((resolve) => setTimeout(resolve, 1500));
-
-			// On success, redirect to dashboard
-			window.location.href = '/dashboard';
-		} catch (error) {
+			showSuccess('Login realizado com sucesso!');
+			// O redirecionamento será gerenciado pelo ProtectedRoute
+			// Se o email não estiver verificado, será mostrada a tela de verificação
+			router.push('/cliente/painel');
+		} catch (error: any) {
 			console.error('Erro ao fazer login:', error);
-			showError('Erro ao fazer login. Verifique suas credenciais.');
+			const message = error?.response?.data?.message || error?.message || 'Erro ao fazer login. Verifique suas credenciais.';
+			showError(message);
 		} finally {
 			setIsLoading(false);
 			stopLoading();

@@ -20,10 +20,10 @@ export const isValidCNPJ = (cnpj: string): boolean => {
 	return cleanCNPJ.length === 14;
 };
 
-// Phone validation (Brazilian format)
+// Phone validation (Brazilian format - celular e fixo)
 export const isValidPhone = (phone: string): boolean => {
 	const cleanPhone = phone.replace(/\D/g, '');
-	return cleanPhone.length === 11; // (XX) 9XXXX-XXXX
+	return cleanPhone.length === 10 || cleanPhone.length === 11; // (XX) XXXX-XXXX ou (XX) 9XXXX-XXXX
 };
 
 // CPF formatting
@@ -57,13 +57,21 @@ export const formatDocument = (value: string): string => {
 	}
 };
 
-// Phone formatting (Brazilian format)
+// Phone formatting (Brazilian format - celular e fixo)
 export const formatPhone = (value: string): string => {
-	return value
-		.replace(/\D/g, '')
-		.replace(/(\d{2})(\d)/, '($1) $2')
-		.replace(/(\d{5})(\d{4})/, '$1-$2')
-		.replace(/(-\d{4})\d+?$/, '$1');
+	const clean = value.replace(/\D/g, '');
+	
+	if (clean.length <= 2) {
+		return clean;
+	} else if (clean.length <= 6) {
+		return clean.replace(/(\d{2})(\d+)/, '($1) $2');
+	} else if (clean.length <= 10) {
+		// Format as (XX) XXXX-XXXX (telefone fixo)
+		return clean.replace(/(\d{2})(\d{4})(\d+)/, '($1) $2-$3');
+	} else {
+		// Format as (XX) XXXXX-XXXX (celular)
+		return clean.replace(/(\d{2})(\d{5})(\d+)/, '($1) $2-$3');
+	}
 };
 
 // Password strength validation

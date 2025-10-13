@@ -192,7 +192,7 @@ export default function ForgotPasswordPage() {
 		<div className="flex flex-col gap-2 text-center">
 			<p className="text-sm text-[#527BC6]">
 				Lembrou sua senha?{' '}
-				<Link href="/cliente/login" className="underline hover:opacity-70">
+				<Link href="/cliente/entrar" className="underline hover:opacity-70">
 					Voltar ao login
 				</Link>
 			</p>

@@ -1,277 +1,459 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import OptimizedImage from '@/components/OptimizedImage';
+import PageTransition from '@/components/PageTransition';
+import ProtectedRoute from '@/components/ProtectedRoute';
+import { useAuth } from '@/components/AuthProvider';
+import { useAlert } from '@/components/AlertProvider';
+import { LaudosService, UploadLaudoData } from '@/lib/laudos';
+import { Laudo } from '@/lib/api';
 
-interface AdminDashboardData {
-	totalUsers: number;
-	totalOrders: number;
-	pendingOrders: number;
-	revenue: number;
+interface UploadFormProps {
+  onUploadSuccess: () => void;
 }
 
-function AdminDashboard() {
-	const [dashboardData, setDashboardData] = useState<AdminDashboardData>({
-		totalUsers: 0,
-		totalOrders: 0,
-		pendingOrders: 0,
-		revenue: 0,
-	});
-	const [isLoading, setIsLoading] = useState(true);
+function UploadForm({ onUploadSuccess }: UploadFormProps) {
+  const { showError, showSuccess } = useAlert();
+  const [isUploading, setIsUploading] = useState(false);
+  const [formData, setFormData] = useState({
+    titulo: '',
+    descricao: '',
+    arquivo: null as File | null,
+  });
 
-	useEffect(() => {
-		// TODO: Implementar chamada da API para buscar dados do dashboard
-		const fetchDashboardData = async () => {
-			try {
-				// Simulação de dados
-				await new Promise(resolve => setTimeout(resolve, 1000));
-				setDashboardData({
-					totalUsers: 1250,
-					totalOrders: 8450,
-					pendingOrders: 23,
-					revenue: 125000.50,
-				});
-			} catch (error) {
-				console.error('Erro ao carregar dados do dashboard:', error);
-			} finally {
-				setIsLoading(false);
-			}
-		};
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const validation = LaudosService.validateFile(file);
+      if (!validation.valid) {
+        showError(validation.error || 'Arquivo inválido');
+        e.target.value = '';
+        return;
+      }
+      setFormData(prev => ({ ...prev, arquivo: file }));
+    }
+  };
 
-		fetchDashboardData();
-	}, []);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!formData.titulo.trim() || !formData.descricao.trim() || !formData.arquivo) {
+      showError('Todos os campos são obrigatórios');
+      return;
+    }
 
-	const formatCurrency = (value: number) => {
-		return new Intl.NumberFormat('pt-BR', {
-			style: 'currency',
-			currency: 'BRL',
-		}).format(value);
-	};
+    try {
+      setIsUploading(true);
+      await LaudosService.upload({
+        titulo: formData.titulo,
+        descricao: formData.descricao,
+        arquivo: formData.arquivo,
+      });
+      
+      showSuccess('Laudo enviado com sucesso!');
+      setFormData({ titulo: '', descricao: '', arquivo: null });
+      onUploadSuccess();
+      
+      // Reset file input
+      const fileInput = document.getElementById('arquivo') as HTMLInputElement;
+      if (fileInput) fileInput.value = '';
+    } catch (error: any) {
+      console.error('Erro no upload:', error);
+      showError(error?.response?.data?.message || 'Erro ao enviar laudo');
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
-	if (isLoading) {
-		return (
-			<div className="min-h-screen bg-gray-50 p-6">
-				<div className="max-w-7xl mx-auto">
-					<div className="animate-pulse">
-						<div className="h-8 bg-gray-200 rounded w-1/4 mb-8"></div>
-						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-							{[...Array(4)].map((_, i) => (
-								<div key={i} className="bg-white p-6 rounded-lg shadow">
-									<div className="h-4 bg-gray-200 rounded w-1/2 mb-4"></div>
-									<div className="h-8 bg-gray-200 rounded w-3/4"></div>
-								</div>
-							))}
-						</div>
-					</div>
-				</div>
-			</div>
-		);
-	}
+  return (
+    <div className="bg-white rounded-lg shadow-md p-6">
+      <h3 className="text-lg font-semibold text-gray-900 mb-6">
+        Novo Laudo Técnico
+      </h3>
+      
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Título
+          </label>
+          <input
+            type="text"
+            value={formData.titulo}
+            onChange={(e) => setFormData(prev => ({ ...prev, titulo: e.target.value }))}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="Título do laudo"
+          />
+        </div>
 
-	return (
-		<div className="min-h-screen bg-gray-50">
-			{/* Header */}
-			<header className="bg-white shadow">
-				<div className="max-w-7xl mx-auto px-6 py-4">
-					<div className="flex justify-between items-center">
-						<div className="flex items-center space-x-4">
-							<h1 className="text-2xl font-bold text-gray-900">
-								Painel Administrativo
-							</h1>
-							<span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-								Pharmedice Admin
-							</span>
-						</div>
-						<div className="flex items-center space-x-4">
-							<Link
-								href="/"
-								className="text-gray-600 hover:text-gray-900 transition-colors"
-							>
-								Ver Site
-							</Link>
-							<Link
-								href="/cliente/painel"
-								className="text-gray-600 hover:text-gray-900 transition-colors"
-							>
-								Área do Cliente
-							</Link>
-							<button className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition-colors">
-								Sair
-							</button>
-						</div>
-					</div>
-				</div>
-			</header>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Descrição
+          </label>
+          <textarea
+            value={formData.descricao}
+            onChange={(e) => setFormData(prev => ({ ...prev, descricao: e.target.value }))}
+            rows={3}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="Descrição do laudo"
+          />
+        </div>
 
-			{/* Main Content */}
-			<main className="max-w-7xl mx-auto px-6 py-8">
-				{/* Stats Grid */}
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-					<div className="bg-white overflow-hidden shadow rounded-lg">
-						<div className="p-5">
-							<div className="flex items-center">
-								<div className="flex-shrink-0">
-									<svg className="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
-									</svg>
-								</div>
-								<div className="ml-5 w-0 flex-1">
-									<dl>
-										<dt className="text-sm font-medium text-gray-500 truncate">
-											Total de Usuários
-										</dt>
-										<dd className="text-lg font-medium text-gray-900">
-											{dashboardData.totalUsers.toLocaleString()}
-										</dd>
-									</dl>
-								</div>
-							</div>
-						</div>
-					</div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Arquivo PDF
+          </label>
+          <input
+            id="arquivo"
+            type="file"
+            accept="application/pdf"
+            onChange={handleFileChange}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          />
+          <p className="text-xs text-gray-500 mt-1">
+            Apenas arquivos PDF (máximo 10MB)
+          </p>
+        </div>
 
-					<div className="bg-white overflow-hidden shadow rounded-lg">
-						<div className="p-5">
-							<div className="flex items-center">
-								<div className="flex-shrink-0">
-									<svg className="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 11h14l-1 7H6l-1-7z" />
-									</svg>
-								</div>
-								<div className="ml-5 w-0 flex-1">
-									<dl>
-										<dt className="text-sm font-medium text-gray-500 truncate">
-											Total de Pedidos
-										</dt>
-										<dd className="text-lg font-medium text-gray-900">
-											{dashboardData.totalOrders.toLocaleString()}
-										</dd>
-									</dl>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div className="bg-white overflow-hidden shadow rounded-lg">
-						<div className="p-5">
-							<div className="flex items-center">
-								<div className="flex-shrink-0">
-									<svg className="h-6 w-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-									</svg>
-								</div>
-								<div className="ml-5 w-0 flex-1">
-									<dl>
-										<dt className="text-sm font-medium text-gray-500 truncate">
-											Pedidos Pendentes
-										</dt>
-										<dd className="text-lg font-medium text-gray-900">
-											{dashboardData.pendingOrders}
-										</dd>
-									</dl>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div className="bg-white overflow-hidden shadow rounded-lg">
-						<div className="p-5">
-							<div className="flex items-center">
-								<div className="flex-shrink-0">
-									<svg className="h-6 w-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
-									</svg>
-								</div>
-								<div className="ml-5 w-0 flex-1">
-									<dl>
-										<dt className="text-sm font-medium text-gray-500 truncate">
-											Receita Total
-										</dt>
-										<dd className="text-lg font-medium text-gray-900">
-											{formatCurrency(dashboardData.revenue)}
-										</dd>
-									</dl>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				{/* Quick Actions */}
-				<div className="bg-white shadow rounded-lg mb-8">
-					<div className="px-6 py-4 border-b border-gray-200">
-						<h2 className="text-lg font-medium text-gray-900">Ações Rápidas</h2>
-					</div>
-					<div className="p-6">
-						<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-							<button className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-								<svg className="h-8 w-8 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-								</svg>
-								<div className="text-left">
-									<p className="font-medium text-gray-900">Novo Produto</p>
-									<p className="text-sm text-gray-500">Adicionar produto ao catálogo</p>
-								</div>
-							</button>
-
-							<button className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-								<svg className="h-8 w-8 text-green-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-								</svg>
-								<div className="text-left">
-									<p className="font-medium text-gray-900">Gerenciar Pedidos</p>
-									<p className="text-sm text-gray-500">Ver e processar pedidos</p>
-								</div>
-							</button>
-
-							<button className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-								<svg className="h-8 w-8 text-purple-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-								</svg>
-								<div className="text-left">
-									<p className="font-medium text-gray-900">Gerenciar Usuários</p>
-									<p className="text-sm text-gray-500">Administrar contas de usuários</p>
-								</div>
-							</button>
-						</div>
-					</div>
-				</div>
-
-				{/* Recent Activity */}
-				<div className="bg-white shadow rounded-lg">
-					<div className="px-6 py-4 border-b border-gray-200">
-						<h2 className="text-lg font-medium text-gray-900">Atividade Recente</h2>
-					</div>
-					<div className="p-6">
-						<div className="space-y-4">
-							<div className="flex items-center space-x-3">
-								<div className="flex-shrink-0 w-2 h-2 bg-green-400 rounded-full"></div>
-								<p className="text-sm text-gray-600">
-									<span className="font-medium">João Silva</span> fez um novo pedido
-									<span className="text-gray-400 ml-2">há 5 minutos</span>
-								</p>
-							</div>
-							<div className="flex items-center space-x-3">
-								<div className="flex-shrink-0 w-2 h-2 bg-blue-400 rounded-full"></div>
-								<p className="text-sm text-gray-600">
-									<span className="font-medium">Maria Santos</span> se cadastrou no sistema
-									<span className="text-gray-400 ml-2">há 1 hora</span>
-								</p>
-							</div>
-							<div className="flex items-center space-x-3">
-								<div className="flex-shrink-0 w-2 h-2 bg-yellow-400 rounded-full"></div>
-								<p className="text-sm text-gray-600">
-									Produto <span className="font-medium">Vitamina D3</span> está com estoque baixo
-									<span className="text-gray-400 ml-2">há 2 horas</span>
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</main>
-		</div>
-	);
+        <button
+          type="submit"
+          disabled={isUploading}
+          className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        >
+          {isUploading ? 'Enviando...' : 'Enviar Laudo'}
+        </button>
+      </form>
+    </div>
+  );
 }
 
-export default function AdminDashboardPage() {
-	return <AdminDashboard />;
+interface AdminLaudoCardProps {
+  laudo: Laudo;
+  onDelete: (id: string) => void;
+  onDownload: (id: string) => void;
+}
+
+function AdminLaudoCard({ laudo, onDelete, onDownload }: AdminLaudoCardProps) {
+  return (
+    <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+      <div className="flex items-start justify-between mb-4">
+        <div className="flex-1">
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">
+            {laudo.titulo}
+          </h3>
+          <p className="text-gray-600 text-sm mb-3">
+            {laudo.descricao}
+          </p>
+          <p className="text-xs text-gray-500">
+            Criado em: {LaudosService.formatDate(laudo.created_at)}
+          </p>
+          {laudo.usuario && (
+            <p className="text-xs text-gray-500">
+              Por: {laudo.usuario.primeiro_nome} {laudo.usuario.segundo_nome}
+            </p>
+          )}
+        </div>
+        <div className="ml-4">
+          <Image
+            src="/icons/document.svg"
+            alt="Laudo"
+            width={24}
+            height={24}
+            className="text-blue-600"
+          />
+        </div>
+      </div>
+      
+      <div className="flex gap-2">
+        <button
+          onClick={() => onDownload(laudo.id)}
+          className="flex items-center gap-2 px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition-colors"
+        >
+          <Image
+            src="/icons/download.svg"
+            alt="Download"
+            width={14}
+            height={14}
+          />
+          Download
+        </button>
+        <button
+          onClick={() => onDelete(laudo.id)}
+          className="flex items-center gap-2 px-3 py-1 bg-red-600 text-white text-sm rounded hover:bg-red-700 transition-colors"
+        >
+          <Image
+            src="/icons/delete.svg"
+            alt="Excluir"
+            width={14}
+            height={14}
+          />
+          Excluir
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function AdminPainelContent() {
+  const router = useRouter();
+  const { user, isLoggedIn, isAdmin, logout } = useAuth();
+  const { showError, showSuccess } = useAlert();
+  const [laudos, setLaudos] = useState<Laudo[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+  // Verificar se não é admin e redirecionar
+  useEffect(() => {
+    if (!isAdmin) {
+      router.push('/cliente/painel');
+      return;
+    }
+  }, [isAdmin, router]);
+
+  // Carregar laudos
+  useEffect(() => {
+    if (isAdmin) {
+      loadLaudos();
+    }
+  }, [isAdmin, currentPage]);
+
+  const loadLaudos = async () => {
+    try {
+      setLoading(true);
+      const response = await LaudosService.list(currentPage);
+      setLaudos(response.data);
+      setTotalPages(response.last_page);
+    } catch (error: any) {
+      console.error('Erro ao carregar laudos:', error);
+      showError('Erro ao carregar laudos. Tente novamente.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSearch = async () => {
+    if (!searchTerm.trim()) {
+      loadLaudos();
+      return;
+    }
+
+    try {
+      const response = await LaudosService.search(searchTerm);
+      setLaudos(response.data);
+      setTotalPages(response.last_page);
+    } catch (error: any) {
+      console.error('Erro ao buscar laudos:', error);
+      showError('Erro ao buscar laudos. Tente novamente.');
+    }
+  };
+
+  const handleDownload = async (laudoId: string) => {
+    try {
+      const blob = await LaudosService.download(laudoId);
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.download = `laudo_${laudoId}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+      showSuccess('Download iniciado!');
+    } catch (error: any) {
+      console.error('Erro ao fazer download:', error);
+      showError('Erro ao fazer download do laudo. Tente novamente.');
+    }
+  };
+
+  const handleDelete = async (laudoId: string) => {
+    if (!confirm('Tem certeza que deseja excluir este laudo?')) {
+      return;
+    }
+
+    try {
+      await LaudosService.delete(laudoId);
+      showSuccess('Laudo excluído com sucesso!');
+      loadLaudos(); // Recarregar lista
+    } catch (error: any) {
+      console.error('Erro ao excluir laudo:', error);
+      showError('Erro ao excluir laudo. Tente novamente.');
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      showSuccess('Logout realizado com sucesso!');
+      router.push('/');
+    } catch (error) {
+      console.error('Erro no logout:', error);
+    }
+  };
+
+  if (!isLoggedIn || !isAdmin) {
+    return null; // Será redirecionado
+  }
+
+  return (
+    <PageTransition>
+      <div className="min-h-screen bg-gray-50">
+        {/* Header */}
+        <header className="bg-white shadow-sm border-b">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center h-16">
+              <div className="flex items-center gap-4">
+                <OptimizedImage
+                  src="/icons/pharmedice-logo.svg"
+                  alt="Logo da Pharmédice"
+                  width={72}
+                  height={24}
+                  className="max-h-8"
+                />
+                <h1 className="text-xl font-semibold text-gray-900">
+                  Painel Administrativo
+                </h1>
+              </div>
+              
+              <div className="flex items-center gap-4">
+                <span className="text-sm text-gray-600">
+                  Olá, {user?.primeiro_nome}! (Admin)
+                </span>
+                <button
+                  onClick={handleLogout}
+                  className="text-sm text-red-600 hover:text-red-700 transition-colors"
+                >
+                  Sair
+                </button>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        {/* Main Content */}
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="grid lg:grid-cols-3 gap-8">
+            {/* Upload Form */}
+            <div className="lg:col-span-1">
+              <UploadForm onUploadSuccess={loadLaudos} />
+            </div>
+            
+            {/* Laudos List */}
+            <div className="lg:col-span-2">
+              <div className="mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                  Gerenciar Laudos
+                </h2>
+                <p className="text-gray-600">
+                  Visualize, baixe e gerencie todos os laudos do sistema
+                </p>
+              </div>
+
+              {/* Search */}
+              <div className="flex gap-2 mb-6">
+                <div className="flex-1 relative">
+                  <input
+                    type="text"
+                    placeholder="Buscar laudos..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+                    className="w-full px-4 py-2 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                  <Image
+                    src="/icons/search.svg"
+                    alt="Buscar"
+                    width={20}
+                    height={20}
+                    className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                  />
+                </div>
+                <button
+                  onClick={handleSearch}
+                  className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  Buscar
+                </button>
+              </div>
+
+              {loading ? (
+                <div className="flex justify-center items-center py-12">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                  <span className="ml-2 text-gray-600">Carregando...</span>
+                </div>
+              ) : laudos.length === 0 ? (
+                <div className="text-center py-12">
+                  <Image
+                    src="/icons/document.svg"
+                    alt="Nenhum laudo"
+                    width={64}
+                    height={64}
+                    className="mx-auto mb-4 opacity-50"
+                  />
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">
+                    {searchTerm ? 'Nenhum laudo encontrado' : 'Nenhum laudo cadastrado'}
+                  </h3>
+                  <p className="text-gray-600">
+                    {searchTerm 
+                      ? 'Tente buscar com outros termos.' 
+                      : 'Comece enviando um novo laudo usando o formulário ao lado.'}
+                  </p>
+                </div>
+              ) : (
+                <>
+                  <div className="space-y-4">
+                    {laudos.map((laudo) => (
+                      <AdminLaudoCard
+                        key={laudo.id}
+                        laudo={laudo}
+                        onDelete={handleDelete}
+                        onDownload={handleDownload}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Paginação */}
+                  {totalPages > 1 && (
+                    <div className="flex justify-center items-center gap-2 mt-8">
+                      <button
+                        onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                        disabled={currentPage === 1}
+                        className="px-3 py-1 rounded border disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                      >
+                        Anterior
+                      </button>
+                      
+                      <span className="px-4 py-1">
+                        Página {currentPage} de {totalPages}
+                      </span>
+                      
+                      <button
+                        onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                        disabled={currentPage === totalPages}
+                        className="px-3 py-1 rounded border disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                      >
+                        Próxima
+                      </button>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+          </div>
+        </main>
+      </div>
+    </PageTransition>
+  );
+}
+
+export default function AdminPainel() {
+  return (
+    <ProtectedRoute requireEmailVerification={true}>
+      <AdminPainelContent />
+    </ProtectedRoute>
+  );
 }

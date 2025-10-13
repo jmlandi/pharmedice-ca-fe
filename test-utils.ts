@@ -23,7 +23,8 @@ console.log('CNPJ:', formatDocument('12345678000123')); // Should format as CNPJ
 
 // Test phone formatting
 console.log('\nPhone formatting:');
-console.log('Phone:', formatPhone('11999887766')); // Should format as (11) 99988-7766
+console.log('Celular:', formatPhone('11999887766')); // Should format as (11) 99988-7766
+console.log('Fixo:', formatPhone('1133334444')); // Should format as (11) 3333-4444
 
 // Test email validation
 console.log('\nEmail validation:');
@@ -37,7 +38,8 @@ console.log('Valid CNPJ length:', isValidCNPJ('12.345.678/0001-23')); // true
 
 // Test phone validation
 console.log('\nPhone validation:');
-console.log('Valid phone:', isValidPhone('(11) 99988-7766')); // true
+console.log('Valid celular:', isValidPhone('(11) 99988-7766')); // true
+console.log('Valid fixo:', isValidPhone('(11) 3333-4444')); // true
 console.log('Invalid phone:', isValidPhone('123456')); // false
 
 // Test name validation
