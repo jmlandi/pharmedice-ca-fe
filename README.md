@@ -68,6 +68,29 @@ Este é o front-end da plataforma Pharmédice, contendo tanto a **Área do Clien
 
 - `/alerts-demo` - Demonstração do sistema de alertas personalizados
 
+### Configuração de Ambiente
+
+Antes de executar a aplicação, configure as variáveis de ambiente:
+
+1. **Crie o arquivo `.env.local`** na raiz do projeto:
+```bash
+cp .env.example .env.local
+```
+
+2. **Configure as variáveis necessárias**:
+```env
+# API Configuration
+NEXT_PUBLIC_API_URL=http://localhost:8000/api
+```
+
+#### Variáveis de Ambiente Disponíveis
+
+| Variável | Descrição | Exemplo |
+|----------|-----------|---------|
+| `NEXT_PUBLIC_API_URL` | URL base da API backend | `http://localhost:8000/api` |
+
+> **Nota**: As variáveis com prefixo `NEXT_PUBLIC_` são expostas ao cliente (browser). Use apenas para dados não sensíveis.
+
 ### Stack Tecnológico
 
 - [Next.js](https://nextjs.org/) 15 (App Router)
