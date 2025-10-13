@@ -3,7 +3,9 @@ backend:
   phases:
     build:
       commands:
-        - npm ci --cache .npm --prefer-offline
+        - echo "Installing backend dependencies..."
+        - npm ci --cache .npm --prefer-offline --no-audit
+        - echo "Generating Amplify backend..."
         - npx ampx generate
 frontend:
   phases:
@@ -14,8 +16,8 @@ frontend:
         - node --version
         - echo "NPM version:"
         - npm --version
-        - echo "Installing dependencies..."
-        - npm ci
+        - echo "Installing frontend dependencies..."
+        - npm ci --no-audit
     build:
       commands:
         - echo "Starting build phase"
