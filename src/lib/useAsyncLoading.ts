@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 
 interface UseAsyncLoadingOptions {
 	onSuccess?: () => void;
-	onError?: (error: any) => void;
+	onError?: (error: Error) => void;
 	showGlobalLoading?: boolean;
 }
 
@@ -26,7 +26,8 @@ export function useAsyncLoading() {
 				onSuccess?.();
 				return result;
 			} catch (error) {
-				onError?.(error);
+				const errorObj = error instanceof Error ? error : new Error(String(error));
+				onError?.(errorObj);
 				console.error('Async operation failed:', error);
 				return null;
 			} finally {
