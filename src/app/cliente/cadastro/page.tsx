@@ -83,12 +83,15 @@ function SignupForm() {
 		}
 	}, [isLoggedIn, isAdmin, router]);
 
-	const handleInputChange = (field: keyof SignupFormData, value: string | boolean) => {
+	const handleInputChange = (
+		field: keyof SignupFormData,
+		value: string | boolean
+	) => {
 		let formattedValue = value;
 
 		if (typeof value === 'string') {
-		if (field === 'document_number') {
-			formattedValue = formatDocument(value);
+			if (field === 'document_number') {
+				formattedValue = formatDocument(value);
 			} else if (field === 'phone_number') {
 				formattedValue = formatPhone(value);
 			}
@@ -101,7 +104,11 @@ function SignupForm() {
 			};
 
 			// Auto-fill nickname with first word of first_name
-			if (field === 'first_name' && typeof formattedValue === 'string' && formattedValue.trim()) {
+			if (
+				field === 'first_name' &&
+				typeof formattedValue === 'string' &&
+				formattedValue.trim()
+			) {
 				const firstWord = formattedValue.trim().split(' ')[0];
 				updatedData.nickname = firstWord;
 			}
@@ -118,7 +125,12 @@ function SignupForm() {
 		}
 
 		// Clear nickname error when first_name changes and auto-fills nickname
-		if (field === 'first_name' && typeof value === 'string' && value.trim() && errors.nickname) {
+		if (
+			field === 'first_name' &&
+			typeof value === 'string' &&
+			value.trim() &&
+			errors.nickname
+		) {
 			setErrors((prev) => ({
 				...prev,
 				nickname: undefined,
@@ -137,7 +149,8 @@ function SignupForm() {
 		} else if (formData.first_name.length > 50) {
 			newErrors.first_name = 'O primeiro nome deve ter no máximo 50 caracteres';
 		} else if (!/^[A-Za-zÀ-ÿ\s]+$/.test(formData.first_name)) {
-			newErrors.first_name = 'O primeiro nome deve conter apenas letras e espaços';
+			newErrors.first_name =
+				'O primeiro nome deve conter apenas letras e espaços';
 		}
 
 		// Validação do segundo nome
@@ -148,7 +161,8 @@ function SignupForm() {
 		} else if (formData.last_name.length > 50) {
 			newErrors.last_name = 'O segundo nome deve ter no máximo 50 caracteres';
 		} else if (!/^[A-Za-zÀ-ÿ\s]+$/.test(formData.last_name)) {
-			newErrors.last_name = 'O segundo nome deve conter apenas letras e espaços';
+			newErrors.last_name =
+				'O segundo nome deve conter apenas letras e espaços';
 		}
 
 		// Validação do apelido
@@ -159,14 +173,16 @@ function SignupForm() {
 		} else if (formData.nickname.length > 30) {
 			newErrors.nickname = 'O apelido deve ter no máximo 30 caracteres';
 		} else if (!/^[A-Za-zÀ-ÿ0-9\s]+$/.test(formData.nickname)) {
-			newErrors.nickname = 'O apelido deve conter apenas letras, números e espaços';
+			newErrors.nickname =
+				'O apelido deve conter apenas letras, números e espaços';
 		}
 
 		// Validação do telefone
 		if (!formData.phone_number.trim()) {
 			newErrors.phone_number = 'O telefone é obrigatório';
 		} else if (!isValidPhone(formData.phone_number)) {
-			newErrors.phone_number = 'O telefone deve estar no formato (XX) XXXXX-XXXX ou (XX) XXXX-XXXX';
+			newErrors.phone_number =
+				'O telefone deve estar no formato (XX) XXXXX-XXXX ou (XX) XXXX-XXXX';
 		}
 
 		// Validação do email
@@ -185,15 +201,21 @@ function SignupForm() {
 			newErrors.password = 'A senha deve ter pelo menos 8 caracteres';
 		} else if (formData.password.length > 50) {
 			newErrors.password = 'A senha deve ter no máximo 50 caracteres';
-		} else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/.test(formData.password)) {
-			newErrors.password = 'A senha deve conter pelo menos: 1 letra minúscula, 1 maiúscula, 1 número e 1 caractere especial (@$!%*?&)';
+		} else if (
+			!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/.test(
+				formData.password
+			)
+		) {
+			newErrors.password =
+				'A senha deve conter pelo menos: 1 letra minúscula, 1 maiúscula, 1 número e 1 caractere especial (@$!%*?&)';
 		}
 
 		// Validação da confirmação de senha
 		if (!formData.confirmPassword.trim()) {
 			newErrors.confirmPassword = 'A confirmação da senha é obrigatória';
 		} else if (formData.password !== formData.confirmPassword) {
-			newErrors.confirmPassword = 'A confirmação da senha deve ser igual à senha';
+			newErrors.confirmPassword =
+				'A confirmação da senha deve ser igual à senha';
 		}
 
 		// Validação do CPF/CNPJ
@@ -201,8 +223,12 @@ function SignupForm() {
 			newErrors.document_number = 'O CPF ou CNPJ é obrigatório';
 		} else {
 			const cleanDoc = cleanString(formData.document_number);
-			if (!isValidCPF(formData.document_number) && !isValidCNPJ(formData.document_number)) {
-				newErrors.document_number = 'CPF deve ter 11 dígitos ou CNPJ deve ter 14 dígitos';
+			if (
+				!isValidCPF(formData.document_number) &&
+				!isValidCNPJ(formData.document_number)
+			) {
+				newErrors.document_number =
+					'CPF deve ter 11 dígitos ou CNPJ deve ter 14 dígitos';
 			}
 		}
 
@@ -213,7 +239,7 @@ function SignupForm() {
 			const birthDate = new Date(formData.birth_date);
 			const today = new Date();
 			const minDate = new Date('1900-01-01');
-			
+
 			if (isNaN(birthDate.getTime())) {
 				newErrors.birth_date = 'A data de nascimento deve ser uma data válida';
 			} else if (birthDate >= today) {
@@ -229,7 +255,8 @@ function SignupForm() {
 		}
 
 		if (!formData.accept_privacy_policy) {
-			newErrors.accept_privacy_policy = 'É obrigatório aceitar a política de privacidade';
+			newErrors.accept_privacy_policy =
+				'É obrigatório aceitar a política de privacidade';
 		}
 
 		setErrors(newErrors);
@@ -269,16 +296,16 @@ function SignupForm() {
 			router.push('/cliente/painel');
 		} catch (error: any) {
 			console.error('Erro ao criar conta:', error);
-			
+
 			// Tratar erro 422 com erros específicos de validação
 			if (error?.response?.status === 422 && error?.response?.data?.erros) {
 				const serverErrors: SignupFormErrors = {};
 				const apiErrors = error.response.data.erros;
-				
+
 				// Mapear erros da API para os campos do formulário
-				Object.keys(apiErrors).forEach(field => {
+				Object.keys(apiErrors).forEach((field) => {
 					let formField: keyof SignupFormErrors;
-					
+
 					// Mapear campos da API para campos do formulário
 					switch (field) {
 						case 'primeiro_nome':
@@ -315,17 +342,21 @@ function SignupForm() {
 						default:
 							formField = field as keyof SignupFormErrors;
 					}
-					
+
 					// Usar a primeira mensagem de erro para o campo
 					if (apiErrors[field] && apiErrors[field].length > 0) {
 						serverErrors[formField] = apiErrors[field][0];
 					}
 				});
-				
+
 				setErrors(serverErrors);
 				showError('Por favor, corrija os erros nos campos destacados.');
 			} else {
-				const message = error?.response?.data?.mensagem || error?.response?.data?.message || error?.message || 'Erro ao criar conta. Tente novamente.';
+				const message =
+					error?.response?.data?.mensagem ||
+					error?.response?.data?.message ||
+					error?.message ||
+					'Erro ao criar conta. Tente novamente.';
 				showError(message);
 			}
 		} finally {
@@ -448,13 +479,17 @@ function SignupForm() {
 
 			{/* Seção de Preferências de Comunicação */}
 			<div className="flex flex-col gap-3 mt-4">
-				<h3 className="text-sm font-medium text-gray-700">Preferências de Comunicação:</h3>
-				
+				<h3 className="text-sm font-medium text-gray-700">
+					Preferências de Comunicação:
+				</h3>
+
 				<label className="flex items-center gap-2 text-sm text-gray-600">
 					<input
 						type="checkbox"
 						checked={formData.accept_email_communications}
-						onChange={(e) => handleInputChange('accept_email_communications', e.target.checked)}
+						onChange={(e) =>
+							handleInputChange('accept_email_communications', e.target.checked)
+						}
 						className="rounded border-gray-300 text-[#527BC6] focus:ring-[#527BC6]"
 					/>
 					Aceito receber comunicações por e-mail
@@ -464,7 +499,9 @@ function SignupForm() {
 					<input
 						type="checkbox"
 						checked={formData.accept_sms_communications}
-						onChange={(e) => handleInputChange('accept_sms_communications', e.target.checked)}
+						onChange={(e) =>
+							handleInputChange('accept_sms_communications', e.target.checked)
+						}
 						className="rounded border-gray-300 text-[#527BC6] focus:ring-[#527BC6]"
 					/>
 					Aceito receber comunicações por SMS
@@ -474,7 +511,12 @@ function SignupForm() {
 					<input
 						type="checkbox"
 						checked={formData.accept_whatsapp_communications}
-						onChange={(e) => handleInputChange('accept_whatsapp_communications', e.target.checked)}
+						onChange={(e) =>
+							handleInputChange(
+								'accept_whatsapp_communications',
+								e.target.checked
+							)
+						}
 						className="rounded border-gray-300 text-[#527BC6] focus:ring-[#527BC6]"
 					/>
 					Aceito receber comunicações por WhatsApp
@@ -483,44 +525,62 @@ function SignupForm() {
 
 			{/* Seção de Termos Obrigatórios */}
 			<div className="flex flex-col gap-3 mt-4">
-				<h3 className="text-sm font-medium text-gray-700">Termos e Condições:</h3>
-				
+				<h3 className="text-sm font-medium text-gray-700">
+					Termos e Condições:
+				</h3>
+
 				<label className="flex items-start gap-2 text-sm text-gray-600">
 					<input
 						type="checkbox"
 						checked={formData.accept_terms_of_use}
-						onChange={(e) => handleInputChange('accept_terms_of_use', e.target.checked)}
+						onChange={(e) =>
+							handleInputChange('accept_terms_of_use', e.target.checked)
+						}
 						className="rounded border-gray-300 text-[#527BC6] focus:ring-[#527BC6] mt-0.5"
 					/>
 					<span>
 						Li e aceito os{' '}
-						<a href="/termos-uso" target="_blank" className="text-[#527BC6] underline hover:opacity-70">
+						<a
+							href="/termos-uso"
+							target="_blank"
+							className="text-[#527BC6] underline hover:opacity-70"
+						>
 							Termos de Uso
 						</a>{' '}
 						<span className="text-red-500">*</span>
 					</span>
 				</label>
 				{errors.accept_terms_of_use && (
-					<span className="text-red-500 text-xs">{errors.accept_terms_of_use}</span>
+					<span className="text-red-500 text-xs">
+						{errors.accept_terms_of_use}
+					</span>
 				)}
 
 				<label className="flex items-start gap-2 text-sm text-gray-600">
 					<input
 						type="checkbox"
 						checked={formData.accept_privacy_policy}
-						onChange={(e) => handleInputChange('accept_privacy_policy', e.target.checked)}
+						onChange={(e) =>
+							handleInputChange('accept_privacy_policy', e.target.checked)
+						}
 						className="rounded border-gray-300 text-[#527BC6] focus:ring-[#527BC6] mt-0.5"
 					/>
 					<span>
 						Li e aceito a{' '}
-						<a href="/politica-privacidade" target="_blank" className="text-[#527BC6] underline hover:opacity-70">
+						<a
+							href="/politica-privacidade"
+							target="_blank"
+							className="text-[#527BC6] underline hover:opacity-70"
+						>
 							Política de Privacidade
 						</a>{' '}
 						<span className="text-red-500">*</span>
 					</span>
 				</label>
 				{errors.accept_privacy_policy && (
-					<span className="text-red-500 text-xs">{errors.accept_privacy_policy}</span>
+					<span className="text-red-500 text-xs">
+						{errors.accept_privacy_policy}
+					</span>
 				)}
 			</div>
 

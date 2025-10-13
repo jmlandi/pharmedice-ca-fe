@@ -60,7 +60,7 @@ export const formatDocument = (value: string): string => {
 // Phone formatting (Brazilian format - celular e fixo)
 export const formatPhone = (value: string): string => {
 	const clean = value.replace(/\D/g, '');
-	
+
 	if (clean.length <= 2) {
 		return clean;
 	} else if (clean.length <= 6) {

@@ -65,18 +65,22 @@ function ResendVerificationForm() {
 
 		try {
 			const response = await reenviarVerificacaoEmail({
-				email: formData.email
+				email: formData.email,
 			});
 
 			if (response.sucesso) {
 				setIsEmailSent(true);
 				showSuccess(response.mensagem);
 			} else {
-				showError(response.mensagem || 'Erro ao reenviar e-mail. Tente novamente.');
+				showError(
+					response.mensagem || 'Erro ao reenviar e-mail. Tente novamente.'
+				);
 			}
 		} catch (error: any) {
 			console.error('Erro ao reenviar e-mail de verificação:', error);
-			const errorMessage = error.response?.data?.mensagem || 'Erro ao reenviar e-mail. Tente novamente.';
+			const errorMessage =
+				error.response?.data?.mensagem ||
+				'Erro ao reenviar e-mail. Tente novamente.';
 			showError(errorMessage);
 		} finally {
 			setIsLoading(false);
@@ -89,17 +93,21 @@ function ResendVerificationForm() {
 		startLoading();
 		try {
 			const response = await reenviarVerificacaoEmail({
-				email: formData.email
+				email: formData.email,
 			});
 
 			if (response.sucesso) {
 				showSuccess('E-mail reenviado com sucesso!');
 			} else {
-				showError(response.mensagem || 'Erro ao reenviar e-mail. Tente novamente.');
+				showError(
+					response.mensagem || 'Erro ao reenviar e-mail. Tente novamente.'
+				);
 			}
 		} catch (error: any) {
 			console.error('Erro ao reenviar e-mail:', error);
-			const errorMessage = error.response?.data?.mensagem || 'Erro ao reenviar e-mail. Tente novamente.';
+			const errorMessage =
+				error.response?.data?.mensagem ||
+				'Erro ao reenviar e-mail. Tente novamente.';
 			showError(errorMessage);
 		} finally {
 			setIsLoading(false);
@@ -126,7 +134,9 @@ function ResendVerificationForm() {
 							/>
 						</svg>
 					</div>
-					<h2 className="text-xl font-bold text-[#527BC6]">E-mail de Verificação Enviado!</h2>
+					<h2 className="text-xl font-bold text-[#527BC6]">
+						E-mail de Verificação Enviado!
+					</h2>
 					<p className="text-sm text-foreground">
 						Enviamos um novo link de verificação para:{' '}
 						<span className="text-sm font-semibold text-[#527BC6]">
@@ -134,8 +144,9 @@ function ResendVerificationForm() {
 						</span>
 					</p>
 					<p className="text-xs text-foreground">
-						Cheque sua caixa de entrada e também a pasta de spam. O link de verificação é válido por 1 hora. 
-						Clique no link para confirmar seu e-mail e acessar sua conta.
+						Cheque sua caixa de entrada e também a pasta de spam. O link de
+						verificação é válido por 1 hora. Clique no link para confirmar seu
+						e-mail e acessar sua conta.
 					</p>
 				</div>
 
@@ -170,7 +181,8 @@ function ResendVerificationForm() {
 					Reenviar Verificação de E-mail
 				</h2>
 				<p className="text-sm text-foreground">
-					Não recebeu o e-mail de verificação? Digite seu e-mail abaixo e enviaremos um novo link.
+					Não recebeu o e-mail de verificação? Digite seu e-mail abaixo e
+					enviaremos um novo link.
 				</p>
 			</div>
 
@@ -187,7 +199,9 @@ function ResendVerificationForm() {
 
 			{/* Informações importantes */}
 			<div className="bg-blue-50 border border-blue-200 p-4 rounded-lg">
-				<h4 className="text-sm font-bold text-blue-600 mb-2">📧 Sobre a Verificação:</h4>
+				<h4 className="text-sm font-bold text-blue-600 mb-2">
+					📧 Sobre a Verificação:
+				</h4>
 				<ul className="text-xs text-blue-700 space-y-1">
 					<li>• O link de verificação expira em 60 minutos</li>
 					<li>• Verifique também a pasta de spam</li>

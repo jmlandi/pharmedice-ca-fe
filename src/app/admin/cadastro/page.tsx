@@ -83,7 +83,10 @@ function AdminSignupForm() {
 		}
 	}, [isLoggedIn, isAdmin, router]);
 
-	const handleInputChange = (field: keyof AdminSignupFormData, value: string | boolean) => {
+	const handleInputChange = (
+		field: keyof AdminSignupFormData,
+		value: string | boolean
+	) => {
 		let formattedValue = value;
 
 		if (typeof value === 'string') {
@@ -101,7 +104,11 @@ function AdminSignupForm() {
 			};
 
 			// Auto-fill nickname with first word of first_name
-			if (field === 'first_name' && typeof formattedValue === 'string' && formattedValue.trim()) {
+			if (
+				field === 'first_name' &&
+				typeof formattedValue === 'string' &&
+				formattedValue.trim()
+			) {
 				const firstWord = formattedValue.trim().split(' ')[0];
 				updatedData.nickname = firstWord;
 			}
@@ -118,7 +125,12 @@ function AdminSignupForm() {
 		}
 
 		// Clear nickname error when first_name changes and auto-fills nickname
-		if (field === 'first_name' && typeof value === 'string' && value.trim() && errors.nickname) {
+		if (
+			field === 'first_name' &&
+			typeof value === 'string' &&
+			value.trim() &&
+			errors.nickname
+		) {
 			setErrors((prev) => ({
 				...prev,
 				nickname: undefined,
@@ -143,7 +155,8 @@ function AdminSignupForm() {
 		} else if (formData.first_name.length > 50) {
 			newErrors.first_name = 'O primeiro nome deve ter no máximo 50 caracteres';
 		} else if (!/^[A-Za-zÀ-ÿ\s]+$/.test(formData.first_name)) {
-			newErrors.first_name = 'O primeiro nome deve conter apenas letras e espaços';
+			newErrors.first_name =
+				'O primeiro nome deve conter apenas letras e espaços';
 		}
 
 		// Validação do segundo nome
@@ -154,7 +167,8 @@ function AdminSignupForm() {
 		} else if (formData.last_name.length > 50) {
 			newErrors.last_name = 'O segundo nome deve ter no máximo 50 caracteres';
 		} else if (!/^[A-Za-zÀ-ÿ\s]+$/.test(formData.last_name)) {
-			newErrors.last_name = 'O segundo nome deve conter apenas letras e espaços';
+			newErrors.last_name =
+				'O segundo nome deve conter apenas letras e espaços';
 		}
 
 		// Validação do apelido
@@ -165,14 +179,16 @@ function AdminSignupForm() {
 		} else if (formData.nickname.length > 30) {
 			newErrors.nickname = 'O apelido deve ter no máximo 30 caracteres';
 		} else if (!/^[A-Za-zÀ-ÿ0-9\s]+$/.test(formData.nickname)) {
-			newErrors.nickname = 'O apelido deve conter apenas letras, números e espaços';
+			newErrors.nickname =
+				'O apelido deve conter apenas letras, números e espaços';
 		}
 
 		// Validação do telefone
 		if (!formData.phone_number.trim()) {
 			newErrors.phone_number = 'O telefone é obrigatório';
 		} else if (!isValidPhone(formData.phone_number)) {
-			newErrors.phone_number = 'O telefone deve estar no formato (XX) XXXXX-XXXX ou (XX) XXXX-XXXX';
+			newErrors.phone_number =
+				'O telefone deve estar no formato (XX) XXXXX-XXXX ou (XX) XXXX-XXXX';
 		}
 
 		// Validação do email (admin específico)
@@ -191,15 +207,21 @@ function AdminSignupForm() {
 			newErrors.password = 'A senha deve ter pelo menos 8 caracteres';
 		} else if (formData.password.length > 50) {
 			newErrors.password = 'A senha deve ter no máximo 50 caracteres';
-		} else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/.test(formData.password)) {
-			newErrors.password = 'A senha deve conter pelo menos: 1 letra minúscula, 1 maiúscula, 1 número e 1 caractere especial (@$!%*?&)';
+		} else if (
+			!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/.test(
+				formData.password
+			)
+		) {
+			newErrors.password =
+				'A senha deve conter pelo menos: 1 letra minúscula, 1 maiúscula, 1 número e 1 caractere especial (@$!%*?&)';
 		}
 
 		// Validação da confirmação de senha
 		if (!formData.confirmPassword.trim()) {
 			newErrors.confirmPassword = 'A confirmação da senha é obrigatória';
 		} else if (formData.password !== formData.confirmPassword) {
-			newErrors.confirmPassword = 'A confirmação da senha deve ser igual à senha';
+			newErrors.confirmPassword =
+				'A confirmação da senha deve ser igual à senha';
 		}
 
 		// Validação do CPF/CNPJ
@@ -207,8 +229,12 @@ function AdminSignupForm() {
 			newErrors.document_number = 'O CPF ou CNPJ é obrigatório';
 		} else {
 			const cleanDoc = cleanString(formData.document_number);
-			if (!isValidCPF(formData.document_number) && !isValidCNPJ(formData.document_number)) {
-				newErrors.document_number = 'CPF deve ter 11 dígitos ou CNPJ deve ter 14 dígitos';
+			if (
+				!isValidCPF(formData.document_number) &&
+				!isValidCNPJ(formData.document_number)
+			) {
+				newErrors.document_number =
+					'CPF deve ter 11 dígitos ou CNPJ deve ter 14 dígitos';
 			}
 		}
 
@@ -219,7 +245,7 @@ function AdminSignupForm() {
 			const birthDate = new Date(formData.birth_date);
 			const today = new Date();
 			const minDate = new Date('1900-01-01');
-			
+
 			if (isNaN(birthDate.getTime())) {
 				newErrors.birth_date = 'A data de nascimento deve ser uma data válida';
 			} else if (birthDate >= today) {
@@ -235,7 +261,8 @@ function AdminSignupForm() {
 		}
 
 		if (!formData.accept_privacy_policy) {
-			newErrors.accept_privacy_policy = 'É obrigatório aceitar a política de privacidade';
+			newErrors.accept_privacy_policy =
+				'É obrigatório aceitar a política de privacidade';
 		}
 
 		setErrors(newErrors);
@@ -273,20 +300,22 @@ function AdminSignupForm() {
 			};
 
 			await registerAdmin(registerData);
-			showSuccess('Conta administrativa criada com sucesso! Você já está logado.');
+			showSuccess(
+				'Conta administrativa criada com sucesso! Você já está logado.'
+			);
 			router.push('/admin/painel');
 		} catch (error: any) {
 			console.error('Erro no cadastro do admin:', error);
-			
+
 			// Tratar erro 422 com erros específicos de validação
 			if (error?.response?.status === 422 && error?.response?.data?.erros) {
 				const serverErrors: AdminSignupFormErrors = {};
 				const apiErrors = error.response.data.erros;
-				
+
 				// Mapear erros da API para os campos do formulário
-				Object.keys(apiErrors).forEach(field => {
+				Object.keys(apiErrors).forEach((field) => {
 					let formField: keyof AdminSignupFormErrors;
-					
+
 					// Mapear campos da API para campos do formulário
 					switch (field) {
 						case 'primeiro_nome':
@@ -323,17 +352,21 @@ function AdminSignupForm() {
 						default:
 							formField = field as keyof AdminSignupFormErrors;
 					}
-					
+
 					// Usar a primeira mensagem de erro para o campo
 					if (apiErrors[field] && apiErrors[field].length > 0) {
 						serverErrors[formField] = apiErrors[field][0];
 					}
 				});
-				
+
 				setErrors(serverErrors);
 				showError('Por favor, corrija os erros nos campos destacados.');
 			} else {
-				const message = error?.response?.data?.mensagem || error?.response?.data?.message || error?.message || 'Erro ao criar conta administrativa. Tente novamente.';
+				const message =
+					error?.response?.data?.mensagem ||
+					error?.response?.data?.message ||
+					error?.message ||
+					'Erro ao criar conta administrativa. Tente novamente.';
 				showError(message);
 			}
 		} finally {
@@ -346,8 +379,18 @@ function AdminSignupForm() {
 		<div className="w-full max-w-lg mx-auto">
 			<div className="text-center mb-6">
 				<div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
-					<svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+					<svg
+						className="w-8 h-8 text-green-600"
+						fill="none"
+						stroke="currentColor"
+						viewBox="0 0 24 24"
+					>
+						<path
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							strokeWidth={2}
+							d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+						/>
 					</svg>
 				</div>
 				<h1 className="text-2xl font-bold text-gray-900 mb-2">
@@ -465,13 +508,20 @@ function AdminSignupForm() {
 
 				{/* Seção de Preferências de Comunicação */}
 				<div className="flex flex-col gap-3 mt-4">
-					<h3 className="text-sm font-medium text-gray-700">Preferências de Comunicação:</h3>
-					
+					<h3 className="text-sm font-medium text-gray-700">
+						Preferências de Comunicação:
+					</h3>
+
 					<label className="flex items-center gap-2 text-sm text-gray-600">
 						<input
 							type="checkbox"
 							checked={formData.accept_email_communications}
-							onChange={(e) => handleInputChange('accept_email_communications', e.target.checked)}
+							onChange={(e) =>
+								handleInputChange(
+									'accept_email_communications',
+									e.target.checked
+								)
+							}
 							className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
 						/>
 						Aceito receber comunicações por e-mail
@@ -481,7 +531,9 @@ function AdminSignupForm() {
 						<input
 							type="checkbox"
 							checked={formData.accept_sms_communications}
-							onChange={(e) => handleInputChange('accept_sms_communications', e.target.checked)}
+							onChange={(e) =>
+								handleInputChange('accept_sms_communications', e.target.checked)
+							}
 							className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
 						/>
 						Aceito receber comunicações por SMS
@@ -491,7 +543,12 @@ function AdminSignupForm() {
 						<input
 							type="checkbox"
 							checked={formData.accept_whatsapp_communications}
-							onChange={(e) => handleInputChange('accept_whatsapp_communications', e.target.checked)}
+							onChange={(e) =>
+								handleInputChange(
+									'accept_whatsapp_communications',
+									e.target.checked
+								)
+							}
 							className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
 						/>
 						Aceito receber comunicações por WhatsApp
@@ -500,58 +557,75 @@ function AdminSignupForm() {
 
 				{/* Seção de Termos Obrigatórios */}
 				<div className="flex flex-col gap-3 mt-4">
-					<h3 className="text-sm font-medium text-gray-700">Termos e Condições:</h3>
-					
+					<h3 className="text-sm font-medium text-gray-700">
+						Termos e Condições:
+					</h3>
+
 					<label className="flex items-start gap-2 text-sm text-gray-600">
 						<input
 							type="checkbox"
 							checked={formData.accept_terms_of_use}
-							onChange={(e) => handleInputChange('accept_terms_of_use', e.target.checked)}
+							onChange={(e) =>
+								handleInputChange('accept_terms_of_use', e.target.checked)
+							}
 							className="rounded border-gray-300 text-[#527BC6] focus:ring-[#527BC6] mt-0.5"
 						/>
 						<span>
 							Li e aceito os{' '}
-							<a href="/termos-uso" target="_blank" className="text-[#527BC6] underline hover:opacity-70">
+							<a
+								href="/termos-uso"
+								target="_blank"
+								className="text-[#527BC6] underline hover:opacity-70"
+							>
 								Termos de Uso
 							</a>{' '}
 							<span className="text-red-500">*</span>
 						</span>
 					</label>
 					{errors.accept_terms_of_use && (
-						<span className="text-red-500 text-xs">{errors.accept_terms_of_use}</span>
+						<span className="text-red-500 text-xs">
+							{errors.accept_terms_of_use}
+						</span>
 					)}
 
 					<label className="flex items-start gap-2 text-sm text-gray-600">
 						<input
 							type="checkbox"
 							checked={formData.accept_privacy_policy}
-							onChange={(e) => handleInputChange('accept_privacy_policy', e.target.checked)}
+							onChange={(e) =>
+								handleInputChange('accept_privacy_policy', e.target.checked)
+							}
 							className="rounded border-gray-300 text-[#527BC6] focus:ring-[#527BC6] mt-0.5"
 						/>
 						<span>
 							Li e aceito a{' '}
-							<a href="/politica-privacidade" target="_blank" className="text-[#527BC6] underline hover:opacity-70">
+							<a
+								href="/politica-privacidade"
+								target="_blank"
+								className="text-[#527BC6] underline hover:opacity-70"
+							>
 								Política de Privacidade
 							</a>{' '}
 							<span className="text-red-500">*</span>
 						</span>
 					</label>
 					{errors.accept_privacy_policy && (
-						<span className="text-red-500 text-xs">{errors.accept_privacy_policy}</span>
+						<span className="text-red-500 text-xs">
+							{errors.accept_privacy_policy}
+						</span>
 					)}
 				</div>
 
 				<div className="pt-4">
-					<SubmitButton
-						isLoading={isLoading}
-						className="w-full"
-					>
+					<SubmitButton isLoading={isLoading} className="w-full">
 						{isLoading ? 'Criando conta...' : 'Criar Conta Administrativa'}
 					</SubmitButton>
 				</div>
 
 				<div className="text-center">
-					<span className="text-gray-600">Já tem uma conta administrativa? </span>
+					<span className="text-gray-600">
+						Já tem uma conta administrativa?{' '}
+					</span>
 					<Link
 						href="/admin/entrar"
 						className="text-blue-600 hover:text-blue-500 font-medium transition-colors"
@@ -563,7 +637,7 @@ function AdminSignupForm() {
 
 			<div className="mt-6 p-4 bg-blue-50 rounded-lg">
 				<p className="text-sm text-blue-700">
-					<strong>Nota:</strong> Apenas colaboradores com e-mail corporativo 
+					<strong>Nota:</strong> Apenas colaboradores com e-mail corporativo
 					(@pharmedice.com.br) podem criar contas administrativas.
 				</p>
 			</div>

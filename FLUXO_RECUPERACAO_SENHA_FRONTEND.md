@@ -9,10 +9,12 @@ Implementação completa do fluxo de recuperação de senha no frontend, seguind
 ### 📁 Páginas Criadas/Atualizadas
 
 #### Cliente:
+
 - **`/cliente/esqueci-senha`** - Solicitação de recuperação (atualizada)
 - **`/cliente/redefinir-senha`** - Redefinição com token (nova)
 
 #### Administrador:
+
 - **`/admin/esqueci-senha`** - Solicitação de recuperação (atualizada)
 - **`/admin/redefinir-senha`** - Redefinição com token (nova)
 
@@ -46,12 +48,13 @@ validatePasswordStrength(password: string): {
 ```
 
 **Requisitos implementados:**
+
 - ✅ Mínimo de 8 caracteres
-- ✅ Máximo de 50 caracteres  
+- ✅ Máximo de 50 caracteres
 - ✅ Pelo menos 1 letra maiúscula (A-Z)
 - ✅ Pelo menos 1 letra minúscula (a-z)
 - ✅ Pelo menos 1 número (0-9)
-- ✅ Pelo menos 1 caractere especial (@$!%*?&)
+- ✅ Pelo menos 1 caractere especial (@$!%\*?&)
 
 ## 🚀 Fluxo Completo
 
@@ -69,6 +72,7 @@ validatePasswordStrength(password: string): {
 ### 2. Recebimento do E-mail
 
 O backend envia e-mail com link no formato:
+
 ```
 http://localhost:3000/cliente/redefinir-senha?token=abc123...&email=usuario@exemplo.com
 http://localhost:3000/admin/redefinir-senha?token=abc123...&email=admin@pharmedice.com.br
@@ -85,7 +89,7 @@ Usuário clica no link e é redirecionado para a página de redefinição:
 
 2. **Formulário de Redefinição:**
    - Campo "Nova Senha" com validação em tempo real
-   - Campo "Confirmar Nova Senha" 
+   - Campo "Confirmar Nova Senha"
    - Lista de requisitos de segurança
    - Validação local antes do envio
 
@@ -103,18 +107,21 @@ Usuário clica no link e é redirecionado para a página de redefinição:
 ## 🎨 Experiência do Usuário
 
 ### Estados Visuais
+
 - ⏳ **Loading states** durante requisições
 - ✅ **Success states** com ícones e cores
 - ❌ **Error states** com mensagens específicas
 - 📱 **Responsive design** para mobile/desktop
 
 ### Mensagens do Sistema
+
 - **Genérica de segurança:** "Se o email existir, você receberá um link"
 - **Erro de token:** "Token inválido ou expirado"
 - **Validação:** Mensagens específicas por campo
 - **Sucesso:** "Senha redefinida com sucesso!"
 
 ### Diferenciação Admin/Cliente
+
 - **Cores:** Mantém a identidade visual consistente
 - **Validação:** Admin tem validação extra de domínio
 - **Texto:** Linguagem específica para administradores
@@ -123,6 +130,7 @@ Usuário clica no link e é redirecionado para a página de redefinição:
 ## 🔒 Segurança Implementada
 
 ### Frontend
+
 1. **Validação de Entrada:**
    - Sanitização de e-mail
    - Validação de senha forte
@@ -139,6 +147,7 @@ Usuário clica no link e é redirecionado para a página de redefinição:
    - Log de erros para debug
 
 ### Integração com Backend
+
 - ✅ Endpoints corretos (`/api/auth/solicitar-recuperacao-senha`, `/api/auth/redefinir-senha`)
 - ✅ Headers adequados (Content-Type, Authorization quando necessário)
 - ✅ Tratamento de códigos HTTP (200, 422, 404, 500)
@@ -154,6 +163,7 @@ Usuário clica no link e é redirecionado para a página de redefinição:
 ## 🧪 Como Testar
 
 ### 1. Fluxo Cliente
+
 ```bash
 # Acesse a página
 http://localhost:3000/cliente/esqueci-senha
@@ -166,7 +176,8 @@ http://localhost:3000/cliente/esqueci-senha
 ```
 
 ### 2. Fluxo Admin
-```bash  
+
+```bash
 # Acesse a página
 http://localhost:3000/admin/esqueci-senha
 
@@ -175,6 +186,7 @@ http://localhost:3000/admin/esqueci-senha
 ```
 
 ### 3. Cenários de Erro
+
 - Link expirado (60 minutos)
 - Token inválido
 - E-mail não encontrado
@@ -185,12 +197,14 @@ http://localhost:3000/admin/esqueci-senha
 ## 📚 Dependências
 
 ### Bibliotecas utilizadas:
+
 - **Next.js 15** - Framework React
 - **React 19** - Interface do usuário
 - **Axios** - Cliente HTTP
 - **TypeScript** - Tipagem estática
 
 ### Componentes internos:
+
 - `AuthLayout` - Layout padrão de autenticação
 - `FormField` - Campo de formulário padronizado
 - `SubmitButton` - Botão com estado de loading
@@ -200,6 +214,7 @@ http://localhost:3000/admin/esqueci-senha
 ## 🚀 Deploy e Configuração
 
 ### Variáveis de Ambiente
+
 ```env
 # No backend (.env)
 FRONTEND_URL=http://localhost:3000
@@ -207,6 +222,7 @@ FRONTEND_URL=http://localhost:3000
 ```
 
 ### URLs de Produção Sugeridas
+
 ```
 Cliente: https://cliente.pharmedice.com.br/cliente/redefinir-senha
 Admin: https://admin.pharmedice.com.br/admin/redefinir-senha

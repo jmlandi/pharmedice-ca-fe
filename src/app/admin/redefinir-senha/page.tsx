@@ -21,7 +21,7 @@ function AdminResetPasswordForm() {
 	const searchParams = useSearchParams();
 	const { showError, showSuccess } = useAlert();
 	const { startLoading, stopLoading } = useLoading();
-	
+
 	const [formData, setFormData] = useState<AdminResetPasswordFormData>({
 		senha: '',
 		confirmacao_senha: '',
@@ -42,20 +42,24 @@ function AdminResetPasswordForm() {
 		// Captura os parâmetros da URL
 		const tokenParam = searchParams.get('token');
 		const emailParam = searchParams.get('email');
-		
+
 		if (!tokenParam || !emailParam) {
-			showError('Link inválido. Solicite um novo link de recuperação de senha.');
+			showError(
+				'Link inválido. Solicite um novo link de recuperação de senha.'
+			);
 			router.push('/admin/esqueci-senha');
 			return;
 		}
 
 		// Verifica se é um e-mail de admin válido
 		if (!isValidAdminEmail(emailParam)) {
-			showError('Este link é válido apenas para administradores (@pharmedice.com.br ou @marcoslandi.com).');
+			showError(
+				'Este link é válido apenas para administradores (@pharmedice.com.br ou @marcoslandi.com).'
+			);
 			router.push('/admin/esqueci-senha');
 			return;
 		}
-		
+
 		setToken(tokenParam);
 		setEmail(emailParam);
 	}, [searchParams, router, showError]);
@@ -122,11 +126,13 @@ function AdminResetPasswordForm() {
 				setIsSuccess(true);
 				showSuccess(response.mensagem);
 			} else {
-				showError(response.mensagem || 'Erro ao redefinir senha. Tente novamente.');
+				showError(
+					response.mensagem || 'Erro ao redefinir senha. Tente novamente.'
+				);
 			}
 		} catch (error: any) {
 			console.error('Erro ao redefinir senha:', error);
-			
+
 			if (error.response?.status === 422) {
 				// Erros de validação
 				const validationErrors = error.response.data.erros;
@@ -136,17 +142,24 @@ function AdminResetPasswordForm() {
 						newErrors.senha = validationErrors.senha.join(', ');
 					}
 					if (validationErrors.confirmacao_senha) {
-						newErrors.confirmacao_senha = validationErrors.confirmacao_senha.join(', ');
+						newErrors.confirmacao_senha =
+							validationErrors.confirmacao_senha.join(', ');
 					}
 					if (validationErrors.token) {
-						showError('Token inválido ou expirado. Solicite um novo link de recuperação.');
+						showError(
+							'Token inválido ou expirado. Solicite um novo link de recuperação.'
+						);
 					}
 					setErrors(newErrors);
 				}
 			} else if (error.response?.status === 404) {
-				showError('Administrador não encontrado. Verifique o e-mail e tente novamente.');
+				showError(
+					'Administrador não encontrado. Verifique o e-mail e tente novamente.'
+				);
 			} else {
-				const errorMessage = error.response?.data?.mensagem || 'Erro ao redefinir senha. Tente novamente.';
+				const errorMessage =
+					error.response?.data?.mensagem ||
+					'Erro ao redefinir senha. Tente novamente.';
 				showError(errorMessage);
 			}
 		} finally {
@@ -175,9 +188,12 @@ function AdminResetPasswordForm() {
 							/>
 						</svg>
 					</div>
-					<h2 className="text-xl font-bold text-[#527BC6]">Senha Redefinida!</h2>
+					<h2 className="text-xl font-bold text-[#527BC6]">
+						Senha Redefinida!
+					</h2>
 					<p className="text-sm text-foreground">
-						Sua senha de administrador foi redefinida com sucesso! Agora você pode fazer login com sua nova senha.
+						Sua senha de administrador foi redefinida com sucesso! Agora você
+						pode fazer login com sua nova senha.
 					</p>
 				</div>
 
@@ -202,12 +218,11 @@ function AdminResetPasswordForm() {
 					Redefinir Senha Administrativa
 				</h2>
 				<p className="text-sm text-foreground">
-					Digite sua nova senha de administrador abaixo. Certifique-se de que seja segura e cumpra todos os requisitos.
+					Digite sua nova senha de administrador abaixo. Certifique-se de que
+					seja segura e cumpra todos os requisitos.
 				</p>
 				{email && (
-					<p className="text-xs text-[#527BC6] font-semibold">
-						Admin: {email}
-					</p>
+					<p className="text-xs text-[#527BC6] font-semibold">Admin: {email}</p>
 				)}
 			</div>
 
@@ -235,7 +250,9 @@ function AdminResetPasswordForm() {
 
 			{/* Requisitos de Senha */}
 			<div className="bg-red-50 border border-red-200 p-4 rounded-lg">
-				<h4 className="text-sm font-bold text-red-600 mb-2">⚠️ Requisitos de Segurança para Administradores:</h4>
+				<h4 className="text-sm font-bold text-red-600 mb-2">
+					⚠️ Requisitos de Segurança para Administradores:
+				</h4>
 				<ul className="text-xs text-red-700 space-y-1">
 					<li>• Mínimo de 8 caracteres</li>
 					<li>• Máximo de 50 caracteres</li>
@@ -267,7 +284,10 @@ export default function AdminResetPasswordPage() {
 			</p>
 			<p className="text-sm text-[#527BC6]">
 				Problemas de acesso?{' '}
-				<Link href="/admin/esqueci-senha" className="underline hover:opacity-70">
+				<Link
+					href="/admin/esqueci-senha"
+					className="underline hover:opacity-70"
+				>
 					Solicitar novo link
 				</Link>
 			</p>

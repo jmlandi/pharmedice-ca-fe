@@ -10,14 +10,19 @@ import { useLoading } from '@/components/LoadingProvider';
 import { verificarEmail, reenviarVerificacaoEmail } from '@/lib/api';
 import { isValidEmail } from '@/lib/utils';
 
-type VerificationStatus = 'loading' | 'success' | 'error' | 'invalid-link' | 'already-verified';
+type VerificationStatus =
+	| 'loading'
+	| 'success'
+	| 'error'
+	| 'invalid-link'
+	| 'already-verified';
 
 function AdminEmailVerificationContent() {
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	const { showError, showSuccess } = useAlert();
 	const { startLoading, stopLoading } = useLoading();
-	
+
 	const [status, setStatus] = useState<VerificationStatus>('loading');
 	const [message, setMessage] = useState('');
 	const [email, setEmail] = useState('');
@@ -44,12 +49,19 @@ function AdminEmailVerificationContent() {
 				return;
 			}
 
-			console.log('Iniciando verificação administrativa com parâmetros:', { id, hash, expires, signature });
+			console.log('Iniciando verificação administrativa com parâmetros:', {
+				id,
+				hash,
+				expires,
+				signature,
+			});
 
 			// Verifica se todos os parâmetros estão presentes
 			if (!id || !hash || !expires || !signature) {
 				setStatus('invalid-link');
-				setMessage('Link de verificação inválido. Parâmetros obrigatórios não encontrados.');
+				setMessage(
+					'Link de verificação inválido. Parâmetros obrigatórios não encontrados.'
+				);
 				setHasVerified(true);
 				return;
 			}
@@ -68,11 +80,13 @@ function AdminEmailVerificationContent() {
 
 				if (response.sucesso) {
 					const userEmail = response.dados?.usuario?.email || '';
-					
+
 					// Verifica se é um e-mail de administrador válido
 					if (userEmail && !isValidAdminEmail(userEmail)) {
 						setStatus('error');
-						setMessage('Este link é válido apenas para administradores (@pharmedice.com.br ou @marcoslandi.com).');
+						setMessage(
+							'Este link é válido apenas para administradores (@pharmedice.com.br ou @marcoslandi.com).'
+						);
 						showError('Acesso restrito a administradores.');
 						return;
 					}
@@ -81,7 +95,7 @@ function AdminEmailVerificationContent() {
 					setMessage(response.mensagem);
 					setEmail(userEmail);
 					showSuccess(response.mensagem);
-					
+
 					// Redireciona para o painel administrativo após 3 segundos
 					setTimeout(() => {
 						router.push('/admin/painel');
@@ -95,11 +109,11 @@ function AdminEmailVerificationContent() {
 				console.error('Response completa:', error.response);
 				console.error('Status:', error.response?.status);
 				console.error('Data:', error.response?.data);
-				
+
 				if (error.response?.status === 422) {
 					const errorData = error.response.data;
 					console.log('Erro 422 recebido:', errorData);
-					
+
 					if (errorData.codigo === 'LINK_INVALIDO') {
 						setStatus('invalid-link');
 						setMessage('Este link de verificação é inválido ou expirou.');
@@ -139,7 +153,7 @@ function AdminEmailVerificationContent() {
 
 		try {
 			const response = await reenviarVerificacaoEmail({ email });
-			
+
 			if (response.sucesso) {
 				showSuccess('E-mail de verificação reenviado com sucesso!');
 			} else {
@@ -147,7 +161,9 @@ function AdminEmailVerificationContent() {
 			}
 		} catch (error: any) {
 			console.error('Erro ao reenviar e-mail:', error);
-			const errorMessage = error.response?.data?.mensagem || 'Erro ao reenviar e-mail. Tente novamente.';
+			const errorMessage =
+				error.response?.data?.mensagem ||
+				'Erro ao reenviar e-mail. Tente novamente.';
 			showError(errorMessage);
 		} finally {
 			setIsResending(false);
@@ -175,7 +191,9 @@ function AdminEmailVerificationContent() {
 							/>
 						</svg>
 					</div>
-					<h2 className="text-xl font-bold text-[#527BC6]">Verificando E-mail Administrativo...</h2>
+					<h2 className="text-xl font-bold text-[#527BC6]">
+						Verificando E-mail Administrativo...
+					</h2>
 					<p className="text-sm text-foreground">
 						Aguarde enquanto verificamos suas credenciais de administrador.
 					</p>
@@ -204,7 +222,9 @@ function AdminEmailVerificationContent() {
 							/>
 						</svg>
 					</div>
-					<h2 className="text-xl font-bold text-green-600">Verificação Administrativa Concluída!</h2>
+					<h2 className="text-xl font-bold text-green-600">
+						Verificação Administrativa Concluída!
+					</h2>
 					<p className="text-sm text-foreground">{message}</p>
 					{email && (
 						<p className="text-xs text-[#527BC6] font-semibold">
@@ -246,10 +266,13 @@ function AdminEmailVerificationContent() {
 							/>
 						</svg>
 					</div>
-					<h2 className="text-xl font-bold text-green-600">E-mail Administrativo Já Verificado</h2>
+					<h2 className="text-xl font-bold text-green-600">
+						E-mail Administrativo Já Verificado
+					</h2>
 					<p className="text-sm text-foreground">{message}</p>
 					<p className="text-xs text-gray-500">
-						Suas credenciais administrativas já foram confirmadas. Você pode fazer login normalmente.
+						Suas credenciais administrativas já foram confirmadas. Você pode
+						fazer login normalmente.
 					</p>
 				</div>
 
@@ -282,14 +305,17 @@ function AdminEmailVerificationContent() {
 						/>
 					</svg>
 				</div>
-				<h2 className="text-xl font-bold text-red-600">Erro na Verificação Administrativa</h2>
+				<h2 className="text-xl font-bold text-red-600">
+					Erro na Verificação Administrativa
+				</h2>
 				<p className="text-sm text-foreground">{message}</p>
-				
+
 				{status === 'invalid-link' && (
 					<div className="bg-red-50 border border-red-200 p-4 rounded-lg">
 						<p className="text-xs text-red-700">
-							⚠️ Links de verificação administrativos expiram em 60 minutos por segurança máxima.
-							Para administradores, recomendamos solicitar um novo link imediatamente.
+							⚠️ Links de verificação administrativos expiram em 60 minutos por
+							segurança máxima. Para administradores, recomendamos solicitar um
+							novo link imediatamente.
 						</p>
 					</div>
 				)}
@@ -302,7 +328,9 @@ function AdminEmailVerificationContent() {
 						variant="secondary"
 						onClick={handleResendEmail}
 					>
-						{isResending ? 'Reenviando...' : 'Reenviar Verificação Administrativa'}
+						{isResending
+							? 'Reenviando...'
+							: 'Reenviar Verificação Administrativa'}
 					</SubmitButton>
 				)}
 
@@ -328,7 +356,10 @@ export default function AdminVerificarEmailPage() {
 			</p>
 			<p className="text-sm text-[#527BC6]">
 				Não recebeu o e-mail?{' '}
-				<Link href="/admin/esqueci-senha" className="underline hover:opacity-70">
+				<Link
+					href="/admin/esqueci-senha"
+					className="underline hover:opacity-70"
+				>
 					Solicitar suporte
 				</Link>
 			</p>

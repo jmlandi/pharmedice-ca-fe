@@ -9,14 +9,19 @@ import { useAlert } from '@/components/AlertProvider';
 import { useLoading } from '@/components/LoadingProvider';
 import { verificarEmail, reenviarVerificacaoEmail } from '@/lib/api';
 
-type VerificationStatus = 'loading' | 'success' | 'error' | 'invalid-link' | 'already-verified';
+type VerificationStatus =
+	| 'loading'
+	| 'success'
+	| 'error'
+	| 'invalid-link'
+	| 'already-verified';
 
 function EmailVerificationContent() {
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	const { showError, showSuccess } = useAlert();
 	const { startLoading, stopLoading } = useLoading();
-	
+
 	const [status, setStatus] = useState<VerificationStatus>('loading');
 	const [message, setMessage] = useState('');
 	const [email, setEmail] = useState('');
@@ -37,13 +42,25 @@ function EmailVerificationContent() {
 				return;
 			}
 
-			console.log('Iniciando verificação de email com parâmetros:', { id, hash, expires, signature });
+			console.log('Iniciando verificação de email com parâmetros:', {
+				id,
+				hash,
+				expires,
+				signature,
+			});
 
 			// Verifica se todos os parâmetros estão presentes
 			if (!id || !hash || !expires || !signature) {
-				console.log('Parâmetros faltando:', { id: !!id, hash: !!hash, expires: !!expires, signature: !!signature });
+				console.log('Parâmetros faltando:', {
+					id: !!id,
+					hash: !!hash,
+					expires: !!expires,
+					signature: !!signature,
+				});
 				setStatus('invalid-link');
-				setMessage('Link de verificação inválido. Parâmetros obrigatórios não encontrados.');
+				setMessage(
+					'Link de verificação inválido. Parâmetros obrigatórios não encontrados.'
+				);
 				setHasVerified(true);
 				return;
 			}
@@ -51,8 +68,12 @@ function EmailVerificationContent() {
 			// Verificar se o link expirou (adicional check no frontend)
 			const currentTime = Math.floor(Date.now() / 1000);
 			const expiresTime = parseInt(expires);
-			console.log('Verificação de tempo:', { currentTime, expiresTime, expired: currentTime > expiresTime });
-			
+			console.log('Verificação de tempo:', {
+				currentTime,
+				expiresTime,
+				expired: currentTime > expiresTime,
+			});
+
 			if (currentTime > expiresTime) {
 				console.log('Link expirado no frontend');
 				setStatus('invalid-link');
@@ -78,7 +99,7 @@ function EmailVerificationContent() {
 					setMessage(response.mensagem);
 					setEmail(response.dados?.usuario?.email || '');
 					showSuccess(response.mensagem);
-					
+
 					// Redireciona para o painel do cliente após 3 segundos
 					setTimeout(() => {
 						router.push('/cliente/painel');
@@ -92,11 +113,11 @@ function EmailVerificationContent() {
 				console.error('Response completa:', error.response);
 				console.error('Status:', error.response?.status);
 				console.error('Data:', error.response?.data);
-				
+
 				if (error.response?.status === 422) {
 					const errorData = error.response.data;
 					console.log('Erro 422 recebido:', errorData);
-					
+
 					if (errorData.codigo === 'LINK_INVALIDO') {
 						setStatus('invalid-link');
 						setMessage('Este link de verificação é inválido ou expirou.');
@@ -131,7 +152,7 @@ function EmailVerificationContent() {
 
 		try {
 			const response = await reenviarVerificacaoEmail({ email });
-			
+
 			if (response.sucesso) {
 				showSuccess('E-mail de verificação reenviado com sucesso!');
 			} else {
@@ -139,7 +160,9 @@ function EmailVerificationContent() {
 			}
 		} catch (error: any) {
 			console.error('Erro ao reenviar e-mail:', error);
-			const errorMessage = error.response?.data?.mensagem || 'Erro ao reenviar e-mail. Tente novamente.';
+			const errorMessage =
+				error.response?.data?.mensagem ||
+				'Erro ao reenviar e-mail. Tente novamente.';
 			showError(errorMessage);
 		} finally {
 			setIsResending(false);
@@ -167,7 +190,9 @@ function EmailVerificationContent() {
 							/>
 						</svg>
 					</div>
-					<h2 className="text-xl font-bold text-[#527BC6]">Verificando E-mail...</h2>
+					<h2 className="text-xl font-bold text-[#527BC6]">
+						Verificando E-mail...
+					</h2>
 					<p className="text-sm text-foreground">
 						Aguarde enquanto verificamos seu e-mail automaticamente.
 					</p>
@@ -196,12 +221,12 @@ function EmailVerificationContent() {
 							/>
 						</svg>
 					</div>
-					<h2 className="text-xl font-bold text-green-600">E-mail Verificado!</h2>
+					<h2 className="text-xl font-bold text-green-600">
+						E-mail Verificado!
+					</h2>
 					<p className="text-sm text-foreground">{message}</p>
 					{email && (
-						<p className="text-xs text-[#527BC6] font-semibold">
-							✅ {email}
-						</p>
+						<p className="text-xs text-[#527BC6] font-semibold">✅ {email}</p>
 					)}
 					<p className="text-xs text-gray-500">
 						Redirecionando para seu painel em alguns segundos...
@@ -238,10 +263,13 @@ function EmailVerificationContent() {
 							/>
 						</svg>
 					</div>
-					<h2 className="text-xl font-bold text-green-600">E-mail Já Verificado</h2>
+					<h2 className="text-xl font-bold text-green-600">
+						E-mail Já Verificado
+					</h2>
 					<p className="text-sm text-foreground">{message}</p>
 					<p className="text-xs text-gray-500">
-						Seu e-mail já foi confirmado anteriormente. Você pode fazer login normalmente.
+						Seu e-mail já foi confirmado anteriormente. Você pode fazer login
+						normalmente.
 					</p>
 				</div>
 
@@ -276,7 +304,7 @@ function EmailVerificationContent() {
 				</div>
 				<h2 className="text-xl font-bold text-red-600">Erro na Verificação</h2>
 				<p className="text-sm text-foreground">{message}</p>
-				
+
 				{status === 'invalid-link' && (
 					<div className="bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
 						<p className="text-xs text-yellow-700">
@@ -320,7 +348,10 @@ export default function ClienteVerificarEmailPage() {
 			</p>
 			<p className="text-sm text-[#527BC6]">
 				Não recebeu o e-mail?{' '}
-				<Link href="/cliente/reenviar-verificacao" className="underline hover:opacity-70">
+				<Link
+					href="/cliente/reenviar-verificacao"
+					className="underline hover:opacity-70"
+				>
 					Reenviar verificação
 				</Link>
 			</p>

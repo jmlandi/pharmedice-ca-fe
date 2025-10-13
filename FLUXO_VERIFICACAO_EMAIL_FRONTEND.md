@@ -9,13 +9,16 @@ Implementação completa do fluxo de verificação de e-mail no frontend, seguin
 ### 📁 Páginas Criadas/Atualizadas
 
 #### Cliente:
+
 - **`/cliente/verificar-email`** - Verificação automática via URL (nova)
 - **`/cliente/reenviar-verificacao`** - Reenvio público de verificação (nova)
 
 #### Administrador:
+
 - **`/admin/verificar-email`** - Verificação administrativa via URL (nova)
 
 #### Componente Global:
+
 - **`EmailVerificationScreen`** - Tela para usuários logados não verificados (atualizado)
 
 ### 🔧 Funções de API (lib/api.ts)
@@ -46,6 +49,7 @@ reenviarVerificacaoEmailAutenticado(): Promise<ApiResponse>
 **Automático:** Backend envia e-mail após registro bem-sucedido
 
 **E-mail contém link no formato:**
+
 ```
 Cliente: http://localhost:3000/cliente/verificar-email?id=01HXX&hash=abc&expires=123&signature=xyz
 Admin: http://localhost:3000/admin/verificar-email?id=01HXX&hash=abc&expires=123&signature=xyz
@@ -59,7 +63,7 @@ Admin: http://localhost:3000/admin/verificar-email?id=01HXX&hash=abc&expires=123
 1. **Captura Automática de Parâmetros:**
    - `id`: ID do usuário
    - `hash`: Hash de verificação
-   - `expires`: Timestamp de expiração  
+   - `expires`: Timestamp de expiração
    - `signature`: Assinatura criptográfica
 
 2. **Validação Inicial:**
@@ -75,27 +79,32 @@ Admin: http://localhost:3000/admin/verificar-email?id=01HXX&hash=abc&expires=123
 ### 3. Estados de Resposta
 
 #### ✅ **Sucesso**
+
 - **Visual:** Ícone verde de check + mensagem positiva
 - **Ação:** Redireciona automaticamente para painel após 3s
 - **Botão:** Link direto para o painel correspondente
 
 #### ❌ **Link Inválido/Expirado**
+
 - **Visual:** Ícone vermelho de alerta + explicação
 - **Info:** Destaque sobre expiração de 60 minutos
 - **Ações:** Botão para reenviar + voltar ao login
 
 #### ✅ **Já Verificado**
+
 - **Visual:** Ícone verde de shield + confirmação
 - **Mensagem:** "E-mail já foi verificado anteriormente"
 - **Ação:** Botão para ir ao login
 
 #### ⚠️ **Erro Geral**
+
 - **Visual:** Ícone vermelho + mensagem de erro específica
 - **Ações:** Botões contextuais baseados no tipo de erro
 
 ### 4. Fluxos Alternativos
 
 #### 🔄 **Reenvio para Usuários Não Logados**
+
 **Rota:** `/cliente/reenviar-verificacao`
 
 1. Usuário digita e-mail
@@ -104,6 +113,7 @@ Admin: http://localhost:3000/admin/verificar-email?id=01HXX&hash=abc&expires=123
 4. Mostra confirmação + opção de reenvio adicional
 
 #### 🔄 **Reenvio para Usuários Logados**
+
 **Componente:** `EmailVerificationScreen`
 
 1. Tela automática para users não verificados
@@ -116,12 +126,14 @@ Admin: http://localhost:3000/admin/verificar-email?id=01HXX&hash=abc&expires=123
 ### Estados Visuais por Tipo
 
 #### 👤 **Cliente**
+
 - **Cores:** Azul padrão (#527BC6)
 - **Ícones:** E-mail padrão, check verde
 - **Redirecionamento:** `/cliente/painel`
 - **Linguagem:** Friendly e acessível
 
 #### 🛡️ **Administrador**
+
 - **Cores:** Azul com destaques de segurança
 - **Ícones:** Shield (escudo) para verificação
 - **Redirecionamento:** `/admin/painel`
@@ -130,16 +142,19 @@ Admin: http://localhost:3000/admin/verificar-email?id=01HXX&hash=abc&expires=123
 - **Alertas:** Vermelhos para maior urgência
 
 ### Loading States
+
 - **Animação:** Pulso suave nos ícones
 - **Texto:** "Verificando..." / "Verificando credenciais administrativas..."
 - **Feedback:** Progresso visual claro
 
 ### Success States
+
 - **Animação:** Ícones de check com transição
 - **Auto-redirect:** 3 segundos com countdown visual
 - **Botão manual:** Acesso imediato ao painel
 
 ### Error Handling
+
 - **Específico:** Mensagens diferentes por tipo de erro
 - **Educativo:** Explicações sobre expiração e segurança
 - **Actionable:** Sempre oferece próximos passos
@@ -147,6 +162,7 @@ Admin: http://localhost:3000/admin/verificar-email?id=01HXX&hash=abc&expires=123
 ## 🔒 Segurança Implementada
 
 ### Frontend
+
 1. **Validação de Parâmetros:**
    - Verificação de presença de todos os parâmetros obrigatórios
    - Validação de formato de e-mail
@@ -163,6 +179,7 @@ Admin: http://localhost:3000/admin/verificar-email?id=01HXX&hash=abc&expires=123
    - Tratamento seguro de erros da API
 
 ### Integração com Backend
+
 - ✅ Endpoints corretos (`/api/auth/verificar-email`, `/api/auth/reenviar-verificacao-email-publico`)
 - ✅ Parâmetros assinados criptograficamente
 - ✅ Tratamento de códigos HTTP específicos (200, 422)
@@ -178,6 +195,7 @@ Admin: http://localhost:3000/admin/verificar-email?id=01HXX&hash=abc&expires=123
 ## 🧪 Como Testar
 
 ### 1. Fluxo Completo Cliente
+
 ```bash
 # Registrar novo usuário
 POST /api/auth/registrar-usuario
@@ -189,6 +207,7 @@ POST /api/auth/registrar-usuario
 ```
 
 ### 2. Fluxo Completo Admin
+
 ```bash
 # Registrar admin com @pharmedice.com.br
 # Seguir mesmo processo
@@ -197,6 +216,7 @@ POST /api/auth/registrar-usuario
 ```
 
 ### 3. Cenários de Teste
+
 - ✅ **Link válido:** Verificação bem-sucedida
 - ❌ **Link expirado:** Erro + opção de reenvio
 - ❌ **Link malformado:** Erro de parâmetros inválidos
@@ -206,6 +226,7 @@ POST /api/auth/registrar-usuario
 - 🔄 **Reenvio autenticado:** Tela para usuários logados
 
 ### 4. Testes de UX
+
 - **Loading states:** Verificar animações
 - **Auto-redirect:** Confirmar redirecionamento automático
 - **Responsive:** Testar em diferentes tamanhos de tela
@@ -215,6 +236,7 @@ POST /api/auth/registrar-usuario
 ## 📚 Dependências
 
 ### Bibliotecas utilizadas:
+
 - **Next.js 15** - Framework React com roteamento
 - **React 19** - Hooks e gerenciamento de estado
 - **Axios** - Cliente HTTP para APIs
@@ -222,8 +244,9 @@ POST /api/auth/registrar-usuario
 - **Tailwind CSS** - Estilização responsiva
 
 ### Componentes internos:
+
 - `AuthLayout` - Layout padrão de autenticação
-- `FormField` - Campos de formulário padronizados  
+- `FormField` - Campos de formulário padronizados
 - `SubmitButton` - Botão com estados de loading
 - `AlertProvider` - Sistema de notificações toast
 - `LoadingProvider` - Estado global de loading
@@ -231,6 +254,7 @@ POST /api/auth/registrar-usuario
 ## 🌐 URLs e Roteamento
 
 ### URLs de Desenvolvimento
+
 ```
 Cliente - Verificar: http://localhost:3000/cliente/verificar-email
 Cliente - Reenviar: http://localhost:3000/cliente/reenviar-verificacao
@@ -238,6 +262,7 @@ Admin - Verificar: http://localhost:3000/admin/verificar-email
 ```
 
 ### URLs de Produção Sugeridas
+
 ```
 Cliente - Verificar: https://cliente.pharmedice.com.br/cliente/verificar-email
 Cliente - Reenviar: https://cliente.pharmedice.com.br/cliente/reenviar-verificacao
@@ -266,13 +291,15 @@ Admin - Verificar: https://admin.pharmedice.com.br/admin/verificar-email
 ## � Correções Implementadas
 
 ### Problema de Múltiplas Requisições
+
 **Sintoma:** Página ficava "travada" fazendo várias requisições para o backend na mesma URL.
 
 **Causa:** `useEffect` com muitas dependências executando múltiplas vezes.
 
 **Solução:**
+
 1. **Flag de controle:** `hasVerified` para evitar re-execuções
-2. **useEffect vazio:** Array de dependências vazio `[]` 
+2. **useEffect vazio:** Array de dependências vazio `[]`
 3. **Captura única:** Parâmetros da URL capturados fora do useEffect
 4. **Logs de debug:** Console logs para troubleshooting
 
@@ -285,12 +312,12 @@ const hash = searchParams.get('hash');
 // ...
 
 useEffect(() => {
-  const verify = async () => {
-    if (hasVerified) return; // Evita re-execução
-    setHasVerified(true); // Marca como executado
-    // ... fazer verificação
-  };
-  verify();
+	const verify = async () => {
+		if (hasVerified) return; // Evita re-execução
+		setHasVerified(true); // Marca como executado
+		// ... fazer verificação
+	};
+	verify();
 }, []); // Array vazio - executa apenas uma vez
 ```
 

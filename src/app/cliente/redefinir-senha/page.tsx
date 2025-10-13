@@ -21,7 +21,7 @@ function ResetPasswordForm() {
 	const searchParams = useSearchParams();
 	const { showError, showSuccess } = useAlert();
 	const { startLoading, stopLoading } = useLoading();
-	
+
 	const [formData, setFormData] = useState<ResetPasswordFormData>({
 		senha: '',
 		confirmacao_senha: '',
@@ -36,13 +36,15 @@ function ResetPasswordForm() {
 		// Captura os parâmetros da URL
 		const tokenParam = searchParams.get('token');
 		const emailParam = searchParams.get('email');
-		
+
 		if (!tokenParam || !emailParam) {
-			showError('Link inválido. Solicite um novo link de recuperação de senha.');
+			showError(
+				'Link inválido. Solicite um novo link de recuperação de senha.'
+			);
 			router.push('/cliente/esqueci-senha');
 			return;
 		}
-		
+
 		setToken(tokenParam);
 		setEmail(emailParam);
 	}, [searchParams, router, showError]);
@@ -109,11 +111,13 @@ function ResetPasswordForm() {
 				setIsSuccess(true);
 				showSuccess(response.mensagem);
 			} else {
-				showError(response.mensagem || 'Erro ao redefinir senha. Tente novamente.');
+				showError(
+					response.mensagem || 'Erro ao redefinir senha. Tente novamente.'
+				);
 			}
 		} catch (error: any) {
 			console.error('Erro ao redefinir senha:', error);
-			
+
 			if (error.response?.status === 422) {
 				// Erros de validação
 				const validationErrors = error.response.data.erros;
@@ -123,17 +127,24 @@ function ResetPasswordForm() {
 						newErrors.senha = validationErrors.senha.join(', ');
 					}
 					if (validationErrors.confirmacao_senha) {
-						newErrors.confirmacao_senha = validationErrors.confirmacao_senha.join(', ');
+						newErrors.confirmacao_senha =
+							validationErrors.confirmacao_senha.join(', ');
 					}
 					if (validationErrors.token) {
-						showError('Token inválido ou expirado. Solicite um novo link de recuperação.');
+						showError(
+							'Token inválido ou expirado. Solicite um novo link de recuperação.'
+						);
 					}
 					setErrors(newErrors);
 				}
 			} else if (error.response?.status === 404) {
-				showError('Usuário não encontrado. Verifique o e-mail e tente novamente.');
+				showError(
+					'Usuário não encontrado. Verifique o e-mail e tente novamente.'
+				);
 			} else {
-				const errorMessage = error.response?.data?.mensagem || 'Erro ao redefinir senha. Tente novamente.';
+				const errorMessage =
+					error.response?.data?.mensagem ||
+					'Erro ao redefinir senha. Tente novamente.';
 				showError(errorMessage);
 			}
 		} finally {
@@ -162,9 +173,12 @@ function ResetPasswordForm() {
 							/>
 						</svg>
 					</div>
-					<h2 className="text-xl font-bold text-[#527BC6]">Senha Redefinida!</h2>
+					<h2 className="text-xl font-bold text-[#527BC6]">
+						Senha Redefinida!
+					</h2>
 					<p className="text-sm text-foreground">
-						Sua senha foi redefinida com sucesso! Agora você pode fazer login com sua nova senha.
+						Sua senha foi redefinida com sucesso! Agora você pode fazer login
+						com sua nova senha.
 					</p>
 				</div>
 
@@ -185,11 +199,10 @@ function ResetPasswordForm() {
 			className="flex flex-col gap-4 w-[300px] md:w-full md:max-w-[420px] md:p-1"
 		>
 			<div className="flex flex-col gap-4 text-center mb-2">
-				<h2 className="text-xl font-bold text-[#527BC6]">
-					Redefinir Senha
-				</h2>
+				<h2 className="text-xl font-bold text-[#527BC6]">Redefinir Senha</h2>
 				<p className="text-sm text-foreground">
-					Digite sua nova senha abaixo. Certifique-se de que seja segura e cumpra todos os requisitos.
+					Digite sua nova senha abaixo. Certifique-se de que seja segura e
+					cumpra todos os requisitos.
 				</p>
 				{email && (
 					<p className="text-xs text-[#527BC6] font-semibold">
@@ -222,7 +235,9 @@ function ResetPasswordForm() {
 
 			{/* Requisitos de Senha */}
 			<div className="bg-blue-50 border border-blue-200 p-4 rounded-lg">
-				<h4 className="text-sm font-bold text-blue-600 mb-2">🔒 Requisitos de Segurança:</h4>
+				<h4 className="text-sm font-bold text-blue-600 mb-2">
+					🔒 Requisitos de Segurança:
+				</h4>
 				<ul className="text-xs text-blue-700 space-y-1">
 					<li>• Mínimo de 8 caracteres</li>
 					<li>• Máximo de 50 caracteres</li>
@@ -251,7 +266,10 @@ export default function ResetPasswordPage() {
 			</p>
 			<p className="text-sm text-[#527BC6]">
 				Problemas de acesso?{' '}
-				<Link href="/cliente/esqueci-senha" className="underline hover:opacity-70">
+				<Link
+					href="/cliente/esqueci-senha"
+					className="underline hover:opacity-70"
+				>
 					Solicitar novo link
 				</Link>
 			</p>

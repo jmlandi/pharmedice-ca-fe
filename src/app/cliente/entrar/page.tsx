@@ -89,7 +89,10 @@ function LoginForm() {
 			router.push('/cliente/painel');
 		} catch (error: any) {
 			console.error('Erro ao fazer login:', error);
-			const message = error?.response?.data?.message || error?.message || 'Erro ao fazer login. Verifique suas credenciais.';
+			const message =
+				error?.response?.data?.message ||
+				error?.message ||
+				'Erro ao fazer login. Verifique suas credenciais.';
 			showError(message);
 		} finally {
 			setIsLoading(false);

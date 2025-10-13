@@ -36,7 +36,10 @@ function AdminLoginForm() {
 		}
 	}, [isLoggedIn, isAdmin, router]);
 
-	const handleInputChange = (field: keyof AdminLoginFormData, value: string) => {
+	const handleInputChange = (
+		field: keyof AdminLoginFormData,
+		value: string
+	) => {
 		setFormData((prev) => ({
 			...prev,
 			[field]: value,
@@ -92,7 +95,10 @@ function AdminLoginForm() {
 			router.push('/admin/painel');
 		} catch (error: any) {
 			console.error('Erro no login do admin:', error);
-			const message = error?.response?.data?.message || error?.message || 'Erro interno do servidor. Tente novamente mais tarde.';
+			const message =
+				error?.response?.data?.message ||
+				error?.message ||
+				'Erro interno do servidor. Tente novamente mais tarde.';
 			showError(message);
 		} finally {
 			setIsLoading(false);
@@ -152,15 +158,14 @@ function AdminLoginForm() {
 					</Link>
 				</div>
 
-				<SubmitButton
-					isLoading={isLoading}
-					className="w-full"
-				>
+				<SubmitButton isLoading={isLoading} className="w-full">
 					{isLoading ? 'Entrando...' : 'Entrar no Painel'}
 				</SubmitButton>
 
 				<div className="text-center">
-					<span className="text-gray-600">Não tem uma conta administrativa? </span>
+					<span className="text-gray-600">
+						Não tem uma conta administrativa?{' '}
+					</span>
 					<Link
 						href="/admin/cadastro"
 						className="text-blue-600 hover:text-blue-500 font-medium transition-colors"
@@ -168,8 +173,6 @@ function AdminLoginForm() {
 						Registrar-se
 					</Link>
 				</div>
-
-
 			</form>
 		</div>
 	);

@@ -49,6 +49,7 @@ Este é o front-end da plataforma Pharmédice, contendo tanto a **Área do Clien
 ### Rotas
 
 #### **Área do Cliente**
+
 - `/` - Redireciona para `/cliente/login`
 - `/cliente/login` - Autenticação do cliente
 - `/cliente/cadastro` - Cadastro de cliente
@@ -56,6 +57,7 @@ Este é o front-end da plataforma Pharmédice, contendo tanto a **Área do Clien
 - `/cliente/painel` - Dashboard do cliente (após autenticação)
 
 #### **Área Administrativa**
+
 - `/admin` - Página inicial da área administrativa
 - `/admin/entrar` - Login de administradores
 - `/admin/cadastro` - Cadastro de administradores (domínios restritos)
@@ -63,6 +65,7 @@ Este é o front-end da plataforma Pharmédice, contendo tanto a **Área do Clien
 - `/admin/painel` - Dashboard administrativo
 
 #### **Outras Rotas**
+
 - `/alerts-demo` - Demonstração do sistema de alertas personalizados
 
 ### Stack Tecnológico
@@ -107,11 +110,13 @@ src/
 A aplicação está preparada para integração com API Laravel. Atualize os endpoints da API em:
 
 #### **Endpoints da Área do Cliente**
+
 - `/app/cliente/login/page.tsx` - Endpoint de login do cliente
 - `/app/cliente/cadastro/page.tsx` - Endpoint de cadastro do cliente
 - `/app/cliente/esqueci-senha/page.tsx` - Endpoint de redefinição de senha do cliente
 
 #### **Endpoints da Área Administrativa**
+
 - `/app/admin/entrar/page.tsx` - Endpoint de login administrativo
 - `/app/admin/cadastro/page.tsx` - Endpoint de cadastro administrativo
 - `/app/admin/esqueci-senha/page.tsx` - Endpoint de redefinição de senha administrativa
@@ -133,6 +138,7 @@ Para mais detalhes, consulte `ALERTS.md` ou acesse `/alerts-demo`.
 ### Campos de Cadastro
 
 #### **Cadastro de Cliente**
+
 - Primeiro Nome
 - Segundo Nome
 - Como gostaria de ser chamado (Apelido)
@@ -143,6 +149,7 @@ Para mais detalhes, consulte `ALERTS.md` ou acesse `/alerts-demo`.
 - CPF ou CNPJ (com formatação automática)
 
 #### **Cadastro de Administrador**
+
 - Primeiro Nome
 - Segundo Nome
 - Apelido

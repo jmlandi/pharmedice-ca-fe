@@ -11,21 +11,24 @@ Sistema completo de recuperação de senha que permite aos usuários redefinirem
 **Endpoint:** `POST /api/auth/solicitar-recuperacao-senha`
 
 **Body:**
+
 ```json
 {
-  "email": "usuario@exemplo.com"
+	"email": "usuario@exemplo.com"
 }
 ```
 
 **Resposta de Sucesso (200):**
+
 ```json
 {
-  "sucesso": true,
-  "mensagem": "Se o email existir em nosso sistema, você receberá um link de recuperação de senha."
+	"sucesso": true,
+	"mensagem": "Se o email existir em nosso sistema, você receberá um link de recuperação de senha."
 }
 ```
 
 **Notas:**
+
 - Por questões de segurança, a API sempre retorna a mesma mensagem, independente do email existir ou não
 - Se o email existir e o usuário estiver ativo, um e-mail será enviado
 - O token de recuperação expira em 60 minutos (configurável)
@@ -38,24 +41,26 @@ Após receber o e-mail, o usuário clica no link que o redireciona para o fronte
 **Endpoint:** `POST /api/auth/redefinir-senha`
 
 **Body:**
+
 ```json
 {
-  "email": "usuario@exemplo.com",
-  "token": "abc123...",
-  "senha": "NovaSenha@123",
-  "confirmacao_senha": "NovaSenha@123"
+	"email": "usuario@exemplo.com",
+	"token": "abc123...",
+	"senha": "NovaSenha@123",
+	"confirmacao_senha": "NovaSenha@123"
 }
 ```
 
 **Resposta de Sucesso (200):**
+
 ```json
 {
-  "sucesso": true,
-  "mensagem": "Senha redefinida com sucesso! Você já pode fazer login com sua nova senha.",
-  "dados": {
-    "email": "usuario@exemplo.com",
-    "nome": "João"
-  }
+	"sucesso": true,
+	"mensagem": "Senha redefinida com sucesso! Você já pode fazer login com sua nova senha.",
+	"dados": {
+		"email": "usuario@exemplo.com",
+		"nome": "João"
+	}
 }
 ```
 
@@ -81,9 +86,10 @@ A nova senha deve atender aos seguintes critérios:
 - ✅ Pelo menos 1 letra minúscula (a-z)
 - ✅ Pelo menos 1 letra maiúscula (A-Z)
 - ✅ Pelo menos 1 número (0-9)
-- ✅ Pelo menos 1 caractere especial (@$!%*?&)
+- ✅ Pelo menos 1 caractere especial (@$!%\*?&)
 
 **Exemplos válidos:**
+
 - `Senha@123`
 - `MinhaSenha!456`
 - `Segura$789`
@@ -118,6 +124,7 @@ php artisan migrate
 ```
 
 Isso criará a tabela `password_reset_tokens` com a estrutura:
+
 - `email` (string, primary key)
 - `token` (string, hashed)
 - `created_at` (timestamp)
@@ -148,6 +155,7 @@ O frontend deve criar uma página em `/redefinir-senha` que:
 4. Redireciona para login após sucesso
 
 **Exemplo de URL:**
+
 ```
 http://localhost:3000/redefinir-senha?token=abc123...&email=usuario@exemplo.com
 ```
@@ -167,6 +175,7 @@ http://localhost:3000/redefinir-senha?token=abc123...&email=usuario@exemplo.com
 ### Recomendações Adicionais:
 
 1. **Rate Limiting:** Adicione throttle nas rotas públicas:
+
 ```php
 Route::post('solicitar-recuperacao-senha', [AuthController::class, 'solicitarRecuperacaoSenha'])
     ->middleware('throttle:3,60'); // 3 tentativas por hora
@@ -221,6 +230,7 @@ curl -X POST http://localhost:8000/api/auth/login \
 1. Verifique as configurações de e-mail no `.env`
 2. Verifique os logs em `storage/logs/laravel.log`
 3. Teste o envio de e-mail com: `php artisan tinker` e execute:
+
 ```php
 Mail::raw('Teste', function($msg) {
     $msg->to('seu-email@exemplo.com')->subject('Teste');
@@ -236,17 +246,20 @@ Mail::raw('Teste', function($msg) {
 ### Senha não atende aos requisitos
 
 Certifique-se de que a senha contenha:
+
 - Pelo menos 8 caracteres
 - Letra maiúscula, minúscula, número e caractere especial
 
 ## Arquivos Criados/Modificados
 
 ### Novos Arquivos:
+
 - `app/Mail/PasswordResetMail.php` - Mailable do e-mail
 - `resources/views/emails/password-reset.blade.php` - Template do e-mail
 - `database/migrations/2025_10_13_000000_create_password_reset_tokens_table.php` - Migration
 
 ### Arquivos Modificados:
+
 - `app/Services/AuthService.php` - Adicionados métodos de recuperação
 - `app/Http/Controllers/AuthController.php` - Adicionados endpoints
 - `routes/api.php` - Adicionadas rotas públicas

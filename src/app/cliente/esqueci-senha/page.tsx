@@ -66,18 +66,22 @@ function ForgotPasswordForm() {
 		try {
 			// Chama a API de recuperação de senha
 			const response = await solicitarRecuperacaoSenha({
-				email: formData.email
+				email: formData.email,
 			});
 
 			if (response.sucesso) {
 				setIsEmailSent(true);
 				showSuccess(response.mensagem);
 			} else {
-				showError(response.mensagem || 'Erro ao enviar e-mail. Tente novamente.');
+				showError(
+					response.mensagem || 'Erro ao enviar e-mail. Tente novamente.'
+				);
 			}
 		} catch (error: any) {
 			console.error('Erro ao enviar e-mail de recuperação:', error);
-			const errorMessage = error.response?.data?.mensagem || 'Erro ao enviar e-mail. Tente novamente.';
+			const errorMessage =
+				error.response?.data?.mensagem ||
+				'Erro ao enviar e-mail. Tente novamente.';
 			showError(errorMessage);
 		} finally {
 			setIsLoading(false);
@@ -91,17 +95,21 @@ function ForgotPasswordForm() {
 		try {
 			// Reenvia o e-mail de recuperação
 			const response = await solicitarRecuperacaoSenha({
-				email: formData.email
+				email: formData.email,
 			});
 
 			if (response.sucesso) {
 				showSuccess('E-mail reenviado com sucesso!');
 			} else {
-				showError(response.mensagem || 'Erro ao reenviar e-mail. Tente novamente.');
+				showError(
+					response.mensagem || 'Erro ao reenviar e-mail. Tente novamente.'
+				);
 			}
 		} catch (error: any) {
 			console.error('Erro ao reenviar e-mail:', error);
-			const errorMessage = error.response?.data?.mensagem || 'Erro ao reenviar e-mail. Tente novamente.';
+			const errorMessage =
+				error.response?.data?.mensagem ||
+				'Erro ao reenviar e-mail. Tente novamente.';
 			showError(errorMessage);
 		} finally {
 			setIsLoading(false);

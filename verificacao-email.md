@@ -48,50 +48,53 @@ Durante o registro, o usuário recebe automaticamente um email de verificação.
 **Endpoint:** `POST /api/auth/registrar-usuario`
 
 **Body:**
+
 ```json
 {
-  "primeiro_nome": "João",
-  "segundo_nome": "Silva",
-  "apelido": "joaosilva",
-  "email": "joao@exemplo.com",
-  "senha": "MinhaSenh@123",
-  "senha_confirmation": "MinhaSenh@123",
-  "confirmacao_senha": "MinhaSenh@123",
-  "telefone": "(11) 99999-9999",
-  "numero_documento": "12345678901",
-  "data_nascimento": "1990-05-15",
-  "aceite_comunicacoes_email": true,
-  "aceite_comunicacoes_sms": false,
-  "aceite_comunicacoes_whatsapp": true,
-  "aceite_termos_uso": true,
-  "aceite_politica_privacidade": true
+	"primeiro_nome": "João",
+	"segundo_nome": "Silva",
+	"apelido": "joaosilva",
+	"email": "joao@exemplo.com",
+	"senha": "MinhaSenh@123",
+	"senha_confirmation": "MinhaSenh@123",
+	"confirmacao_senha": "MinhaSenh@123",
+	"telefone": "(11) 99999-9999",
+	"numero_documento": "12345678901",
+	"data_nascimento": "1990-05-15",
+	"aceite_comunicacoes_email": true,
+	"aceite_comunicacoes_sms": false,
+	"aceite_comunicacoes_whatsapp": true,
+	"aceite_termos_uso": true,
+	"aceite_politica_privacidade": true
 }
 ```
 
 **Resposta de Sucesso (201):**
+
 ```json
 {
-  "sucesso": true,
-  "mensagem": "Usuário registrado com sucesso",
-  "dados": {
-    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGc...",
-    "token_type": "bearer",
-    "expires_in": 3600,
-    "usuario": {
-      "id": "01HXXXXX...",
-      "primeiro_nome": "João",
-      "segundo_nome": "Silva",
-      "email": "joao@exemplo.com",
-      "tipo_usuario": "usuario",
-      "email_verificado": false,
-      "criado_em": "2025-10-13T10:30:00Z"
-    },
-    "mensagem_verificacao": "Um email de verificação foi enviado para joao@exemplo.com"
-  }
+	"sucesso": true,
+	"mensagem": "Usuário registrado com sucesso",
+	"dados": {
+		"access_token": "eyJ0eXAiOiJKV1QiLCJhbGc...",
+		"token_type": "bearer",
+		"expires_in": 3600,
+		"usuario": {
+			"id": "01HXXXXX...",
+			"primeiro_nome": "João",
+			"segundo_nome": "Silva",
+			"email": "joao@exemplo.com",
+			"tipo_usuario": "usuario",
+			"email_verificado": false,
+			"criado_em": "2025-10-13T10:30:00Z"
+		},
+		"mensagem_verificacao": "Um email de verificação foi enviado para joao@exemplo.com"
+	}
 }
 ```
 
 **Notas:**
+
 - O email de verificação é enviado automaticamente após o cadastro
 - O usuário pode fazer login mesmo sem verificar o email, mas terá acesso limitado
 - O link de verificação expira em 60 minutos
@@ -106,49 +109,53 @@ Após receber o e-mail e clicar no link, o frontend captura os parâmetros da UR
 **Endpoint:** `POST /api/auth/verificar-email`
 
 **Body:**
+
 ```json
 {
-  "id": "01HXXXXX...",
-  "hash": "abc123def456...",
-  "expires": 1697234567,
-  "signature": "xyz789..."
+	"id": "01HXXXXX...",
+	"hash": "abc123def456...",
+	"expires": 1697234567,
+	"signature": "xyz789..."
 }
 ```
 
 **Resposta de Sucesso (200):**
+
 ```json
 {
-  "sucesso": true,
-  "mensagem": "Email verificado com sucesso!",
-  "dados": {
-    "sucesso": true,
-    "mensagem": "Email verificado com sucesso!",
-    "usuario": {
-      "email": "joao@exemplo.com",
-      "email_verificado": true,
-      "verificado_em": "2025-10-13T10:35:00.000000Z"
-    }
-  }
+	"sucesso": true,
+	"mensagem": "Email verificado com sucesso!",
+	"dados": {
+		"sucesso": true,
+		"mensagem": "Email verificado com sucesso!",
+		"usuario": {
+			"email": "joao@exemplo.com",
+			"email_verificado": true,
+			"verificado_em": "2025-10-13T10:35:00.000000Z"
+		}
+	}
 }
 ```
 
 **Erros Possíveis:**
 
 - **422 - Link Inválido ou Expirado:**
+
 ```json
 {
-  "sucesso": false,
-  "mensagem": "Este link de verificação é inválido ou expirou.",
-  "codigo": "LINK_INVALIDO"
+	"sucesso": false,
+	"mensagem": "Este link de verificação é inválido ou expirou.",
+	"codigo": "LINK_INVALIDO"
 }
 ```
 
 - **422 - Email Já Verificado:**
+
 ```json
 {
-  "sucesso": false,
-  "mensagem": "Este email já foi verificado",
-  "codigo": "JA_VERIFICADO"
+	"sucesso": false,
+	"mensagem": "Este email já foi verificado",
+	"codigo": "JA_VERIFICADO"
 }
 ```
 
@@ -159,15 +166,17 @@ Para usuários logados que ainda não verificaram o email.
 **Endpoint:** `POST /api/auth/reenviar-verificacao-email`
 
 **Headers:**
+
 ```
 Authorization: Bearer {jwt_token}
 ```
 
 **Resposta de Sucesso (200):**
+
 ```json
 {
-  "sucesso": true,
-  "mensagem": "Email de verificação reenviado para joao@exemplo.com"
+	"sucesso": true,
+	"mensagem": "Email de verificação reenviado para joao@exemplo.com"
 }
 ```
 
@@ -178,17 +187,19 @@ Para usuários que não estão logados.
 **Endpoint:** `POST /api/auth/reenviar-verificacao-email-publico`
 
 **Body:**
+
 ```json
 {
-  "email": "joao@exemplo.com"
+	"email": "joao@exemplo.com"
 }
 ```
 
 **Resposta de Sucesso (200):**
+
 ```json
 {
-  "sucesso": true,
-  "mensagem": "Email de verificação reenviado para joao@exemplo.com"
+	"sucesso": true,
+	"mensagem": "Email de verificação reenviado para joao@exemplo.com"
 }
 ```
 
@@ -212,12 +223,13 @@ O e-mail enviado possui:
 
 O sistema determina automaticamente a URL correta baseada no campo `tipo_usuario` do banco de dados:
 
-| Tipo de Usuário | Valor no BD | URL Gerada |
-|----------------|-------------|------------|
-| Cliente | `'usuario'` | `{FRONTEND_URL}/cliente/verificar-email?id=...&hash=...&expires=...&signature=...` |
-| Administrador | `'administrador'` | `{FRONTEND_URL}/admin/verificar-email?id=...&hash=...&expires=...&signature=...` |
+| Tipo de Usuário | Valor no BD       | URL Gerada                                                                         |
+| --------------- | ----------------- | ---------------------------------------------------------------------------------- |
+| Cliente         | `'usuario'`       | `{FRONTEND_URL}/cliente/verificar-email?id=...&hash=...&expires=...&signature=...` |
+| Administrador   | `'administrador'` | `{FRONTEND_URL}/admin/verificar-email?id=...&hash=...&expires=...&signature=...`   |
 
 **Código em `AuthService.php`:**
+
 ```php
 // Define o caminho baseado no tipo de usuário
 if ($usuario->tipo_usuario === 'administrador') {
@@ -227,8 +239,8 @@ if ($usuario->tipo_usuario === 'administrador') {
 }
 
 // Cria a URL do frontend com os parâmetros necessários
-$verificationUrl = $frontendUrl . $path . 
-    '?id=' . $usuario->id . 
+$verificationUrl = $frontendUrl . $path .
+    '?id=' . $usuario->id .
     '&hash=' . sha1($usuario->getEmailForVerification()) .
     '&expires=' . $params['expires'] .
     '&signature=' . $params['signature'];
@@ -239,9 +251,11 @@ $verificationUrl = $frontendUrl . $path .
 O frontend deve criar páginas de verificação em rotas diferentes baseadas no tipo de usuário:
 
 ### Para Clientes (tipo_usuario = 'usuario'):
+
 **Rota:** `/cliente/verificar-email`
 
 ### Para Administradores (tipo_usuario = 'administrador'):
+
 **Rota:** `/admin/verificar-email`
 
 Ambas as páginas devem:
@@ -349,11 +363,13 @@ export default function VerificarEmail() {
 **Exemplos de URL:**
 
 Cliente:
+
 ```
 http://localhost:3000/cliente/verificar-email?id=01HXXXXX&hash=abc123&expires=1697234567&signature=xyz789
 ```
 
 Administrador:
+
 ```
 http://localhost:3000/admin/verificar-email?id=01HXXXXX&hash=abc123&expires=1697234567&signature=xyz789
 ```
@@ -393,6 +409,7 @@ MAIL_FROM_NAME="${APP_NAME}"
 ### Recomendações Adicionais:
 
 1. **Rate Limiting:** Adicione throttle nas rotas de reenvio:
+
 ```php
 Route::post('reenviar-verificacao-email-publico', [AuthController::class, 'reenviarVerificacaoEmailPublico'])
     ->middleware('throttle:3,60'); // 3 tentativas por hora
@@ -407,12 +424,14 @@ Route::post('reenviar-verificacao-email-publico', [AuthController::class, 'reenv
 ## Diferenças vs. Sistema Antigo
 
 ### ❌ Sistema Antigo (Laravel Nativo)
+
 - Link abre diretamente no backend
 - Backend renderiza página Blade
 - Experiência desconectada do frontend
 - Difícil customizar a experiência
 
 ### ✅ Sistema Novo (Integrado com Frontend)
+
 - Link redireciona para o frontend
 - Frontend controla toda a experiência
 - Verificação via API REST
@@ -446,17 +465,20 @@ php artisan test --filter="usuario_pode_verificar_email_com_link_valido"
 ## Troubleshooting
 
 ### Email não está sendo enviado
+
 1. Verifique configurações de MAIL no .env
 2. Verifique logs em `storage/logs/laravel.log`
 3. Teste envio de email: `php artisan tinker` → `Mail::raw('Teste', function($m) { $m->to('seu-email@exemplo.com')->subject('Teste'); });`
 
 ### Link de verificação não funciona
+
 1. Verifique se APP_URL está correto no .env
 2. Verifique se FRONTEND_URL está configurado
 3. Confirme que os parâmetros estão sendo capturados corretamente no frontend
 4. Verifique logs de erro no backend
 
 ### Email verificado mas sistema não reconhece
+
 1. Verifique campo `email_verified_at` no banco de dados
 2. Limpe cache: `php artisan cache:clear`
 3. Verifique se o método `hasVerifiedEmail()` está funcionando
