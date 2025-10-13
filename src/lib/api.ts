@@ -43,7 +43,7 @@ api.interceptors.response.use(
 export default api;
 
 // Tipos para as resposta da API
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T = unknown> {
 	sucesso: boolean;
 	mensagem: string;
 	dados?: T;

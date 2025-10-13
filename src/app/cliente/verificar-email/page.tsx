@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import AuthLayout from '@/components/AuthLayout';
@@ -337,6 +337,21 @@ function EmailVerificationContent() {
 	);
 }
 
+// Loading component for Suspense fallback
+function LoadingScreen() {
+	return (
+		<div className="flex flex-col gap-6 w-[300px] md:w-[400px] text-center">
+			<div className="flex flex-col gap-4">
+				<div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
+					<div className="w-10 h-10 bg-gray-300 rounded"></div>
+				</div>
+				<div className="h-6 bg-gray-200 rounded animate-pulse"></div>
+				<div className="h-4 bg-gray-200 rounded animate-pulse"></div>
+			</div>
+		</div>
+	);
+}
+
 export default function ClienteVerificarEmailPage() {
 	const navigationLinks = (
 		<div className="flex flex-col gap-2 text-center">
@@ -360,7 +375,9 @@ export default function ClienteVerificarEmailPage() {
 
 	return (
 		<AuthLayout title="Área do Cliente" navigationLinks={navigationLinks}>
-			<EmailVerificationContent />
+			<Suspense fallback={<LoadingScreen />}>
+				<EmailVerificationContent />
+			</Suspense>
 		</AuthLayout>
 	);
 }

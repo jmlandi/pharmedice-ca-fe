@@ -121,7 +121,7 @@ export default function TermsOfUsePage() {
 							7. Limitação de Responsabilidade
 						</h2>
 						<p className="mb-3">
-							Nossos serviços são fornecidos "como estão". Não garantimos que os
+							Nossos serviços são fornecidos &quot;como estão&quot;. Não garantimos que os
 							serviços serão ininterruptos ou livres de erros. Em nenhuma
 							circunstância seremos responsáveis por:
 						</p>
