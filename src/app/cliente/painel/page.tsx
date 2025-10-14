@@ -1,14 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import OptimizedImage from '@/components/OptimizedImage';
 import PageTransition from '@/components/PageTransition';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import { useAuth } from '@/components/AuthProvider';
 import { useAlert } from '@/components/AlertProvider';
+import { AuthService } from '@/lib/auth';
 import { LaudosService } from '@/lib/laudos';
 import { Laudo } from '@/lib/api';
 
@@ -316,10 +316,63 @@ function ClientePainelContent() {
 	);
 }
 
+// Componente wrapper para processar callback do Google antes do ProtectedRoute
+function GoogleCallbackHandler({ children }: { children: React.ReactNode }) {
+	const searchParams = useSearchParams();
+	const router = useRouter();
+	const { showError, showSuccess } = useAlert();
+	const [processing, setProcessing] = useState(false);
+
+	useEffect(() => {
+		const token = searchParams.get('token');
+		const usuario = searchParams.get('usuario') || searchParams.get('user');
+		const error = searchParams.get('error');
+
+		if (error) {
+			showError(decodeURIComponent(error));
+			router.replace('/cliente/entrar');
+			return;
+		}
+
+		if (token && usuario && !processing) {
+			setProcessing(true);
+			try {
+				AuthService.handleGoogleCallback(token, usuario);
+				showSuccess('Login com Google realizado com sucesso!');
+				
+				// Limpar URL e recarregar
+				window.history.replaceState({}, '', window.location.pathname);
+				setTimeout(() => window.location.reload(), 100);
+			} catch (err) {
+				console.error('Erro ao processar autenticação Google:', err);
+				showError('Erro ao processar autenticação');
+				router.replace('/cliente/entrar');
+			}
+		}
+	}, [searchParams, router, showError, showSuccess, processing]);
+
+	if (processing) {
+		return (
+			<div className="flex items-center justify-center min-h-screen">
+				<div className="text-center">
+					<div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+					<p>Processando login...</p>
+				</div>
+			</div>
+		);
+	}
+
+	return <>{children}</>;
+}
+
 export default function ClientePainel() {
 	return (
-		<ProtectedRoute requireEmailVerification={true}>
-			<ClientePainelContent />
-		</ProtectedRoute>
+		<Suspense fallback={<div className="flex items-center justify-center min-h-screen">Carregando...</div>}>
+			<GoogleCallbackHandler>
+				<ProtectedRoute requireEmailVerification={true}>
+					<ClientePainelContent />
+				</ProtectedRoute>
+			</GoogleCallbackHandler>
+		</Suspense>
 	);
 }

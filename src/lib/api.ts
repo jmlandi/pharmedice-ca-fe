@@ -59,6 +59,9 @@ export interface User {
 	tipo_usuario: 'administrador' | 'usuario';
 	is_admin: boolean;
 	email_verificado: boolean;
+	avatar?: string;
+	google_id?: string;
+	provider?: string;
 }
 
 export interface Laudo {

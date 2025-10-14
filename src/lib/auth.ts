@@ -89,6 +89,40 @@ export class AuthService {
 		return this.registerUser(data);
 	}
 
+	// Processar callback do Google (salvar token dos query params)
+	static handleGoogleCallback(token: string, usuario: string): void {
+		if (typeof window === 'undefined') return;
+
+		try {
+			// Salvar token
+			localStorage.setItem('token', token);
+
+			// O usuario pode vir URL encoded, base64, ou JSON direto
+			let userData;
+
+			try {
+				// Primeiro, fazer URL decode
+				const decoded = decodeURIComponent(usuario);
+				// Tentar parsear como JSON
+				userData = JSON.parse(decoded);
+			} catch {
+				try {
+					// Tentar base64
+					const fromBase64 = atob(usuario);
+					userData = JSON.parse(fromBase64);
+				} catch {
+					// Última tentativa: JSON direto
+					userData = JSON.parse(usuario);
+				}
+			}
+
+			localStorage.setItem('user', JSON.stringify(userData));
+		} catch (error) {
+			console.error('Erro ao processar callback do Google:', error);
+			throw new Error('Erro ao processar autenticação do Google');
+		}
+	}
+
 	// Logout
 	static async logout(): Promise<void> {
 		try {

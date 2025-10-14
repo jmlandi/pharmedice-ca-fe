@@ -1,12 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import AuthLayout from '@/components/AuthLayout';
 import FormField from '@/components/FormField';
 import SubmitButton from '@/components/SubmitButton';
+import GoogleLoginButton from '@/components/GoogleLoginButton';
 import { useAlert } from '@/components/AlertProvider';
 import { useLoading } from '@/components/LoadingProvider';
 import { useAuth } from '@/components/AuthProvider';
@@ -19,6 +20,7 @@ interface AdminLoginFormData {
 
 function AdminLoginForm() {
 	const router = useRouter();
+	const searchParams = useSearchParams();
 	const { showError, showSuccess } = useAlert();
 	const { startLoading, stopLoading } = useLoading();
 	const { login, isLoggedIn, isAdmin } = useAuth();
@@ -28,6 +30,16 @@ function AdminLoginForm() {
 	});
 	const [isLoading, setIsLoading] = useState(false);
 	const [errors, setErrors] = useState<Partial<AdminLoginFormData>>({});
+
+	// Verificar se há erro do Google OAuth no callback
+	useEffect(() => {
+		const error = searchParams.get('error');
+		if (error) {
+			showError(decodeURIComponent(error));
+			// Limpar URL
+			window.history.replaceState({}, '', window.location.pathname);
+		}
+	}, [searchParams, showError]);
 
 	// Redirecionar se já estiver logado como admin
 	useEffect(() => {
@@ -162,6 +174,19 @@ function AdminLoginForm() {
 					{isLoading ? 'Entrando...' : 'Entrar no Painel'}
 				</SubmitButton>
 
+				{/* Divisor */}
+				<div className="relative my-4">
+					<div className="absolute inset-0 flex items-center">
+						<div className="w-full border-t border-gray-300"></div>
+					</div>
+					<div className="relative flex justify-center text-sm">
+						<span className="px-2 bg-white text-gray-500">Ou</span>
+					</div>
+				</div>
+
+				{/* Google login button */}
+				<GoogleLoginButton text="Entrar com Google" />
+
 				<div className="text-center">
 					<span className="text-gray-600">
 						Não tem uma conta administrativa?{' '}
@@ -181,7 +206,9 @@ function AdminLoginForm() {
 export default function AdminLogin() {
 	return (
 		<AuthLayout title="Login Administrativo">
-			<AdminLoginForm />
+			<Suspense fallback={<div className="text-center py-8">Carregando...</div>}>
+				<AdminLoginForm />
+			</Suspense>
 		</AuthLayout>
 	);
 }
