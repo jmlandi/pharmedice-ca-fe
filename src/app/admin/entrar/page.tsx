@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -206,7 +206,9 @@ function AdminLoginForm() {
 export default function AdminLogin() {
 	return (
 		<AuthLayout title="Login Administrativo">
-			<AdminLoginForm />
+			<Suspense fallback={<div className="text-center py-8">Carregando...</div>}>
+				<AdminLoginForm />
+			</Suspense>
 		</AuthLayout>
 	);
 }

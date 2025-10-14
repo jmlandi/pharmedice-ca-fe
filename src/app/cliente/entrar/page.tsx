@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import AuthLayout from '@/components/AuthLayout';
@@ -185,7 +185,9 @@ export default function LoginPage() {
 
 	return (
 		<AuthLayout title="Área do Cliente" navigationLinks={navigationLinks}>
-			<LoginForm />
+			<Suspense fallback={<div className="text-center py-8">Carregando...</div>}>
+				<LoginForm />
+			</Suspense>
 		</AuthLayout>
 	);
 }
