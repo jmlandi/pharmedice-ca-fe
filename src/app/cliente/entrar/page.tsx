@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import AuthLayout from '@/components/AuthLayout';
 import FormField from '@/components/FormField';
 import SubmitButton from '@/components/SubmitButton';
+import GoogleLoginButton from '@/components/GoogleLoginButton';
 import { useAlert } from '@/components/AlertProvider';
 import { useLoading } from '@/components/LoadingProvider';
 import { useAuth } from '@/components/AuthProvider';
@@ -18,6 +19,7 @@ interface LoginFormData {
 
 function LoginForm() {
 	const router = useRouter();
+	const searchParams = useSearchParams();
 	const { showError, showSuccess } = useAlert();
 	const { startLoading, stopLoading } = useLoading();
 	const { login, isLoggedIn, isAdmin } = useAuth();
@@ -27,6 +29,16 @@ function LoginForm() {
 	});
 	const [isLoading, setIsLoading] = useState(false);
 	const [errors, setErrors] = useState<Partial<LoginFormData>>({});
+
+	// Verificar se há erro do Google OAuth no callback
+	useEffect(() => {
+		const error = searchParams.get('error');
+		if (error) {
+			showError(decodeURIComponent(error));
+			// Limpar URL
+			window.history.replaceState({}, '', window.location.pathname);
+		}
+	}, [searchParams, showError]);
 
 	// Redirecionar se já estiver logado
 	useEffect(() => {
@@ -137,20 +149,23 @@ function LoginForm() {
 			</div>
 
 			{/* Login buttons */}
-			<div className="flex flex-row items-center gap-2 justify-between">
+			<div className="flex flex-col gap-3">
 				<SubmitButton isLoading={isLoading}>
 					{isLoading ? 'Entrando...' : 'Iniciar Sessão'}
 				</SubmitButton>
-				{/* Google login button - await for MVP approval */}
-				{/* <a href="#" className="w-full hover:opacity-60">
-					<Image
-						src="/icons/btn-google-light.svg"
-						alt="Botão de login com Google"
-						width={16}
-						height={16}
-						className="w-full h-auto"
-					/>
-				</a> */}
+
+				{/* Divisor */}
+				<div className="relative my-2">
+					<div className="absolute inset-0 flex items-center">
+						<div className="w-full border-t border-gray-300"></div>
+					</div>
+					<div className="relative flex justify-center text-sm">
+						<span className="px-2 bg-white text-gray-500">Ou</span>
+					</div>
+				</div>
+
+				{/* Google login button */}
+				<GoogleLoginButton />
 			</div>
 		</form>
 	);
