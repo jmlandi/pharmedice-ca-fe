@@ -37,7 +37,7 @@ export class UsuariosService {
 		if (params.nome) queryParams.append('nome', params.nome);
 
 		const response = await api.get<ApiResponse<PaginatedResponse<User>>>(
-			`api/usuarios?${queryParams.toString()}`
+			`usuarios?${queryParams.toString()}`
 		);
 		
 		if (!response.data.sucesso || !response.data.dados) {
@@ -51,7 +51,7 @@ export class UsuariosService {
 	 * Busca um usuário específico por ID
 	 */
 	static async getById(id: string): Promise<User> {
-		const response = await api.get<ApiResponse<User>>(`api/usuarios/${id}`);
+		const response = await api.get<ApiResponse<User>>(`usuarios/${id}`);
 		
 		if (!response.data.sucesso || !response.data.dados) {
 			throw new Error(response.data.mensagem || 'Usuário não encontrado');
@@ -64,7 +64,7 @@ export class UsuariosService {
 	 * Atualiza dados de um usuário
 	 */
 	static async update(id: string, data: UpdateUserData): Promise<User> {
-		const response = await api.put<ApiResponse<User>>(`api/usuarios/${id}`, data);
+		const response = await api.put<ApiResponse<User>>(`usuarios/${id}`, data);
 		
 		if (!response.data.sucesso || !response.data.dados) {
 			throw new Error(response.data.mensagem || 'Erro ao atualizar usuário');
@@ -77,7 +77,7 @@ export class UsuariosService {
 	 * Remove um usuário (soft delete)
 	 */
 	static async delete(id: string): Promise<void> {
-		const response = await api.delete<ApiResponse>(`api/usuarios/${id}`);
+		const response = await api.delete<ApiResponse>(`usuarios/${id}`);
 		
 		if (!response.data.sucesso) {
 			throw new Error(response.data.mensagem || 'Erro ao remover usuário');
