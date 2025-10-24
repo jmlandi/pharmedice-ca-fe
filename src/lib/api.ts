@@ -55,13 +55,24 @@ export interface User {
 	id: string;
 	primeiro_nome: string;
 	segundo_nome: string;
+	apelido?: string;
 	email: string;
+	telefone?: string;
+	numero_documento?: string;
+	data_nascimento?: string;
 	tipo_usuario: 'administrador' | 'usuario';
 	is_admin: boolean;
 	email_verificado: boolean;
+	email_verified_at?: string;
+	aceite_comunicacoes_email?: boolean;
+	aceite_comunicacoes_sms?: boolean;
+	aceite_comunicacoes_whatsapp?: boolean;
+	ativo?: boolean;
 	avatar?: string;
 	google_id?: string;
 	provider?: string;
+	created_at?: string;
+	updated_at?: string;
 }
 
 export interface Laudo {

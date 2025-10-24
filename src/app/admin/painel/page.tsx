@@ -11,12 +11,17 @@ import { useAlert } from '@/components/AlertProvider';
 import { AuthService } from '@/lib/auth';
 import { LaudosService } from '@/lib/laudos';
 import { Laudo } from '@/lib/api';
+import type { User } from '@/lib/api';
 import UploadForm from '@/components/painel/admin/UploadForm';
 import LaudosList from '@/components/painel/admin/LaudosList';
 import AccountInfo from '@/components/painel/admin/AccountInfo';
+import UsersList from '@/components/painel/admin/UsersList';
+import UserViewModal from '@/components/painel/admin/UserViewModal';
+import UserEditModal from '@/components/painel/admin/UserEditModal';
 
 const NAVIGATION_TABS: NavigationTab[] = [
 	{ id: 'laudos', label: 'Laudos' },
+	{ id: 'usuarios', label: 'Usuários' },
 	{ id: 'conta', label: 'Minha Conta' },
 ];
 
@@ -30,6 +35,8 @@ function AdminPainelContent() {
 	const [currentPage, setCurrentPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(1);
 	const [activeTab, setActiveTab] = useState('laudos');
+	const [viewingUser, setViewingUser] = useState<User | null>(null);
+	const [editingUser, setEditingUser] = useState<User | null>(null);
 
 	useEffect(() => {
 		const token = searchParams.get('token');
@@ -138,12 +145,46 @@ function AdminPainelContent() {
 						</div>
 					)}
 
+					{activeTab === 'usuarios' && (
+						<div>
+							<UsersList
+								onViewUser={(user) => setViewingUser(user)}
+								onEditUser={(user) => setEditingUser(user)}
+							/>
+						</div>
+					)}
+
 					{activeTab === 'conta' && (
 						<div className="max-w-2xl mx-auto">
 							<AccountInfo />
 						</div>
 					)}
 				</main>
+
+				{viewingUser && (
+					<UserViewModal
+						user={viewingUser}
+						onClose={() => setViewingUser(null)}
+						onEdit={() => {
+							setEditingUser(viewingUser);
+							setViewingUser(null);
+						}}
+					/>
+				)}
+
+				{editingUser && (
+					<UserEditModal
+						user={editingUser}
+						onClose={() => setEditingUser(null)}
+						onSuccess={() => {
+							setEditingUser(null);
+							// Força recarregamento da lista se estiver na aba de usuários
+							if (activeTab === 'usuarios') {
+								window.location.reload();
+							}
+						}}
+					/>
+				)}
 			</div>
 		</PageTransition>
 	);
