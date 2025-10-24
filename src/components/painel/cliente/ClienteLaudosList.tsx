@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Laudo } from '@/lib/api';
 import { useAlert } from '@/components/AlertProvider';
@@ -24,25 +24,45 @@ export default function ClienteLaudosList({
 	currentPage,
 	totalPages,
 	onPageChange,
-	onRefresh,
+	onRefresh, // eslint-disable-line @typescript-eslint/no-unused-vars
 }: ClienteLaudosListProps) {
 	const { showError, showSuccess } = useAlert();
 	const [searchTerm, setSearchTerm] = useState('');
+	const [filteredLaudos, setFilteredLaudos] = useState<Laudo[]>(laudos);
 	const [isSearching, setIsSearching] = useState(false);
 
-	const handleSearch = async () => {
+	// Atualiza laudos filtrados quando a lista de laudos muda
+	useEffect(() => {
 		if (!searchTerm.trim()) {
-			onRefresh();
+			setFilteredLaudos(laudos);
+		}
+	}, [laudos, searchTerm]);
+
+	const handleSearch = () => {
+		if (!searchTerm.trim()) {
+			setFilteredLaudos(laudos);
+			setIsSearching(false);
 			return;
 		}
 
+		setIsSearching(true);
 		try {
-			setIsSearching(true);
-			await LaudosService.search(searchTerm);
-			onRefresh();
+			// Filtra localmente por título, descrição e nome do arquivo
+			const termo = searchTerm.toLowerCase();
+			const filtered = laudos.filter((laudo) => {
+				const titulo = laudo.titulo.toLowerCase();
+				const descricao = laudo.descricao.toLowerCase();
+				const nomeArquivo = LaudosService.getFileName(laudo.url_arquivo).toLowerCase();
+				
+				return titulo.includes(termo) || 
+					   descricao.includes(termo) || 
+					   nomeArquivo.includes(termo);
+			});
+			setFilteredLaudos(filtered);
 		} catch (error) {
 			console.error('Erro ao buscar laudos:', error);
 			showError('Erro ao buscar laudos. Tente novamente.');
+			setFilteredLaudos(laudos);
 		} finally {
 			setIsSearching(false);
 		}
@@ -82,7 +102,7 @@ export default function ClienteLaudosList({
 				value={searchTerm}
 				onChange={setSearchTerm}
 				onSearch={handleSearch}
-				placeholder="Buscar laudos por título ou descrição..."
+				placeholder="Buscar por título, descrição ou nome do arquivo..."
 			/>
 
 			{loading || isSearching ? (
@@ -92,7 +112,7 @@ export default function ClienteLaudosList({
 						{isSearching ? 'Buscando...' : 'Carregando...'}
 					</span>
 				</div>
-			) : laudos.length === 0 ? (
+			) : filteredLaudos.length === 0 ? (
 				<div className="text-center py-12">
 					<Image
 						src="/icons/document.svg"
@@ -115,7 +135,7 @@ export default function ClienteLaudosList({
 			) : (
 				<>
 					<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-						{laudos.map((laudo) => (
+						{filteredLaudos.map((laudo) => (
 							<ClienteLaudoCard
 								key={laudo.id}
 								laudo={laudo}
@@ -124,11 +144,13 @@ export default function ClienteLaudosList({
 						))}
 					</div>
 
-					<Pagination
-						currentPage={currentPage}
-						totalPages={totalPages}
-						onPageChange={onPageChange}
-					/>
+					{!searchTerm && (
+						<Pagination
+							currentPage={currentPage}
+							totalPages={totalPages}
+							onPageChange={onPageChange}
+						/>
+					)}
 				</>
 			)}
 		</div>

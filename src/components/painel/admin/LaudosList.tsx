@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Laudo } from '@/lib/api';
 import { useAlert } from '@/components/AlertProvider';
@@ -30,19 +30,43 @@ onRefresh,
 	const { showError, showSuccess } = useAlert();
 	const [searchTerm, setSearchTerm] = useState('');
 	const [showMassUpload, setShowMassUpload] = useState(false);
+	const [filteredLaudos, setFilteredLaudos] = useState<Laudo[]>(laudos);
+	const [isSearching, setIsSearching] = useState(false);
 
-	const handleSearch = async () => {
+	// Atualiza laudos filtrados quando a lista de laudos muda
+	useEffect(() => {
 		if (!searchTerm.trim()) {
-			onRefresh();
+			setFilteredLaudos(laudos);
+		}
+	}, [laudos, searchTerm]);
+
+	const handleSearch = () => {
+		if (!searchTerm.trim()) {
+			setFilteredLaudos(laudos);
+			setIsSearching(false);
 			return;
 		}
 
+		setIsSearching(true);
 		try {
-			await LaudosService.search(searchTerm);
-			onRefresh();
+			// Filtra localmente por título, descrição e nome do arquivo
+			const termo = searchTerm.toLowerCase();
+			const filtered = laudos.filter((laudo) => {
+				const titulo = laudo.titulo.toLowerCase();
+				const descricao = laudo.descricao.toLowerCase();
+				const nomeArquivo = LaudosService.getFileName(laudo.url_arquivo).toLowerCase();
+				
+				return titulo.includes(termo) || 
+					   descricao.includes(termo) || 
+					   nomeArquivo.includes(termo);
+			});
+			setFilteredLaudos(filtered);
 		} catch (error) {
 			console.error('Erro ao buscar laudos:', error);
 			showError('Erro ao buscar laudos. Tente novamente.');
+			setFilteredLaudos(laudos);
+		} finally {
+			setIsSearching(false);
 		}
 	};
 
@@ -116,15 +140,17 @@ onRefresh,
 				value={searchTerm}
 				onChange={setSearchTerm}
 				onSearch={handleSearch}
-				placeholder="Buscar laudos..."
+				placeholder="Buscar por título, descrição ou nome do arquivo..."
 			/>
 
-			{loading ? (
+			{loading || isSearching ? (
 <div className="flex justify-center items-center py-12">
 					<div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-					<span className="ml-2 text-gray-600">Carregando...</span>
+					<span className="ml-2 text-gray-600">
+						{isSearching ? 'Buscando...' : 'Carregando...'}
+					</span>
 				</div>
-			) : laudos.length === 0 ? (
+			) : filteredLaudos.length === 0 ? (
 <div className="text-center py-12">
 					<Image
 						src="/icons/document.svg"
@@ -147,7 +173,7 @@ onRefresh,
 			) : (
 <>
 					<div className="space-y-4">
-						{laudos.map((laudo) => (
+						{filteredLaudos.map((laudo) => (
 <AdminLaudoCard
 								key={laudo.id}
 								laudo={laudo}
@@ -157,11 +183,13 @@ onRefresh,
 						))}
 					</div>
 
-					<Pagination
-						currentPage={currentPage}
-						totalPages={totalPages}
-						onPageChange={onPageChange}
-					/>
+					{!searchTerm && (
+						<Pagination
+							currentPage={currentPage}
+							totalPages={totalPages}
+							onPageChange={onPageChange}
+						/>
+					)}
 				</>
 			)}
 
