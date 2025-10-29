@@ -2,7 +2,6 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import AuthLayout from '@/components/AuthLayout';
 import FormField from '@/components/FormField';
@@ -119,63 +118,48 @@ function AdminLoginForm() {
 	};
 
 	return (
-		<div className="w-full max-w-md mx-auto">
-			<div className="text-center mb-8">
-				<div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
-					<Image
-						src="/icons/lock.svg"
-						alt="Admin Login"
-						width={32}
-						height={32}
-						className="text-blue-600"
-					/>
-				</div>
-				<h1 className="text-2xl font-bold text-gray-900 mb-2">
-					Área Administrativa
-				</h1>
-				<p className="text-gray-600">
-					Acesse o painel administrativo da Pharmedice
-				</p>
+		<form
+			onSubmit={handleSubmit}
+			className="flex flex-col gap-4 w-[300px] md:w-full md:max-w-[420px] md:p-1"
+		>
+			<FormField
+				label="E-mail"
+				icon="/icons/account.svg"
+				type="email"
+				placeholder="seu.email@pharmedice.com.br"
+				value={formData.email}
+				error={errors.email}
+				onChange={(value) => handleInputChange('email', value)}
+			/>
+
+			<FormField
+				label="Senha"
+				icon="/icons/lock.svg"
+				type="password"
+				placeholder="Digite a senha da sua conta"
+				value={formData.password}
+				error={errors.password}
+				onChange={(value) => handleInputChange('password', value)}
+			/>
+
+			{/* Forgot password link */}
+			<div className="flex justify-end">
+				<Link
+					href="/admin/esqueci-senha"
+					className="text-xs text-[#B8ADA0] hover:text-[#A39789] transition-opacity duration-200"
+				>
+					Esqueceu sua senha?
+				</Link>
 			</div>
 
-			<form onSubmit={handleSubmit} className="space-y-6">
-				<FormField
-					label="E-mail"
-					icon="/icons/account.svg"
-					iconAlt="Email"
-					type="email"
-					value={formData.email}
-					onChange={(value) => handleInputChange('email', value)}
-					error={errors.email}
-					placeholder="seu.email@pharmedice.com.br"
-				/>
-
-				<FormField
-					label="Senha"
-					icon="/icons/lock.svg"
-					iconAlt="Senha"
-					type="password"
-					value={formData.password}
-					onChange={(value) => handleInputChange('password', value)}
-					error={errors.password}
-					placeholder="Digite sua senha"
-				/>
-
-				<div className="flex items-center justify-between">
-					<Link
-						href="/admin/esqueci-senha"
-						className="text-sm text-blue-600 hover:text-blue-500 transition-colors"
-					>
-						Esqueceu sua senha?
-					</Link>
-				</div>
-
-				<SubmitButton isLoading={isLoading} className="w-full">
-					{isLoading ? 'Entrando...' : 'Entrar no Painel'}
+			{/* Login buttons */}
+			<div className="flex flex-col gap-3">
+				<SubmitButton isLoading={isLoading}>
+					{isLoading ? 'Entrando...' : 'Iniciar Sessão'}
 				</SubmitButton>
 
 				{/* Divisor */}
-				<div className="relative my-4">
+				<div className="relative my-2">
 					<div className="absolute inset-0 flex items-center">
 						<div className="w-full border-t border-gray-300"></div>
 					</div>
@@ -186,26 +170,25 @@ function AdminLoginForm() {
 
 				{/* Google login button */}
 				<GoogleLoginButton text="Entrar com Google" />
-
-				<div className="text-center">
-					<span className="text-gray-600">
-						Não tem uma conta administrativa?{' '}
-					</span>
-					<Link
-						href="/admin/cadastro"
-						className="text-blue-600 hover:text-blue-500 font-medium transition-colors"
-					>
-						Registrar-se
-					</Link>
-				</div>
-			</form>
-		</div>
+			</div>
+		</form>
 	);
 }
 
 export default function AdminLogin() {
+	const navigationLinks = (
+		<div className="space-y-2 w-full text-center">
+			<p className="text-sm text-[#B8ADA0]">
+				Não tem uma conta administrativa?{' '}
+				<Link href="/admin/cadastro" className="underline hover:opacity-70">
+					Registrar-se
+				</Link>
+			</p>
+		</div>
+	);
+
 	return (
-		<AuthLayout title="Login Administrativo">
+		<AuthLayout title="Área Administrativa" navigationLinks={navigationLinks}>
 			<Suspense fallback={<div className="text-center py-8">Carregando...</div>}>
 				<AdminLoginForm />
 			</Suspense>

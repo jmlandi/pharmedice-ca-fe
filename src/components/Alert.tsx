@@ -31,7 +31,7 @@ export default function Alert({
 	const getAlertStyles = () => {
 		switch (type) {
 			case 'success':
-				return 'bg-green-50 border-green-200 text-green-800';
+				return 'bg-[#26364D] border-[#26364D] text-[#F5F2ED]';
 			case 'error':
 				return 'bg-red-50 border-red-200 text-red-800';
 			case 'warning':
@@ -46,7 +46,7 @@ export default function Alert({
 	const getIconColor = () => {
 		switch (type) {
 			case 'success':
-				return 'text-green-600';
+				return 'text-[#F5F2ED]';
 			case 'error':
 				return 'text-red-600';
 			case 'warning':

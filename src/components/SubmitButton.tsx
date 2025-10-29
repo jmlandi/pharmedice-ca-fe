@@ -46,7 +46,7 @@ export default function SubmitButton({
 	const baseClasses =
 		'min-h-[30px] w-full h-12 text-sm font-bold rounded-3xl transition-all duration-200 flex items-center justify-center relative overflow-hidden';
 	const variantClasses = {
-		primary: 'bg-[#4E7FC6] text-white hover:bg-[#26364D]',
+		primary: 'bg-[#26364D] text-[#F5F2ED] hover:bg-[#1a2538]',
 		secondary: 'bg-[#E3D9CD] text-[#4E7FC6] hover:bg-[#DED1C1]',
 	};
 	const stateClasses =

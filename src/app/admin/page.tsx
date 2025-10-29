@@ -54,7 +54,7 @@ export default function AdminHome() {
 							</p>
 							<Link
 								href="/admin/entrar"
-								className="inline-flex items-center px-4 py-2 bg-[#4E7FC6] text-white font-medium rounded-lg hover:bg-[#26364D] transition-colors"
+								className="inline-flex items-center px-4 py-2 bg-[#26364D] text-[#F5F2ED] font-medium rounded-lg hover:bg-[#1a2538] transition-colors"
 							>
 								Fazer Login
 								<svg
@@ -77,9 +77,9 @@ export default function AdminHome() {
 					{/* Signup Card */}
 					<div className="bg-[#F5F2ED] rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
 						<div className="p-6">
-							<div className="flex items-center justify-center w-12 h-12 bg-green-100 rounded-lg mb-4">
+							<div className="flex items-center justify-center w-12 h-12 bg-[#26364D] rounded-lg mb-4">
 								<svg
-									className="w-6 h-6 text-green-600"
+									className="w-6 h-6 text-[#F5F2ED]"
 									fill="none"
 									stroke="currentColor"
 									viewBox="0 0 24 24"
@@ -100,7 +100,7 @@ export default function AdminHome() {
 							</p>
 							<Link
 								href="/admin/cadastro"
-								className="inline-flex items-center px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors"
+								className="inline-flex items-center px-4 py-2 bg-[#26364D] text-[#F5F2ED] font-medium rounded-lg hover:bg-[#1a2538] transition-colors"
 							>
 								Registrar-se
 								<svg

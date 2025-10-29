@@ -214,7 +214,7 @@ export default function MassUploadModal({
 									key={index}
 									className={`border rounded-lg p-4 ${
 										fileData.uploaded
-											? 'bg-green-50 border-green-200'
+											? 'bg-[#26364D] bg-opacity-10 border-[#26364D]'
 											: fileData.error
 											? 'bg-red-50 border-red-200'
 											: fileData.uploading
@@ -237,7 +237,7 @@ export default function MassUploadModal({
 											)}
 											{fileData.uploaded && (
 												<svg
-													className="w-5 h-5 text-green-600"
+													className="w-5 h-5 text-[#26364D]"
 													fill="none"
 													stroke="currentColor"
 													viewBox="0 0 24 24"

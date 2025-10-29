@@ -57,8 +57,8 @@ export default function UserViewModal({ user, onClose, onEdit }: UserViewModalPr
 							</label>
 							<p className="text-gray-900">{user.email}</p>
 							{user.email_verified_at ? (
-								<span className="mt-1 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-									✓ Verificado
+								<span className="mt-1 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#26364D] text-[#F5F2ED]">
+									Verificado
 								</span>
 							) : (
 								<span className="mt-1 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
@@ -104,7 +104,7 @@ export default function UserViewModal({ user, onClose, onEdit }: UserViewModalPr
 								className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
 									user.tipo_usuario === 'administrador'
 										? 'bg-purple-100 text-purple-800'
-										: 'bg-green-100 text-green-800'
+										: 'bg-[#26364D] text-[#F5F2ED]'
 								}`}
 							>
 								{user.tipo_usuario === 'administrador' ? 'Administrador' : 'Cliente'}

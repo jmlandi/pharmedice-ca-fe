@@ -1,9 +1,7 @@
-import Image from 'next/image';
-
 interface FormFieldProps {
 	label: string;
 	icon: string;
-	iconAlt: string;
+	iconAlt?: string;
 	type: string;
 	placeholder: string;
 	value: string;
@@ -13,10 +11,15 @@ interface FormFieldProps {
 	className?: string;
 }
 
+// Mapeamento de ícones SVG para Material Icons
+const iconMap: Record<string, string> = {
+	'/icons/account.svg': 'person',
+	'/icons/lock.svg': 'lock',
+};
+
 export default function FormField({
 	label,
 	icon,
-	iconAlt,
 	type,
 	placeholder,
 	value,
@@ -25,17 +28,15 @@ export default function FormField({
 	onChange,
 	className = '',
 }: FormFieldProps) {
+	const materialIcon = iconMap[icon] || 'circle';
+	
 	return (
 		<div className={`flex flex-col gap-1 mx-1 ${className}`}>
-			<label className="flex flex-row gap-1 text-sm text-foreground">
-				<Image
-					src={icon}
-					alt={iconAlt}
-					width={16}
-					height={16}
-					className="h-full w-auto"
-				/>
-				<p className="text-[#4E7FC6] font-bold text-md">{label}:</p>
+			<label className="flex flex-row gap-1 text-sm text-foreground items-center">
+				<span className="material-icons text-[16px] text-[#B8ADA0]">
+					{materialIcon}
+				</span>
+				<p className="text-[#B8ADA0] font-bold text-md">{label}:</p>
 			</label>
 			<input
 				type={type}
@@ -43,7 +44,7 @@ export default function FormField({
 				value={value}
 				onChange={(e) => onChange(e.target.value)}
 				maxLength={maxLength}
-				className={`w-full px-4 py-2 border-none bg-[#F5F2ED] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#4E7FC6] transition-all duration-200 placeholder:text-[#B8ADA0] ${
+				className={`w-full px-4 py-2 border-2 border-[#DED1C1] bg-[#F5F2ED] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#4E7FC6] transition-all duration-200 placeholder:text-[#B8ADA0] ${
 					error ? 'ring-2 ring-red-400' : ''
 				}`}
 			/>

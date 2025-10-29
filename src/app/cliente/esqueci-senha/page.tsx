@@ -121,9 +121,9 @@ function ForgotPasswordForm() {
 		return (
 			<div className="flex flex-col gap-6 w-[300px] md:w-[400px] text-center">
 				<div className="flex flex-col gap-4">
-					<div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+					<div className="w-20 h-20 bg-[#26364D] rounded-full flex items-center justify-center mx-auto mb-4">
 						<svg
-							className="w-10 h-10 text-green-600"
+							className="w-10 h-10 text-[#F5F2ED]"
 							fill="none"
 							stroke="currentColor"
 							viewBox="0 0 24 24"

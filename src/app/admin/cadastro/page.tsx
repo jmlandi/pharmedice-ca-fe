@@ -367,135 +367,101 @@ function AdminSignupForm() {
 	};
 
 	return (
-		<div className="w-full max-w-lg mx-auto">
-			<div className="text-center mb-6">
-				<div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
-					<svg
-						className="w-8 h-8 text-green-600"
-						fill="none"
-						stroke="currentColor"
-						viewBox="0 0 24 24"
-					>
-						<path
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							strokeWidth={2}
-							d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
-						/>
-					</svg>
-				</div>
-				<h1 className="text-2xl font-bold text-gray-900 mb-2">
-					Criar Conta Administrativa
-				</h1>
-				<p className="text-gray-600">
-					Registre-se para acessar o painel administrativo
-				</p>
-			</div>
+		<form
+			onSubmit={handleSubmit}
+			className="flex flex-col gap-4 w-[300px] md:w-full md:max-w-[420px] md:p-1 max-h-[80vh] overflow-y-auto"
+		>
+			<FormField
+				label="Primeiro Nome"
+				icon="/icons/account.svg"
+				type="text"
+				placeholder="Digite seu primeiro nome"
+				value={formData.first_name}
+				error={errors.first_name}
+				onChange={(value) => handleInputChange('first_name', value)}
+			/>
 
-			<form
-				onSubmit={handleSubmit}
-				className="flex flex-col gap-4 w-[300px] md:w-full md:max-w-[420px] md:p-1 max-h-[80vh] overflow-y-auto"
-			>
-				<FormField
-					label="Primeiro Nome"
-					icon="/icons/account.svg"
-					iconAlt="Ícone de usuário"
-					type="text"
-					placeholder="Digite seu primeiro nome"
-					value={formData.first_name}
-					error={errors.first_name}
-					onChange={(value) => handleInputChange('first_name', value)}
-				/>
+			<FormField
+				label="Segundo Nome"
+				icon="/icons/account.svg"
+				type="text"
+				placeholder="Digite seu segundo nome"
+				value={formData.last_name}
+				error={errors.last_name}
+				onChange={(value) => handleInputChange('last_name', value)}
+			/>
 
-				<FormField
-					label="Segundo Nome"
-					icon="/icons/account.svg"
-					iconAlt="Ícone de usuário"
-					type="text"
-					placeholder="Digite seu segundo nome"
-					value={formData.last_name}
-					error={errors.last_name}
-					onChange={(value) => handleInputChange('last_name', value)}
-				/>
+			<FormField
+				label="Como gostaria de ser chamado"
+				icon="/icons/account.svg"
+				type="text"
+				placeholder="Como prefere ser chamado?"
+				value={formData.nickname}
+				error={errors.nickname}
+				onChange={(value) => handleInputChange('nickname', value)}
+			/>
 
-				<FormField
-					label="Como gostaria de ser chamado"
-					icon="/icons/account.svg"
-					iconAlt="Ícone de usuário"
-					type="text"
-					placeholder="Como prefere ser chamado?"
-					value={formData.nickname}
-					error={errors.nickname}
-					onChange={(value) => handleInputChange('nickname', value)}
-				/>
+			<FormField
+				label="Número Celular/Telefone"
+				icon="/icons/account.svg"
+				type="tel"
+				placeholder="(11) 91234-1234 ou (11) 1234-1234"
+				value={formData.phone_number}
+				error={errors.phone_number}
+				maxLength={15}
+				onChange={(value) => handleInputChange('phone_number', value)}
+			/>
 
-				<FormField
-					label="Número Celular/Telefone"
-					icon="/icons/account.svg"
-					iconAlt="Ícone de telefone"
-					type="tel"
-					placeholder="(11) 91234-1234 ou (11) 1234-1234"
-					value={formData.phone_number}
-					error={errors.phone_number}
-					maxLength={15}
-					onChange={(value) => handleInputChange('phone_number', value)}
-				/>
+			<FormField
+				label="CPF"
+				icon="/icons/account.svg"
+				type="text"
+				placeholder="000.000.000-00"
+				value={formData.document_number}
+				error={errors.document_number}
+				maxLength={14}
+				onChange={(value) => handleInputChange('document_number', value)}
+			/>
 
-				<FormField
-					label="CPF"
-					icon="/icons/account.svg"
-					iconAlt="Ícone de documento"
-					type="text"
-					placeholder="000.000.000-00"
-					value={formData.document_number}
-					error={errors.document_number}
-					maxLength={14}
-					onChange={(value) => handleInputChange('document_number', value)}
-				/>
+			<FormField
+				label="Data de Nascimento"
+				icon="/icons/account.svg"
+				type="date"
+				placeholder=""
+				value={formData.birth_date}
+				error={errors.birth_date}
+				onChange={(value) => handleInputChange('birth_date', value)}
+			/>
 
-				<FormField
-					label="Data de Nascimento"
-					icon="/icons/account.svg"
-					iconAlt="Ícone de calendário"
-					type="date"
-					placeholder=""
-					value={formData.birth_date}
-					error={errors.birth_date}
-					onChange={(value) => handleInputChange('birth_date', value)}
-				/>
+			<FormField
+				label="E-mail Corporativo"
+				icon="/icons/account.svg"
+				type="email"
+				placeholder="seu.email@pharmedice.com.br"
+				value={formData.email}
+				error={errors.email}
+				onChange={(value) => handleInputChange('email', value)}
+			/>
 
-				<FormField
-					label="E-mail Corporativo"
-					icon="/icons/account.svg"
-					iconAlt="Ícone de e-mail"
-					type="email"
-					placeholder="seu.email@pharmedice.com.br"
-					value={formData.email}
-					error={errors.email}
-					onChange={(value) => handleInputChange('email', value)}
-				/>
+			<FormField
+				label="Senha"
+				icon="/icons/lock.svg"
+				type="password"
+				placeholder="Digite sua senha"
+				value={formData.password}
+				error={errors.password}
+				onChange={(value) => handleInputChange('password', value)}
+			/>
 
-				<FormField
-					label="Senha"
-					icon="/icons/lock.svg"
-					iconAlt="Ícone de cadeado"
-					type="password"
-					placeholder="Digite sua senha"
-					value={formData.password}
-					error={errors.password}
-					onChange={(value) => handleInputChange('password', value)}
-				/>
-
-				<FormField
-					label="Confirmação de Senha"
-					icon="/icons/lock.svg"
-					iconAlt="Ícone de cadeado"
-					type="password"
-					placeholder="Confirme sua senha"
-					value={formData.confirmPassword}
-					error={errors.confirmPassword}
-					onChange={(value) => handleInputChange('confirmPassword', value)}
-				/>
+			<FormField
+				label="Confirmação de Senha"
+				icon="/icons/lock.svg"
+				type="password"
+				placeholder="Confirme sua senha"
+				value={formData.confirmPassword}
+				error={errors.confirmPassword}
+				onChange={(value) => handleInputChange('confirmPassword', value)}
+			/>
 
 				{/* Seção de Preferências de Comunicação */}
 				<div className="flex flex-col gap-3 mt-4">
@@ -566,7 +532,7 @@ function AdminSignupForm() {
 							<a
 								href="/termos-uso"
 								target="_blank"
-								className="text-[#4E7FC6] underline hover:opacity-70"
+								className="text-[#B8ADA0] underline hover:opacity-70"
 							>
 								Termos de Uso
 							</a>{' '}
@@ -593,7 +559,7 @@ function AdminSignupForm() {
 							<a
 								href="/politica-privacidade"
 								target="_blank"
-								className="text-[#4E7FC6] underline hover:opacity-70"
+								className="text-[#B8ADA0] underline hover:opacity-70"
 							>
 								Política de Privacidade
 							</a>{' '}
@@ -613,35 +579,32 @@ function AdminSignupForm() {
 					</SubmitButton>
 				</div>
 
-				<div className="text-center">
-					<span className="text-gray-600">
-						Já tem uma conta administrativa?{' '}
-					</span>
-					<Link
-						href="/admin/entrar"
-						className="text-[#4E7FC6] hover:text-[#26364D] font-medium transition-colors"
-					>
-						Fazer login
-					</Link>
+				<div className="mt-6 p-4 bg-[#E3D9CD] rounded-lg">
+					<p className="text-sm text-[#26364D]">
+						<strong>Nota:</strong> Apenas colaboradores com e-mail corporativo
+						(@pharmedice.com.br) podem criar contas administrativas.
+					</p>
 				</div>
 			</form>
-
-			<div className="mt-6 p-4 bg-[#E3D9CD] rounded-lg">
-				<p className="text-sm text-[#26364D]">
-					<strong>Nota:</strong> Apenas colaboradores com e-mail corporativo
-					(@pharmedice.com.br) podem criar contas administrativas.
-				</p>
-			</div>
-		</div>
-	);
-}
+		);
+	}
 
 export default function AdminSignup() {
+	const navigationLinks = (
+		<div className="space-y-2 w-full text-center">
+			<p className="text-sm text-[#B8ADA0]">
+				Já tem uma conta?{' '}
+				<Link href="/admin/entrar" className="underline hover:opacity-70">
+					Entrar
+				</Link>
+			</p>
+		</div>
+	);
+
 	return (
 		<AuthLayout
 			title="Cadastro Administrativo"
-			backLink="/admin/entrar"
-			backLabel="Voltar para o login"
+			navigationLinks={navigationLinks}
 		>
 			<AdminSignupForm />
 		</AuthLayout>

@@ -605,8 +605,6 @@ export default function SignupPage() {
 		<AuthLayout
 			title="Criar Conta"
 			navigationLinks={navigationLinks}
-			backLink="/cliente/entrar"
-			backLabel="Voltar para o login"
 		>
 			<SignupForm />
 		</AuthLayout>

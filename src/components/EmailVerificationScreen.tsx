@@ -176,7 +176,7 @@ export default function EmailVerificationScreen({
 					{/* Botão para verificar manualmente */}
 					<button
 						onClick={handleCheckVerification}
-						className="w-full px-4 py-2 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700 transition-colors cursor-pointer"
+						className="w-full px-4 py-2 bg-[#26364D] text-[#F5F2ED] text-sm rounded-lg hover:bg-[#1a2538] transition-colors cursor-pointer"
 					>
 						✓ Já verifiquei meu e-mail
 					</button>

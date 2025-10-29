@@ -79,7 +79,7 @@ export default function AuthLayout({
 							className="mb-5"
 							priority={true}
 						/>
-						<h1 className="text-2xl font-bold text-center mb-2 text-[#4E7FC6]">
+						<h1 className="text-2xl font-bold text-center mb-2 text-[#26364D]">
 							{title}
 						</h1>
 					</div>

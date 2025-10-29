@@ -290,20 +290,11 @@ function LoadingScreen() {
 
 export default function AdminResetPasswordPage() {
 	const navigationLinks = (
-		<div className="flex flex-col gap-2 text-center">
-			<p className="text-sm text-[#4E7FC6]">
+		<div className="space-y-2 w-full text-center">
+			<p className="text-sm text-[#B8ADA0]">
 				Lembrou sua senha?{' '}
 				<Link href="/admin/entrar" className="underline hover:opacity-70">
-					Voltar ao login
-				</Link>
-			</p>
-			<p className="text-sm text-[#4E7FC6]">
-				Problemas de acesso?{' '}
-				<Link
-					href="/admin/esqueci-senha"
-					className="underline hover:opacity-70"
-				>
-					Solicitar novo link
+					Entrar
 				</Link>
 			</p>
 		</div>

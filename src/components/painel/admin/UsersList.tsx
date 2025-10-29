@@ -281,7 +281,7 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 											className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
 												user.tipo_usuario === 'administrador'
 													? 'bg-purple-100 text-purple-800'
-													: 'bg-green-100 text-green-800'
+													: 'bg-[#26364D] text-[#F5F2ED]'
 											}`}
 										>
 											{user.tipo_usuario === 'administrador' ? 'Admin' : 'Cliente'}
@@ -290,7 +290,7 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 									<td className="px-6 py-4 whitespace-nowrap">
 										<div className="flex flex-col gap-1">
 											{user.email_verified_at ? (
-												<span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+												<span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-[#26364D] text-[#F5F2ED]">
 													Verificado
 												</span>
 											) : (
