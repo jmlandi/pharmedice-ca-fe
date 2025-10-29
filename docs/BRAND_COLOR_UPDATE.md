@@ -12,26 +12,32 @@ This document summarizes the brand color palette implementation across the Pharm
 | Neutral Gray | `#CCCCCC` | Secondary backgrounds, shimmer effects |
 | Bege Amarelado | `#DED1C1` | Soft backgrounds, gradients |
 | Bege Acinzentado | `#E3D9CD` | Loading states, subtle backgrounds |
+| Bege Claro | `#F5F2ED` | Main backgrounds, card backgrounds, content areas |
 
 ## Changes Made
 
 ### Global Styles (`src/app/globals.css`)
 - Added CSS variables for all brand colors
 - Updated `--pharmedice-blue` from `#527BC6` to `#4E7FC6`
+- Updated `--background` from `#ffffff` (white) to `#F5F2ED` (light beige)
 - Updated shimmer animation backgrounds to use beige colors
 - Updated loading bar gradient with new Light Blue color
+- Added `--pharmedice-beige-light` variable
 
 ### Components Updated
 
 #### Core Components
-- **AuthLayout.tsx**: Title color updated to Light Blue
+- **AuthLayout.tsx**: Title color updated to Light Blue, card background to Light Beige
 - **SubmitButton.tsx**: 
   - Primary button: Light Blue (`#4E7FC6`)
   - Primary hover: Dark Blue (`#26364D`)
   - Secondary text: Light Blue
 - **FormField.tsx**: Label and focus ring colors updated to Light Blue
 - **LoadingProvider.tsx**: Progress bar gradient updated with Light Blue
-- **EmailVerificationScreen.tsx**: Background gradient and status colors updated
+- **EmailVerificationScreen.tsx**: Background gradient and status colors updated, card background to Light Beige
+- **GoogleLoginButton.tsx**: Background updated to Light Beige
+- **ConfirmModal.tsx**: Modal background updated to Light Beige
+- **SkeletonLoaders.tsx**: Loading skeleton backgrounds updated to Light Beige
 
 #### Panel Components
 All components in `src/components/painel/` updated:
@@ -72,6 +78,8 @@ Updated colors in both cliente and admin sections:
 |-----------|-----------|---------|
 | `#527BC6` | `#4E7FC6` | Primary brand blue |
 | `#3b5aa1` | `#26364D` | Hover/active states |
+| `#ffffff` | `#F5F2ED` | Background and card colors |
+| `bg-white` | `bg-[#F5F2ED]` | Tailwind class replacement |
 | `blue-600` | `#4E7FC6` | Tailwind utility replacement |
 | `blue-700` | `#26364D` | Tailwind hover replacement |
 | `blue-50` | `#E3D9CD` | Light backgrounds |
@@ -88,8 +96,8 @@ The following colors were intentionally **not changed** as they serve semantic p
 
 ## Files Modified
 
-Total: **31 files** changed
-- Components: 18 files
+Total: **32 files** changed
+- Components: 19 files
 - Pages: 11 files
 - Assets: 2 files
 
@@ -101,6 +109,8 @@ Total: **31 files** changed
 4. Confirm SVG icon colors render correctly
 5. Test on different screen sizes to ensure consistency
 6. Verify contrast ratios meet WCAG accessibility standards
+7. Ensure light beige backgrounds provide good readability
+8. Validate that the warmer color scheme feels cohesive
 
 ## Git Commits
 
@@ -110,6 +120,14 @@ Total: **31 files** changed
 2. **feat: Update remaining blue Tailwind classes to brand colors** (f2166f5)
    - Additional Tailwind utility class replacements
    - Gradient background updates
+
+3. **docs: Add brand color update documentation** (6d39610)
+   - Comprehensive documentation of all changes
+
+4. **feat: Replace white backgrounds with light beige (#F5F2ED)** (3e43824)
+   - Convert all white backgrounds to warm light beige
+   - Update CSS background variable
+   - Creates more cohesive branded appearance
 
 ## Notes
 
