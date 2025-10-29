@@ -14,9 +14,7 @@ import {
 	formatPhone,
 	isValidEmail,
 	isValidCPF,
-	isValidCNPJ,
 	isValidPhone,
-	isValidName,
 	cleanString,
 } from '@/lib/utils';
 
@@ -224,18 +222,11 @@ function AdminSignupForm() {
 				'A confirmação da senha deve ser igual à senha';
 		}
 
-		// Validação do CPF/CNPJ
+		// Validação do CPF
 		if (!formData.document_number.trim()) {
-			newErrors.document_number = 'O CPF ou CNPJ é obrigatório';
-		} else {
-			const cleanDoc = cleanString(formData.document_number);
-			if (
-				!isValidCPF(formData.document_number) &&
-				!isValidCNPJ(formData.document_number)
-			) {
-				newErrors.document_number =
-					'CPF deve ter 11 dígitos ou CNPJ deve ter 14 dígitos';
-			}
+			newErrors.document_number = 'O CPF é obrigatório';
+		} else if (!isValidCPF(formData.document_number)) {
+			newErrors.document_number = 'CPF deve ter 11 dígitos';
 		}
 
 		// Validação da data de nascimento
@@ -451,14 +442,14 @@ function AdminSignupForm() {
 				/>
 
 				<FormField
-					label="CPF ou CNPJ"
+					label="CPF"
 					icon="/icons/account.svg"
 					iconAlt="Ícone de documento"
 					type="text"
-					placeholder="000.000.000-00 ou 00.000.000/0000-00"
+					placeholder="000.000.000-00"
 					value={formData.document_number}
 					error={errors.document_number}
-					maxLength={18}
+					maxLength={14}
 					onChange={(value) => handleInputChange('document_number', value)}
 				/>
 
