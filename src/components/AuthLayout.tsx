@@ -41,7 +41,7 @@ export default function AuthLayout({
 				{isExternalLink ? (
 					<a
 						href={backLink || defaultBackUrl}
-						className="w-[100%] bg-gray-100 hover:bg-gray-200 text-foreground rounded-4xl px-5 py-1 flex flex-row gap-1 transition-all duration-200"
+						className="w-[100%] bg-[#E3D9CD] hover:bg-[#DED1C1] text-foreground rounded-4xl px-5 py-1 flex flex-row gap-1 transition-all duration-200"
 					>
 						<Image
 							src="/icons/arrow.svg"
@@ -55,7 +55,7 @@ export default function AuthLayout({
 				) : (
 					<Link
 						href={backLink}
-						className="w-[100%] bg-gray-100 hover:bg-gray-200 text-foreground rounded-4xl px-5 py-1 flex flex-row gap-1 transition-all duration-200"
+						className="w-[100%] bg-[#E3D9CD] hover:bg-[#DED1C1] text-foreground rounded-4xl px-5 py-1 flex flex-row gap-1 transition-all duration-200"
 					>
 						<Image
 							src="/icons/arrow.svg"

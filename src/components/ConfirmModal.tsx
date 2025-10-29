@@ -133,11 +133,11 @@ export default function ConfirmModal({
 					</div>
 
 					{/* Actions */}
-					<div className="bg-gray-50 px-6 py-4 flex flex-col sm:flex-row gap-3 sm:gap-2 sm:justify-end">
+					<div className="bg-[#E3D9CD] px-6 py-4 flex flex-col sm:flex-row gap-3 sm:gap-2 sm:justify-end">
 						<button
 							type="button"
 							onClick={onCancel}
-							className="w-full sm:w-auto px-4 py-2 text-sm font-medium text-gray-700 bg-[#F5F2ED] border border-gray-300 rounded-2xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--pharmedice-blue)] transition-all duration-200"
+							className="w-full sm:w-auto px-4 py-2 text-sm font-medium text-gray-700 bg-[#F5F2ED] border border-gray-300 rounded-2xl hover:bg-[#E3D9CD] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--pharmedice-blue)] transition-all duration-200"
 						>
 							{cancelText}
 						</button>

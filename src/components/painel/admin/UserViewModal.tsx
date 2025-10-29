@@ -190,7 +190,7 @@ export default function UserViewModal({ user, onClose, onEdit }: UserViewModalPr
 					)}
 				</div>
 
-				<div className="p-6 border-t bg-gray-50 flex justify-end gap-3">
+				<div className="p-6 border-t bg-[#E3D9CD] flex justify-end gap-3">
 					<button
 						onClick={onClose}
 						className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"

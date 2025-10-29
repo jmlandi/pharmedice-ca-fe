@@ -90,10 +90,10 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 		return (
 			<div className="bg-[#F5F2ED] rounded-lg shadow-md p-8">
 				<div className="animate-pulse space-y-4">
-					<div className="h-4 bg-gray-200 rounded w-1/4"></div>
+					<div className="h-4 bg-[#CCCCCC] rounded w-1/4"></div>
 					<div className="space-y-3">
 						{[1, 2, 3, 4, 5].map((i) => (
-							<div key={i} className="h-16 bg-gray-200 rounded"></div>
+							<div key={i} className="h-16 bg-[#CCCCCC] rounded"></div>
 						))}
 					</div>
 				</div>
@@ -145,7 +145,7 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 							className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
 								userTypeFilter === 'all'
 									? 'bg-[#4E7FC6] text-white'
-									: 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+									: 'bg-[#E3D9CD] text-gray-700 hover:bg-[#DED1C1]'
 							}`}
 						>
 							Todos
@@ -155,7 +155,7 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 							className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
 								userTypeFilter === 'administrador'
 									? 'bg-[#4E7FC6] text-white'
-									: 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+									: 'bg-[#E3D9CD] text-gray-700 hover:bg-[#DED1C1]'
 							}`}
 						>
 							Administradores
@@ -165,7 +165,7 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 							className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
 								userTypeFilter === 'usuario'
 									? 'bg-[#4E7FC6] text-white'
-									: 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+									: 'bg-[#E3D9CD] text-gray-700 hover:bg-[#DED1C1]'
 							}`}
 						>
 							Clientes
@@ -194,7 +194,7 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 
 			<div className="overflow-x-auto">
 				<table className="min-w-full divide-y divide-gray-200">
-					<thead className="bg-gray-50">
+					<thead className="bg-[#E3D9CD]">
 						<tr>
 							<th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
 								Usuário
@@ -222,7 +222,7 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 							</tr>
 						) : (
 							users.map((user) => (
-								<tr key={user.id} className="hover:bg-gray-50 transition-colors">
+								<tr key={user.id} className="hover:bg-[#E3D9CD] transition-colors">
 									<td className="px-6 py-4 whitespace-nowrap">
 										<div className="flex items-center">
 											{user.avatar ? (

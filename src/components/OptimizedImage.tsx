@@ -32,7 +32,7 @@ function ImageSkeleton({
 			className={`animate-pulse bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 bg-[length:200%_100%] ${className}`}
 			style={{ width, height }}
 		>
-			<div className="w-full h-full bg-gray-200 rounded-lg flex items-center justify-center">
+			<div className="w-full h-full bg-[#CCCCCC] rounded-lg flex items-center justify-center">
 				<svg
 					className="w-8 h-8 text-gray-400"
 					fill="currentColor"

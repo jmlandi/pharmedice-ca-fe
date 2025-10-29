@@ -322,7 +322,7 @@ export default function UserEditModal({ user, onClose, onSuccess }: UserEditModa
 						</div>
 					</div>
 
-					<div className="mt-6 pt-6 border-t bg-gray-50 -mx-6 px-6 py-4 flex justify-end gap-3 sticky bottom-0">
+					<div className="mt-6 pt-6 border-t bg-[#E3D9CD] -mx-6 px-6 py-4 flex justify-end gap-3 sticky bottom-0">
 						<button
 							type="button"
 							onClick={onClose}

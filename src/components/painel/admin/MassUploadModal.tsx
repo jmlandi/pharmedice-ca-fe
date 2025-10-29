@@ -357,7 +357,7 @@ export default function MassUploadModal({
 				</div>
 
 				{/* Footer */}
-				<div className="flex items-center justify-between p-6 border-t bg-gray-50">
+				<div className="flex items-center justify-between p-6 border-t bg-[#E3D9CD]">
 					<div className="text-sm text-gray-600">
 						{files.length > 0 && (
 							<>
@@ -370,7 +370,7 @@ export default function MassUploadModal({
 						<button
 							onClick={handleClose}
 							disabled={uploading}
-							className="px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50"
+							className="px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-[#E3D9CD] disabled:opacity-50"
 						>
 							Cancelar
 						</button>
