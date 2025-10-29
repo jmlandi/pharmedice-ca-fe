@@ -223,7 +223,12 @@ export default function ForgotPasswordPage() {
 	);
 
 	return (
-		<AuthLayout title="Área do Cliente" navigationLinks={navigationLinks}>
+		<AuthLayout 
+			title="Área do Cliente" 
+			navigationLinks={navigationLinks}
+			backLink="/cliente/entrar"
+			backLabel="Voltar para o login"
+		>
 			<ForgotPasswordForm />
 		</AuthLayout>
 	);

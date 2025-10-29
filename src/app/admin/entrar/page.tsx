@@ -188,7 +188,12 @@ export default function AdminLogin() {
 	);
 
 	return (
-		<AuthLayout title="Área Administrativa" navigationLinks={navigationLinks}>
+		<AuthLayout 
+			title="Área Administrativa" 
+			navigationLinks={navigationLinks}
+			backLink="https://pharmedice.com.br"
+			backLabel="Retornar para o site"
+		>
 			<Suspense fallback={<div className="text-center py-8">Carregando...</div>}>
 				<AdminLoginForm />
 			</Suspense>

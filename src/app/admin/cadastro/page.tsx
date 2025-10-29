@@ -605,6 +605,8 @@ export default function AdminSignup() {
 		<AuthLayout
 			title="Cadastro Administrativo"
 			navigationLinks={navigationLinks}
+			backLink="/admin/entrar"
+			backLabel="Voltar para o login"
 		>
 			<AdminSignupForm />
 		</AuthLayout>

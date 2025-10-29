@@ -292,7 +292,12 @@ export default function ResetPasswordPage() {
 	);
 
 	return (
-		<AuthLayout title="Área do Cliente" navigationLinks={navigationLinks}>
+		<AuthLayout 
+			title="Redefinir Senha" 
+			navigationLinks={navigationLinks}
+			backLink="/cliente/entrar"
+			backLabel="Voltar para o login"
+		>
 			<Suspense fallback={<LoadingScreen />}>
 				<ResetPasswordForm />
 			</Suspense>

@@ -264,6 +264,8 @@ export default function AdminForgotPassword() {
 		<AuthLayout
 			title="Recuperar Senha Administrativa"
 			navigationLinks={navigationLinks}
+			backLink="/admin/entrar"
+			backLabel="Voltar para o login"
 		>
 			<AdminForgotPasswordForm />
 		</AuthLayout>

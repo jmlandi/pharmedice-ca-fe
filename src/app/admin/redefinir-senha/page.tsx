@@ -301,7 +301,12 @@ export default function AdminResetPasswordPage() {
 	);
 
 	return (
-		<AuthLayout title="Administração" navigationLinks={navigationLinks}>
+		<AuthLayout 
+			title="Administração" 
+			navigationLinks={navigationLinks}
+			backLink="/admin/entrar"
+			backLabel="Voltar para o login"
+		>
 			<Suspense fallback={<LoadingScreen />}>
 				<AdminResetPasswordForm />
 			</Suspense>

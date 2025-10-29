@@ -184,7 +184,12 @@ export default function LoginPage() {
 	);
 
 	return (
-		<AuthLayout title="Área do Cliente" navigationLinks={navigationLinks}>
+		<AuthLayout 
+			title="Área do Cliente" 
+			navigationLinks={navigationLinks}
+			backLink="https://pharmedice.com.br"
+			backLabel="Retornar para o site"
+		>
 			<Suspense fallback={<div className="text-center py-8">Carregando...</div>}>
 				<LoginForm />
 			</Suspense>
