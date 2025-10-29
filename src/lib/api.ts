@@ -27,7 +27,13 @@ api.interceptors.request.use(
 
 // Interceptor para tratar respostas e erros
 api.interceptors.response.use(
-	(response) => response,
+	(response) => {
+		// Retorna a resposta sem processamento adicional para blobs
+		if (response.config.responseType === 'blob') {
+			return response;
+		}
+		return response;
+	},
 	(error) => {
 		if (error.response?.status === 401) {
 			// Token expirado ou inválido

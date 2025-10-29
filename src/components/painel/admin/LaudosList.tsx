@@ -72,16 +72,28 @@ onRefresh,
 
 	const handleDownload = async (laudoId: string) => {
 		try {
+			const laudo = filteredLaudos.find(l => l.id === laudoId);
 			const blob = await LaudosService.download(laudoId);
+			
+			// Cria um objeto URL para o blob
 			const url = window.URL.createObjectURL(blob);
 			const a = document.createElement('a');
 			a.style.display = 'none';
 			a.href = url;
-			a.download = `laudo_${laudoId}.pdf`;
+			
+			// Usa o nome do arquivo original ou um nome baseado no título
+			const fileName = laudo 
+				? `${laudo.titulo.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.pdf`
+				: `laudo_${laudoId}.pdf`;
+			a.download = fileName;
+			
 			document.body.appendChild(a);
 			a.click();
+			
+			// Limpa recursos
 			window.URL.revokeObjectURL(url);
 			document.body.removeChild(a);
+			
 			showSuccess('Download iniciado!');
 		} catch (error) {
 			console.error('Erro ao fazer download:', error);

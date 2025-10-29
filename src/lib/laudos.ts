@@ -95,6 +95,9 @@ export class LaudosService {
 	static async download(id: string): Promise<Blob> {
 		const response = await api.get(`/laudos/${id}/download`, {
 			responseType: 'blob',
+			headers: {
+				'Accept': 'application/pdf',
+			},
 		});
 
 		return response.data;
