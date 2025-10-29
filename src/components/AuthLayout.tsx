@@ -24,16 +24,16 @@ export default function AuthLayout({
 
 	return (
 		<main className="w-full min-h-screen flex flex-col md:flex-row">
-			{/* main image - fixed on desktop */}
-			<div className="md:fixed md:left-0 md:top-0 md:w-[60vw] md:h-screen md:z-10">
-				<OptimizedImage
-					src="/images/cientist.png"
-					alt="Imagem de boas-vindas à área do cliente da Pharmédice"
-					width={800}
-					height={600}
-					priority={true}
-					className="w-screen md:w-full h-auto md:h-screen object-cover md:rounded-r-3xl"
-				/>
+		{/* main image - fixed on desktop */}
+		<div className="md:fixed md:left-0 md:top-0 md:w-[60vw] md:h-screen md:z-10">
+			<OptimizedImage
+				src="/images/welcome-video.gif"
+				alt="Imagem de boas-vindas à área do cliente da Pharmédice"
+				width={800}
+				height={600}
+				priority={true}
+				className="w-screen md:w-full h-auto md:h-screen object-cover md:rounded-r-3xl"
+			/>
 			</div>
 			{/* auth area */}
 			<div className="flex flex-col w-full md:ml-[60vw] md:w-[40vw] justify-start items-center min-h-screen p-5 gap-5 md:px-8 md:py-6 overflow-y-auto">
