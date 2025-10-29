@@ -115,17 +115,17 @@ export default function ConfirmModal({
 
 			{/* Modal */}
 			<div className="flex min-h-full items-center justify-center p-4">
-				<div className="relative transform overflow-hidden rounded-3xl bg-[#F5F2ED] shadow-xl transition-all w-full max-w-md">
-					<div className="bg-[#F5F2ED] px-6 py-6">
+				<div className="relative transform overflow-hidden rounded-3xl bg-[#252220] shadow-xl transition-all w-full max-w-md">
+					<div className="bg-[#252220] px-6 py-6">
 						<div className="flex items-start gap-4">
 							<div className="flex-shrink-0 mt-1">{icon}</div>
 							<div className="flex-1">
 								{title && (
-									<h3 className="text-lg font-semibold text-gray-900 mb-2">
+									<h3 className="text-lg font-semibold text-gray-100 mb-2">
 										{title}
 									</h3>
 								)}
-								<p className="text-sm text-gray-600 leading-relaxed">
+								<p className="text-sm text-gray-300 leading-relaxed">
 									{message}
 								</p>
 							</div>
@@ -133,11 +133,11 @@ export default function ConfirmModal({
 					</div>
 
 					{/* Actions */}
-					<div className="bg-[#E3D9CD] px-6 py-4 flex flex-col sm:flex-row gap-3 sm:gap-2 sm:justify-end">
+					<div className="bg-[#2d2823] px-6 py-4 flex flex-col sm:flex-row gap-3 sm:gap-2 sm:justify-end">
 						<button
 							type="button"
 							onClick={onCancel}
-							className="w-full sm:w-auto px-4 py-2 text-sm font-medium text-gray-700 bg-[#F5F2ED] border border-gray-300 rounded-2xl hover:bg-[#E3D9CD] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--pharmedice-blue)] transition-all duration-200"
+							className="w-full sm:w-auto px-4 py-2 text-sm font-medium text-gray-200 bg-[#252220] border border-gray-600 rounded-2xl hover:bg-[#2d2823] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--pharmedice-blue)] transition-all duration-200"
 						>
 							{cancelText}
 						</button>

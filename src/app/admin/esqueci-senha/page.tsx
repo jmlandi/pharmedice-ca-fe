@@ -148,11 +148,11 @@ function AdminForgotPasswordForm() {
 					</svg>
 				</div>
 
-				<h1 className="text-2xl font-bold text-gray-900 mb-4">
+				<h1 className="text-2xl font-bold text-gray-100 mb-4">
 					E-mail Enviado!
 				</h1>
 
-				<p className="text-gray-600 mb-6">
+				<p className="text-gray-300 mb-6">
 					Enviamos um link de recuperação para <strong>{formData.email}</strong>
 					. Verifique sua caixa de entrada e a pasta de spam.
 				</p>
@@ -198,10 +198,10 @@ function AdminForgotPasswordForm() {
 						/>
 					</svg>
 				</div>
-				<h1 className="text-2xl font-bold text-gray-900 mb-2">
+				<h1 className="text-2xl font-bold text-gray-100 mb-2">
 					Recuperar Senha Administrativa
 				</h1>
-				<p className="text-gray-600">
+				<p className="text-gray-300">
 					Digite seu e-mail corporativo para receber o link de recuperação
 				</p>
 			</div>
@@ -231,7 +231,7 @@ function AdminForgotPasswordForm() {
 					</Link>
 					<Link
 						href="/admin/cadastro"
-						className="text-sm text-gray-600 hover:text-gray-500 transition-colors block"
+						className="text-sm text-gray-300 hover:text-gray-400 transition-colors block"
 					>
 						Não tem conta? Registrar-se
 					</Link>

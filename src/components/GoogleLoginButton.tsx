@@ -18,13 +18,13 @@ export default function GoogleLoginButton({
 			<button
 				onClick={loginWithGoogle}
 				disabled={loading}
-				className={`w-full flex items-center justify-center gap-3 px-4 py-3 border border-gray-300 rounded-lg shadow-sm bg-[#F5F2ED] hover:bg-[#E3D9CD] disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer ${className}`}
+				className={`w-full flex items-center justify-center gap-3 px-4 py-3 border border-gray-600 rounded-lg shadow-sm bg-[#252220] hover:bg-[#2d2823] disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer ${className}`}
 				type="button"
 			>
 				{loading ? (
 					<>
 						<div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-900"></div>
-						<span className="text-gray-700 font-medium">Autenticando...</span>
+						<span className="text-gray-200 font-medium">Autenticando...</span>
 					</>
 				) : (
 					<>
@@ -46,7 +46,7 @@ export default function GoogleLoginButton({
 								d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
 							/>
 						</svg>
-						<span className="text-gray-700 font-medium">{text}</span>
+						<span className="text-gray-200 font-medium">{text}</span>
 					</>
 				)}
 			</button>

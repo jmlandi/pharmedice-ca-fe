@@ -16,7 +16,7 @@ export default function PainelHeader({
 	onLogout,
 }: PainelHeaderProps) {
 	return (
-		<header className="bg-[#F5F2ED] shadow-sm border-b">
+		<header className="bg-[#252220] shadow-sm border-b">
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div className="flex justify-between items-center h-16">
 					<div className="flex items-center gap-4">
@@ -27,11 +27,11 @@ export default function PainelHeader({
 							height={24}
 							className="max-h-8"
 						/>
-						<h1 className="text-xl font-semibold text-gray-900">{title}</h1>
+						<h1 className="text-xl font-semibold text-gray-100">{title}</h1>
 					</div>
 
 					<div className="flex items-center gap-4">
-						<span className="text-sm text-gray-600">
+						<span className="text-sm text-gray-300">
 							Olá, {userName}! {isAdmin && '(Admin)'}
 						</span>
 						<button

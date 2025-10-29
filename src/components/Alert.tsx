@@ -39,7 +39,7 @@ export default function Alert({
 			case 'info':
 				return 'bg-blue-50 border-blue-200 text-blue-800';
 			default:
-				return 'bg-[#E3D9CD] border-gray-200 text-gray-800';
+				return 'bg-[#2d2823] border-gray-700 text-gray-800';
 		}
 	};
 
@@ -54,7 +54,7 @@ export default function Alert({
 			case 'info':
 				return 'text-blue-600';
 			default:
-				return 'text-gray-600';
+				return 'text-gray-300';
 		}
 	};
 

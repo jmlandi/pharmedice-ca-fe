@@ -108,11 +108,11 @@ export default function EmailVerificationScreen({
 	};
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-[#E3D9CD] to-[#DED1C1] flex items-center justify-center p-4">
-			<div className="bg-[#F5F2ED] rounded-2xl shadow-xl p-8 w-full max-w-md">
+		<div className="min-h-screen bg-gradient-to-br from-[#2d2823] to-[#3a3530] flex items-center justify-center p-4">
+			<div className="bg-[#252220] rounded-2xl shadow-xl p-8 w-full max-w-md">
 				{/* Logo da Pharmedice */}
 				<div className="text-center mb-8">
-					<div className="mx-auto w-20 h-20 bg-[#DED1C1] rounded-full flex items-center justify-center mb-4">
+					<div className="mx-auto w-20 h-20 bg-[#3a3530] rounded-full flex items-center justify-center mb-4">
 						<Image
 							src="/icons/pharmedice-logo.svg"
 							alt="Pharmedice"
@@ -121,20 +121,20 @@ export default function EmailVerificationScreen({
 							className="object-contain"
 						/>
 					</div>
-					<h1 className="text-2xl font-bold text-gray-900 mb-2">
+					<h1 className="text-2xl font-bold text-gray-100 mb-2">
 						Verifique seu e-mail
 					</h1>
-					<p className="text-gray-600 text-sm">
+					<p className="text-gray-300 text-sm">
 						Enviamos um link de verificação para
 					</p>
-					<p className="text-[#4E7FC6] font-medium text-sm">{user?.email}</p>
+					<p className="text-[#6B9FE8] font-medium text-sm">{user?.email}</p>
 				</div>
 
 				{/* Ícone de email */}
 				<div className="text-center mb-6">
-					<div className="mx-auto w-16 h-16 bg-[#E3D9CD] rounded-full flex items-center justify-center mb-4">
+					<div className="mx-auto w-16 h-16 bg-[#2d2823] rounded-full flex items-center justify-center mb-4">
 						<svg
-							className="w-8 h-8 text-[#4E7FC6]"
+							className="w-8 h-8 text-[#6B9FE8]"
 							fill="none"
 							stroke="currentColor"
 							viewBox="0 0 24 24"
@@ -151,11 +151,11 @@ export default function EmailVerificationScreen({
 
 				{/* Instruções */}
 				<div className="text-center mb-6">
-					<p className="text-gray-600 text-sm leading-relaxed">
+					<p className="text-gray-300 text-sm leading-relaxed">
 						Clique no link que enviamos para <strong>{user?.email}</strong> para
 						verificar sua conta e acessar o painel.
 					</p>
-					<p className="text-xs text-gray-500 mt-2">
+					<p className="text-xs text-gray-400 mt-2">
 						Verificando automaticamente... ⟳
 					</p>
 				</div>
@@ -184,7 +184,7 @@ export default function EmailVerificationScreen({
 					{/* Link para voltar ao login */}
 					<button
 						onClick={handleLogout}
-						className="w-full text-sm text-gray-500 hover:text-gray-700 transition-colors cursor-pointer"
+						className="w-full text-sm text-gray-400 hover:text-gray-200 transition-colors cursor-pointer"
 					>
 						Voltar ao login
 					</button>

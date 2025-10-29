@@ -77,7 +77,7 @@ function ClientePainelContent() {
 
 	return (
 <PageTransition>
-			<div className="min-h-screen bg-[#F5F2ED]">
+			<div className="min-h-screen bg-[#252220]">
 				<PainelHeader
 					title="Área do Cliente"
 					userName={user?.primeiro_nome || ''}

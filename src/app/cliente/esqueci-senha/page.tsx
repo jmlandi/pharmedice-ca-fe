@@ -136,10 +136,10 @@ function ForgotPasswordForm() {
 							/>
 						</svg>
 					</div>
-					<h2 className="text-xl font-bold text-[#4E7FC6]">E-mail Enviado!</h2>
+					<h2 className="text-xl font-bold text-[#6B9FE8]">E-mail Enviado!</h2>
 					<p className="text-sm text-foreground">
 						Enviamos um link para redefinir sua senha para:{' '}
-						<span className="text-sm font-semibold text-[#4E7FC6]">
+						<span className="text-sm font-semibold text-[#6B9FE8]">
 							{formData.email}
 						</span>
 					</p>
@@ -162,7 +162,7 @@ function ForgotPasswordForm() {
 
 					<Link
 						href="/cliente/login"
-						className="w-full h-12 flex items-center justify-center text-sm font-bold bg-[#4E7FC6] text-white rounded-3xl hover:bg-[#26364D] hover:cursor-pointer transition-all duration-200"
+						className="w-full h-12 flex items-center justify-center text-sm font-bold bg-[#6B9FE8] text-white rounded-3xl hover:bg-[#4E7FC6] hover:cursor-pointer transition-all duration-200"
 					>
 						Voltar ao Login
 					</Link>
@@ -177,7 +177,7 @@ function ForgotPasswordForm() {
 			className="flex flex-col gap-6 w-[300px] md:w-full md:max-w-[420px] md:p-1"
 		>
 			<div className="flex flex-col gap-4 text-center">
-				<h2 className="text-xl font-bold text-[#4E7FC6]">
+				<h2 className="text-xl font-bold text-[#6B9FE8]">
 					Esqueceu sua senha?
 				</h2>
 				<p className="text-sm text-foreground">
@@ -207,13 +207,13 @@ function ForgotPasswordForm() {
 export default function ForgotPasswordPage() {
 	const navigationLinks = (
 		<div className="flex flex-col gap-2 text-center">
-			<p className="text-sm text-[#4E7FC6]">
+			<p className="text-sm text-[#6B9FE8]">
 				Lembrou sua senha?{' '}
 				<Link href="/cliente/entrar" className="underline hover:opacity-70">
 					Voltar ao login
 				</Link>
 			</p>
-			<p className="text-sm text-[#4E7FC6]">
+			<p className="text-sm text-[#6B9FE8]">
 				Ainda não tem uma conta?{' '}
 				<Link href="/cliente/cadastro" className="underline hover:opacity-70">
 					Cadastre-se aqui

@@ -156,16 +156,16 @@ export default function MassUploadModal({
 
 	return (
 		<div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-			<div className="bg-[#F5F2ED] rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] flex flex-col">
+			<div className="bg-[#252220] rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] flex flex-col">
 				{/* Header */}
 				<div className="flex items-center justify-between p-6 border-b">
-					<h2 className="text-2xl font-bold text-gray-900">
+					<h2 className="text-2xl font-bold text-gray-100">
 						Upload em Massa de Laudos
 					</h2>
 					<button
 						onClick={handleClose}
 						disabled={uploading}
-						className="text-gray-400 hover:text-gray-600 disabled:opacity-50"
+						className="text-gray-400 hover:text-gray-300 disabled:opacity-50"
 					>
 						<svg
 							className="w-6 h-6"
@@ -187,7 +187,7 @@ export default function MassUploadModal({
 				<div className="flex-1 overflow-y-auto p-6">
 					{/* File selector */}
 					<div className="mb-6">
-						<label className="block text-sm font-medium text-gray-700 mb-2">
+						<label className="block text-sm font-medium text-gray-200 mb-2">
 							Selecionar Arquivos PDF
 						</label>
 						<input
@@ -196,9 +196,9 @@ export default function MassUploadModal({
 							multiple
 							onChange={handleFileSelect}
 							disabled={uploading}
-							className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4E7FC6] focus:border-transparent disabled:opacity-50"
+							className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-[#6B9FE8] focus:border-transparent disabled:opacity-50"
 						/>
-						<p className="text-xs text-gray-500 mt-1">
+						<p className="text-xs text-gray-400 mt-1">
 							Selecione múltiplos arquivos PDF (máximo 10MB cada)
 						</p>
 					</div>
@@ -206,7 +206,7 @@ export default function MassUploadModal({
 					{/* Files list */}
 					{files.length > 0 ? (
 						<div className="space-y-4">
-							<h3 className="text-lg font-semibold text-gray-900">
+							<h3 className="text-lg font-semibold text-gray-100">
 								Arquivos Selecionados ({files.length})
 							</h3>
 							{files.map((fileData, index) => (
@@ -219,21 +219,21 @@ export default function MassUploadModal({
 											? 'bg-red-50 border-red-200'
 											: fileData.uploading
 											? 'bg-blue-50 border-blue-200'
-											: 'bg-[#F5F2ED] border-gray-200'
+											: 'bg-[#252220] border-gray-700'
 									}`}
 								>
 									<div className="flex items-start justify-between mb-3">
 										<div className="flex-1">
-											<p className="font-medium text-gray-900 mb-1">
+											<p className="font-medium text-gray-100 mb-1">
 												{fileData.file.name}
 											</p>
-											<p className="text-xs text-gray-500">
+											<p className="text-xs text-gray-400">
 												{(fileData.file.size / 1024 / 1024).toFixed(2)} MB
 											</p>
 										</div>
 										<div className="flex items-center gap-2">
 											{fileData.uploading && (
-												<div className="animate-spin rounded-full h-5 w-5 border-b-2 border-[#4E7FC6]"></div>
+												<div className="animate-spin rounded-full h-5 w-5 border-b-2 border-[#6B9FE8]"></div>
 											)}
 											{fileData.uploaded && (
 												<svg
@@ -291,7 +291,7 @@ export default function MassUploadModal({
 									{!fileData.uploaded && (
 										<div className="space-y-3">
 											<div>
-												<label className="block text-xs font-medium text-gray-700 mb-1">
+												<label className="block text-xs font-medium text-gray-200 mb-1">
 													Título *
 												</label>
 												<input
@@ -301,12 +301,12 @@ export default function MassUploadModal({
 														handleMetadataChange(index, 'titulo', e.target.value)
 													}
 													disabled={uploading}
-													className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4E7FC6] focus:border-transparent disabled:opacity-50"
+													className="w-full px-3 py-2 text-sm border border-gray-600 rounded-lg focus:ring-2 focus:ring-[#6B9FE8] focus:border-transparent disabled:opacity-50"
 													placeholder="Título do laudo"
 												/>
 											</div>
 											<div>
-												<label className="block text-xs font-medium text-gray-700 mb-1">
+												<label className="block text-xs font-medium text-gray-200 mb-1">
 													Descrição *
 												</label>
 												<textarea
@@ -320,7 +320,7 @@ export default function MassUploadModal({
 													}
 													disabled={uploading}
 													rows={2}
-													className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4E7FC6] focus:border-transparent disabled:opacity-50"
+													className="w-full px-3 py-2 text-sm border border-gray-600 rounded-lg focus:ring-2 focus:ring-[#6B9FE8] focus:border-transparent disabled:opacity-50"
 													placeholder="Descrição do laudo"
 												/>
 											</div>
@@ -334,7 +334,7 @@ export default function MassUploadModal({
 							))}
 						</div>
 					) : (
-						<div className="text-center py-12 text-gray-500">
+						<div className="text-center py-12 text-gray-400">
 							<svg
 								className="w-16 h-16 mx-auto mb-4 text-gray-400"
 								fill="none"
@@ -357,8 +357,8 @@ export default function MassUploadModal({
 				</div>
 
 				{/* Footer */}
-				<div className="flex items-center justify-between p-6 border-t bg-[#E3D9CD]">
-					<div className="text-sm text-gray-600">
+				<div className="flex items-center justify-between p-6 border-t bg-[#2d2823]">
+					<div className="text-sm text-gray-300">
 						{files.length > 0 && (
 							<>
 								{files.filter((f) => f.uploaded).length} enviado(s) /{' '}
@@ -370,14 +370,14 @@ export default function MassUploadModal({
 						<button
 							onClick={handleClose}
 							disabled={uploading}
-							className="px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-[#E3D9CD] disabled:opacity-50"
+							className="px-4 py-2 text-gray-200 border border-gray-600 rounded-lg hover:bg-[#2d2823] disabled:opacity-50"
 						>
 							Cancelar
 						</button>
 						<button
 							onClick={handleUpload}
 							disabled={uploading || files.length === 0}
-							className="px-4 py-2 bg-[#4E7FC6] text-white rounded-lg hover:bg-[#26364D] disabled:opacity-50 disabled:cursor-not-allowed"
+							className="px-4 py-2 bg-[#6B9FE8] text-white rounded-lg hover:bg-[#4E7FC6] disabled:opacity-50 disabled:cursor-not-allowed"
 						>
 							{uploading ? 'Enviando...' : `Enviar ${files.length} Laudo(s)`}
 						</button>

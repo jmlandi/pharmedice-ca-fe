@@ -90,10 +90,10 @@ export default function ClienteLaudosList({
 	return (
 		<div>
 			<div className="mb-8">
-				<h2 className="text-2xl font-bold text-gray-900 mb-2">
+				<h2 className="text-2xl font-bold text-gray-100 mb-2">
 					Laudos Técnicos
 				</h2>
-				<p className="text-gray-600">
+				<p className="text-gray-300">
 					Visualize e faça download dos laudos técnicos disponíveis.
 				</p>
 			</div>
@@ -107,8 +107,8 @@ export default function ClienteLaudosList({
 
 			{loading || isSearching ? (
 				<div className="flex justify-center items-center py-12">
-					<div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#4E7FC6]"></div>
-					<span className="ml-2 text-gray-600">
+					<div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#6B9FE8]"></div>
+					<span className="ml-2 text-gray-300">
 						{isSearching ? 'Buscando...' : 'Carregando...'}
 					</span>
 				</div>
@@ -121,12 +121,12 @@ export default function ClienteLaudosList({
 						height={64}
 						className="mx-auto mb-4 opacity-50"
 					/>
-					<h3 className="text-lg font-medium text-gray-900 mb-2">
+					<h3 className="text-lg font-medium text-gray-100 mb-2">
 						{searchTerm
 							? 'Nenhum laudo encontrado'
 							: 'Nenhum laudo disponível'}
 					</h3>
-					<p className="text-gray-600">
+					<p className="text-gray-300">
 						{searchTerm
 							? 'Tente buscar com outros termos.'
 							: 'Seus laudos aparecerão aqui quando estiverem disponíveis.'}

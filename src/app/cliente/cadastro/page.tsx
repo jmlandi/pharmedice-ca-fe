@@ -371,7 +371,7 @@ function SignupForm() {
 			className="flex flex-col gap-4 w-[300px] md:w-full md:max-w-[420px] md:p-1 max-h-[80vh] overflow-y-auto"
 		>
 			{/* <div className="flex flex-col gap-2 mb-2">
-				<p className="w-full text-center font-extralight text-white bg-[#4E7FC6] rounded-lg p-2">
+				<p className="w-full text-center font-extralight text-white bg-[#6B9FE8] rounded-lg p-2">
 					Crie sua conta informando os dados abaixo!
 				</p>
 			</div> */}
@@ -479,35 +479,35 @@ function SignupForm() {
 
 			{/* Seção de Preferências de Comunicação */}
 			<div className="flex flex-col gap-3 mt-4">
-				<h3 className="text-sm font-medium text-gray-700">
+				<h3 className="text-sm font-medium text-gray-200">
 					Preferências de Comunicação:
 				</h3>
 
-				<label className="flex items-center gap-2 text-sm text-gray-600">
+				<label className="flex items-center gap-2 text-sm text-gray-300">
 					<input
 						type="checkbox"
 						checked={formData.accept_email_communications}
 						onChange={(e) =>
 							handleInputChange('accept_email_communications', e.target.checked)
 						}
-						className="rounded border-gray-300 text-[#4E7FC6] focus:ring-[#4E7FC6]"
+						className="rounded border-gray-600 text-[#6B9FE8] focus:ring-[#6B9FE8]"
 					/>
 					Aceito receber comunicações por e-mail
 				</label>
 
-				<label className="flex items-center gap-2 text-sm text-gray-600">
+				<label className="flex items-center gap-2 text-sm text-gray-300">
 					<input
 						type="checkbox"
 						checked={formData.accept_sms_communications}
 						onChange={(e) =>
 							handleInputChange('accept_sms_communications', e.target.checked)
 						}
-						className="rounded border-gray-300 text-[#4E7FC6] focus:ring-[#4E7FC6]"
+						className="rounded border-gray-600 text-[#6B9FE8] focus:ring-[#6B9FE8]"
 					/>
 					Aceito receber comunicações por SMS
 				</label>
 
-				<label className="flex items-center gap-2 text-sm text-gray-600">
+				<label className="flex items-center gap-2 text-sm text-gray-300">
 					<input
 						type="checkbox"
 						checked={formData.accept_whatsapp_communications}
@@ -517,7 +517,7 @@ function SignupForm() {
 								e.target.checked
 							)
 						}
-						className="rounded border-gray-300 text-[#4E7FC6] focus:ring-[#4E7FC6]"
+						className="rounded border-gray-600 text-[#6B9FE8] focus:ring-[#6B9FE8]"
 					/>
 					Aceito receber comunicações por WhatsApp
 				</label>
@@ -525,25 +525,25 @@ function SignupForm() {
 
 			{/* Seção de Termos Obrigatórios */}
 			<div className="flex flex-col gap-3 mt-4">
-				<h3 className="text-sm font-medium text-gray-700">
+				<h3 className="text-sm font-medium text-gray-200">
 					Termos e Condições:
 				</h3>
 
-				<label className="flex items-start gap-2 text-sm text-gray-600">
+				<label className="flex items-start gap-2 text-sm text-gray-300">
 					<input
 						type="checkbox"
 						checked={formData.accept_terms_of_use}
 						onChange={(e) =>
 							handleInputChange('accept_terms_of_use', e.target.checked)
 						}
-						className="rounded border-gray-300 text-[#4E7FC6] focus:ring-[#4E7FC6] mt-0.5"
+						className="rounded border-gray-600 text-[#6B9FE8] focus:ring-[#6B9FE8] mt-0.5"
 					/>
 					<span>
 						Li e aceito os{' '}
 						<a
 							href="/termos-uso"
 							target="_blank"
-							className="text-[#4E7FC6] underline hover:opacity-70"
+							className="text-[#6B9FE8] underline hover:opacity-70"
 						>
 							Termos de Uso
 						</a>{' '}
@@ -556,21 +556,21 @@ function SignupForm() {
 					</span>
 				)}
 
-				<label className="flex items-start gap-2 text-sm text-gray-600">
+				<label className="flex items-start gap-2 text-sm text-gray-300">
 					<input
 						type="checkbox"
 						checked={formData.accept_privacy_policy}
 						onChange={(e) =>
 							handleInputChange('accept_privacy_policy', e.target.checked)
 						}
-						className="rounded border-gray-300 text-[#4E7FC6] focus:ring-[#4E7FC6] mt-0.5"
+						className="rounded border-gray-600 text-[#6B9FE8] focus:ring-[#6B9FE8] mt-0.5"
 					/>
 					<span>
 						Li e aceito a{' '}
 						<a
 							href="/politica-privacidade"
 							target="_blank"
-							className="text-[#4E7FC6] underline hover:opacity-70"
+							className="text-[#6B9FE8] underline hover:opacity-70"
 						>
 							Política de Privacidade
 						</a>{' '}
@@ -593,7 +593,7 @@ function SignupForm() {
 
 export default function SignupPage() {
 	const navigationLinks = (
-		<p className="text-sm text-[#4E7FC6] w-full text-center">
+		<p className="text-sm text-[#6B9FE8] w-full text-center">
 			Já tem uma conta?{' '}
 			<Link href="/cliente/entrar" className="underline hover:opacity-70">
 				Faça login!

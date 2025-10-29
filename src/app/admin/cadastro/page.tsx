@@ -384,10 +384,10 @@ function AdminSignupForm() {
 						/>
 					</svg>
 				</div>
-				<h1 className="text-2xl font-bold text-gray-900 mb-2">
+				<h1 className="text-2xl font-bold text-gray-100 mb-2">
 					Criar Conta Administrativa
 				</h1>
-				<p className="text-gray-600">
+				<p className="text-gray-300">
 					Registre-se para acessar o painel administrativo
 				</p>
 			</div>
@@ -499,11 +499,11 @@ function AdminSignupForm() {
 
 				{/* Seção de Preferências de Comunicação */}
 				<div className="flex flex-col gap-3 mt-4">
-					<h3 className="text-sm font-medium text-gray-700">
+					<h3 className="text-sm font-medium text-gray-200">
 						Preferências de Comunicação:
 					</h3>
 
-					<label className="flex items-center gap-2 text-sm text-gray-600">
+					<label className="flex items-center gap-2 text-sm text-gray-300">
 						<input
 							type="checkbox"
 							checked={formData.accept_email_communications}
@@ -513,24 +513,24 @@ function AdminSignupForm() {
 									e.target.checked
 								)
 							}
-							className="rounded border-gray-300 text-[#4E7FC6] focus:ring-[#4E7FC6]"
+							className="rounded border-gray-600 text-[#6B9FE8] focus:ring-[#6B9FE8]"
 						/>
 						Aceito receber comunicações por e-mail
 					</label>
 
-					<label className="flex items-center gap-2 text-sm text-gray-600">
+					<label className="flex items-center gap-2 text-sm text-gray-300">
 						<input
 							type="checkbox"
 							checked={formData.accept_sms_communications}
 							onChange={(e) =>
 								handleInputChange('accept_sms_communications', e.target.checked)
 							}
-							className="rounded border-gray-300 text-[#4E7FC6] focus:ring-[#4E7FC6]"
+							className="rounded border-gray-600 text-[#6B9FE8] focus:ring-[#6B9FE8]"
 						/>
 						Aceito receber comunicações por SMS
 					</label>
 
-					<label className="flex items-center gap-2 text-sm text-gray-600">
+					<label className="flex items-center gap-2 text-sm text-gray-300">
 						<input
 							type="checkbox"
 							checked={formData.accept_whatsapp_communications}
@@ -540,7 +540,7 @@ function AdminSignupForm() {
 									e.target.checked
 								)
 							}
-							className="rounded border-gray-300 text-[#4E7FC6] focus:ring-[#4E7FC6]"
+							className="rounded border-gray-600 text-[#6B9FE8] focus:ring-[#6B9FE8]"
 						/>
 						Aceito receber comunicações por WhatsApp
 					</label>
@@ -548,25 +548,25 @@ function AdminSignupForm() {
 
 				{/* Seção de Termos Obrigatórios */}
 				<div className="flex flex-col gap-3 mt-4">
-					<h3 className="text-sm font-medium text-gray-700">
+					<h3 className="text-sm font-medium text-gray-200">
 						Termos e Condições:
 					</h3>
 
-					<label className="flex items-start gap-2 text-sm text-gray-600">
+					<label className="flex items-start gap-2 text-sm text-gray-300">
 						<input
 							type="checkbox"
 							checked={formData.accept_terms_of_use}
 							onChange={(e) =>
 								handleInputChange('accept_terms_of_use', e.target.checked)
 							}
-							className="rounded border-gray-300 text-[#4E7FC6] focus:ring-[#4E7FC6] mt-0.5"
+							className="rounded border-gray-600 text-[#6B9FE8] focus:ring-[#6B9FE8] mt-0.5"
 						/>
 						<span>
 							Li e aceito os{' '}
 							<a
 								href="/termos-uso"
 								target="_blank"
-								className="text-[#4E7FC6] underline hover:opacity-70"
+								className="text-[#6B9FE8] underline hover:opacity-70"
 							>
 								Termos de Uso
 							</a>{' '}
@@ -579,21 +579,21 @@ function AdminSignupForm() {
 						</span>
 					)}
 
-					<label className="flex items-start gap-2 text-sm text-gray-600">
+					<label className="flex items-start gap-2 text-sm text-gray-300">
 						<input
 							type="checkbox"
 							checked={formData.accept_privacy_policy}
 							onChange={(e) =>
 								handleInputChange('accept_privacy_policy', e.target.checked)
 							}
-							className="rounded border-gray-300 text-[#4E7FC6] focus:ring-[#4E7FC6] mt-0.5"
+							className="rounded border-gray-600 text-[#6B9FE8] focus:ring-[#6B9FE8] mt-0.5"
 						/>
 						<span>
 							Li e aceito a{' '}
 							<a
 								href="/politica-privacidade"
 								target="_blank"
-								className="text-[#4E7FC6] underline hover:opacity-70"
+								className="text-[#6B9FE8] underline hover:opacity-70"
 							>
 								Política de Privacidade
 							</a>{' '}
@@ -614,20 +614,20 @@ function AdminSignupForm() {
 				</div>
 
 				<div className="text-center">
-					<span className="text-gray-600">
+					<span className="text-gray-300">
 						Já tem uma conta administrativa?{' '}
 					</span>
 					<Link
 						href="/admin/entrar"
-						className="text-[#4E7FC6] hover:text-[#26364D] font-medium transition-colors"
+						className="text-[#6B9FE8] hover:text-[#4E7FC6] font-medium transition-colors"
 					>
 						Fazer login
 					</Link>
 				</div>
 			</form>
 
-			<div className="mt-6 p-4 bg-[#E3D9CD] rounded-lg">
-				<p className="text-sm text-[#26364D]">
+			<div className="mt-6 p-4 bg-[#2d2823] rounded-lg">
+				<p className="text-sm text-[#4E7FC6]">
 					<strong>Nota:</strong> Apenas colaboradores com e-mail corporativo
 					(@pharmedice.com.br) podem criar contas administrativas.
 				</p>

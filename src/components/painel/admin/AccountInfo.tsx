@@ -8,37 +8,37 @@ export default function AccountInfo() {
 	if (!user) return null;
 
 	return (
-		<div className="bg-[#F5F2ED] rounded-lg shadow-md p-6">
-			<h2 className="text-2xl font-bold text-gray-900 mb-6">Minha Conta</h2>
+		<div className="bg-[#252220] rounded-lg shadow-md p-6">
+			<h2 className="text-2xl font-bold text-gray-100 mb-6">Minha Conta</h2>
 
 			<div className="space-y-4">
 				<div>
-					<label className="block text-sm font-medium text-gray-700 mb-1">
+					<label className="block text-sm font-medium text-gray-200 mb-1">
 						Nome
 					</label>
-					<div className="text-gray-900">
+					<div className="text-gray-100">
 						{user.primeiro_nome} {user.segundo_nome}
 					</div>
 				</div>
 
 				<div>
-					<label className="block text-sm font-medium text-gray-700 mb-1">
+					<label className="block text-sm font-medium text-gray-200 mb-1">
 						Email
 					</label>
-					<div className="text-gray-900">{user.email}</div>
+					<div className="text-gray-100">{user.email}</div>
 				</div>
 
 				<div>
-					<label className="block text-sm font-medium text-gray-700 mb-1">
+					<label className="block text-sm font-medium text-gray-200 mb-1">
 						Tipo de Conta
 					</label>
-					<div className="text-gray-900">
+					<div className="text-gray-100">
 						{user.tipo_usuario === 'administrador' ? 'Administrador' : 'Cliente'}
 					</div>
 				</div>
 
 				<div>
-					<label className="block text-sm font-medium text-gray-700 mb-1">
+					<label className="block text-sm font-medium text-gray-200 mb-1">
 						Status de Verificação
 					</label>
 					<div className="flex items-center gap-2">

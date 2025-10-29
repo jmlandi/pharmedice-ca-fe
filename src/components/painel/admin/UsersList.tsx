@@ -88,7 +88,7 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 
 	if (loading && users.length === 0) {
 		return (
-			<div className="bg-[#F5F2ED] rounded-lg shadow-md p-8">
+			<div className="bg-[#252220] rounded-lg shadow-md p-8">
 				<div className="animate-pulse space-y-4">
 					<div className="h-4 bg-[#CCCCCC] rounded w-1/4"></div>
 					<div className="space-y-3">
@@ -102,9 +102,9 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 	}
 
 	return (
-		<div className="bg-[#F5F2ED] rounded-lg shadow-md">
+		<div className="bg-[#252220] rounded-lg shadow-md">
 			<div className="p-6 border-b">
-				<h2 className="text-2xl font-bold text-gray-900 mb-4">Gerenciar Usuários</h2>
+				<h2 className="text-2xl font-bold text-gray-100 mb-4">Gerenciar Usuários</h2>
 				
 				<div className="space-y-4">
 					<div className="flex gap-2">
@@ -115,7 +115,7 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 								value={searchInput}
 								onChange={(e) => setSearchInput(e.target.value)}
 								onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-								className="w-full px-4 py-2 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4E7FC6] focus:border-transparent"
+								className="w-full px-4 py-2 pl-10 border border-gray-600 rounded-lg focus:ring-2 focus:ring-[#6B9FE8] focus:border-transparent"
 							/>
 							<svg
 								className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
@@ -133,7 +133,7 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 						</div>
 						<button
 							onClick={handleSearch}
-							className="px-6 py-2 bg-[#4E7FC6] text-white rounded-lg hover:bg-[#26364D] transition-colors"
+							className="px-6 py-2 bg-[#6B9FE8] text-white rounded-lg hover:bg-[#4E7FC6] transition-colors"
 						>
 							Buscar
 						</button>
@@ -144,8 +144,8 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 							onClick={() => handleTypeFilterChange('all')}
 							className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
 								userTypeFilter === 'all'
-									? 'bg-[#4E7FC6] text-white'
-									: 'bg-[#E3D9CD] text-gray-700 hover:bg-[#DED1C1]'
+									? 'bg-[#6B9FE8] text-white'
+									: 'bg-[#2d2823] text-gray-200 hover:bg-[#3a3530]'
 							}`}
 						>
 							Todos
@@ -154,8 +154,8 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 							onClick={() => handleTypeFilterChange('administrador')}
 							className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
 								userTypeFilter === 'administrador'
-									? 'bg-[#4E7FC6] text-white'
-									: 'bg-[#E3D9CD] text-gray-700 hover:bg-[#DED1C1]'
+									? 'bg-[#6B9FE8] text-white'
+									: 'bg-[#2d2823] text-gray-200 hover:bg-[#3a3530]'
 							}`}
 						>
 							Administradores
@@ -164,15 +164,15 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 							onClick={() => handleTypeFilterChange('usuario')}
 							className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
 								userTypeFilter === 'usuario'
-									? 'bg-[#4E7FC6] text-white'
-									: 'bg-[#E3D9CD] text-gray-700 hover:bg-[#DED1C1]'
+									? 'bg-[#6B9FE8] text-white'
+									: 'bg-[#2d2823] text-gray-200 hover:bg-[#3a3530]'
 							}`}
 						>
 							Clientes
 						</button>
 					</div>
 
-					<div className="flex items-center gap-2 text-sm text-gray-600">
+					<div className="flex items-center gap-2 text-sm text-gray-300">
 						<span>Total: {total} usuário{total !== 1 ? 's' : ''}</span>
 						<span>•</span>
 						<select
@@ -194,35 +194,35 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 
 			<div className="overflow-x-auto">
 				<table className="min-w-full divide-y divide-gray-200">
-					<thead className="bg-[#E3D9CD]">
+					<thead className="bg-[#2d2823]">
 						<tr>
-							<th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+							<th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
 								Usuário
 							</th>
-							<th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+							<th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
 								Email
 							</th>
-							<th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+							<th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
 								Tipo
 							</th>
-							<th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+							<th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
 								Status
 							</th>
-							<th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+							<th className="px-6 py-3 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">
 								Ações
 							</th>
 						</tr>
 					</thead>
-					<tbody className="bg-[#F5F2ED] divide-y divide-gray-200">
+					<tbody className="bg-[#252220] divide-y divide-gray-200">
 						{users.length === 0 ? (
 							<tr>
-								<td colSpan={5} className="px-6 py-8 text-center text-gray-500">
+								<td colSpan={5} className="px-6 py-8 text-center text-gray-400">
 									Nenhum usuário encontrado
 								</td>
 							</tr>
 						) : (
 							users.map((user) => (
-								<tr key={user.id} className="hover:bg-[#E3D9CD] transition-colors">
+								<tr key={user.id} className="hover:bg-[#2d2823] transition-colors">
 									<td className="px-6 py-4 whitespace-nowrap">
 										<div className="flex items-center">
 											{user.avatar ? (
@@ -234,16 +234,16 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 													className="rounded-full"
 												/>
 											) : (
-												<div className="h-10 w-10 rounded-full bg-[#4E7FC6] flex items-center justify-center text-white font-semibold">
+												<div className="h-10 w-10 rounded-full bg-[#6B9FE8] flex items-center justify-center text-white font-semibold">
 													{user.primeiro_nome[0]}{user.segundo_nome?.[0]}
 												</div>
 											)}
 											<div className="ml-4">
-												<div className="text-sm font-medium text-gray-900">
+												<div className="text-sm font-medium text-gray-100">
 													{user.primeiro_nome} {user.segundo_nome}
 												</div>
 												{user.apelido && user.apelido !== user.primeiro_nome && (
-													<div className="text-sm text-gray-500">
+													<div className="text-sm text-gray-400">
 														{user.apelido}
 													</div>
 												)}
@@ -251,9 +251,9 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 										</div>
 									</td>
 									<td className="px-6 py-4 whitespace-nowrap">
-										<div className="text-sm text-gray-900">{user.email}</div>
+										<div className="text-sm text-gray-100">{user.email}</div>
 										{user.provider === 'google' && (
-											<div className="text-xs text-gray-500 flex items-center gap-1">
+											<div className="text-xs text-gray-400 flex items-center gap-1">
 												<svg className="w-3 h-3" viewBox="0 0 24 24">
 													<path
 														fill="currentColor"
@@ -303,7 +303,7 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 									<td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
 										<button
 											onClick={() => onViewUser(user)}
-											className="text-[#4E7FC6] hover:text-[#26364D] mr-3"
+											className="text-[#6B9FE8] hover:text-[#4E7FC6] mr-3"
 											title="Visualizar"
 										>
 											<svg className="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -12,12 +12,12 @@ interface UserViewModalProps {
 export default function UserViewModal({ user, onClose, onEdit }: UserViewModalProps) {
 	return (
 		<div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-			<div className="bg-[#F5F2ED] rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+			<div className="bg-[#252220] rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
 				<div className="p-6 border-b flex items-center justify-between">
-					<h2 className="text-2xl font-bold text-gray-900">Detalhes do Usuário</h2>
+					<h2 className="text-2xl font-bold text-gray-100">Detalhes do Usuário</h2>
 					<button
 						onClick={onClose}
-						className="text-gray-400 hover:text-gray-600 transition-colors"
+						className="text-gray-400 hover:text-gray-300 transition-colors"
 					>
 						<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -36,26 +36,26 @@ export default function UserViewModal({ user, onClose, onEdit }: UserViewModalPr
 								className="rounded-full"
 							/>
 						) : (
-							<div className="h-20 w-20 rounded-full bg-[#4E7FC6] flex items-center justify-center text-white text-2xl font-semibold">
+							<div className="h-20 w-20 rounded-full bg-[#6B9FE8] flex items-center justify-center text-white text-2xl font-semibold">
 								{user.primeiro_nome[0]}{user.segundo_nome?.[0]}
 							</div>
 						)}
 						<div className="ml-4">
-							<h3 className="text-xl font-bold text-gray-900">
+							<h3 className="text-xl font-bold text-gray-100">
 								{user.primeiro_nome} {user.segundo_nome}
 							</h3>
 							{user.apelido && user.apelido !== user.primeiro_nome && (
-								<p className="text-gray-600">{user.apelido}</p>
+								<p className="text-gray-300">{user.apelido}</p>
 							)}
 						</div>
 					</div>
 
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 						<div>
-							<label className="block text-sm font-medium text-gray-700 mb-1">
+							<label className="block text-sm font-medium text-gray-200 mb-1">
 								Email
 							</label>
-							<p className="text-gray-900">{user.email}</p>
+							<p className="text-gray-100">{user.email}</p>
 							{user.email_verified_at ? (
 								<span className="mt-1 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
 									✓ Verificado
@@ -69,35 +69,35 @@ export default function UserViewModal({ user, onClose, onEdit }: UserViewModalPr
 
 						{user.telefone && (
 							<div>
-								<label className="block text-sm font-medium text-gray-700 mb-1">
+								<label className="block text-sm font-medium text-gray-200 mb-1">
 									Telefone
 								</label>
-								<p className="text-gray-900">{user.telefone}</p>
+								<p className="text-gray-100">{user.telefone}</p>
 							</div>
 						)}
 
 						{user.numero_documento && (
 							<div>
-								<label className="block text-sm font-medium text-gray-700 mb-1">
+								<label className="block text-sm font-medium text-gray-200 mb-1">
 									CPF/Documento
 								</label>
-								<p className="text-gray-900">{user.numero_documento}</p>
+								<p className="text-gray-100">{user.numero_documento}</p>
 							</div>
 						)}
 
 						{user.data_nascimento && (
 							<div>
-								<label className="block text-sm font-medium text-gray-700 mb-1">
+								<label className="block text-sm font-medium text-gray-200 mb-1">
 									Data de Nascimento
 								</label>
-								<p className="text-gray-900">
+								<p className="text-gray-100">
 									{new Date(user.data_nascimento).toLocaleDateString('pt-BR')}
 								</p>
 							</div>
 						)}
 
 						<div>
-							<label className="block text-sm font-medium text-gray-700 mb-1">
+							<label className="block text-sm font-medium text-gray-200 mb-1">
 								Tipo de Usuário
 							</label>
 							<span
@@ -113,10 +113,10 @@ export default function UserViewModal({ user, onClose, onEdit }: UserViewModalPr
 
 						{user.provider && (
 							<div>
-								<label className="block text-sm font-medium text-gray-700 mb-1">
+								<label className="block text-sm font-medium text-gray-200 mb-1">
 									Método de Login
 								</label>
-								<p className="text-gray-900 capitalize">{user.provider}</p>
+								<p className="text-gray-100 capitalize">{user.provider}</p>
 							</div>
 						)}
 					</div>
@@ -125,7 +125,7 @@ export default function UserViewModal({ user, onClose, onEdit }: UserViewModalPr
 					  user.aceite_comunicacoes_sms !== undefined || 
 					  user.aceite_comunicacoes_whatsapp !== undefined) && (
 						<div className="mt-6">
-							<label className="block text-sm font-medium text-gray-700 mb-2">
+							<label className="block text-sm font-medium text-gray-200 mb-2">
 								Preferências de Comunicação
 							</label>
 							<div className="space-y-2">
@@ -135,9 +135,9 @@ export default function UserViewModal({ user, onClose, onEdit }: UserViewModalPr
 											type="checkbox"
 											checked={user.aceite_comunicacoes_email}
 											disabled
-											className="h-4 w-4 text-[#4E7FC6] rounded"
+											className="h-4 w-4 text-[#6B9FE8] rounded"
 										/>
-										<label className="ml-2 text-sm text-gray-700">
+										<label className="ml-2 text-sm text-gray-200">
 											Email
 										</label>
 									</div>
@@ -148,9 +148,9 @@ export default function UserViewModal({ user, onClose, onEdit }: UserViewModalPr
 											type="checkbox"
 											checked={user.aceite_comunicacoes_sms}
 											disabled
-											className="h-4 w-4 text-[#4E7FC6] rounded"
+											className="h-4 w-4 text-[#6B9FE8] rounded"
 										/>
-										<label className="ml-2 text-sm text-gray-700">
+										<label className="ml-2 text-sm text-gray-200">
 											SMS
 										</label>
 									</div>
@@ -161,9 +161,9 @@ export default function UserViewModal({ user, onClose, onEdit }: UserViewModalPr
 											type="checkbox"
 											checked={user.aceite_comunicacoes_whatsapp}
 											disabled
-											className="h-4 w-4 text-[#4E7FC6] rounded"
+											className="h-4 w-4 text-[#6B9FE8] rounded"
 										/>
-										<label className="ml-2 text-sm text-gray-700">
+										<label className="ml-2 text-sm text-gray-200">
 											WhatsApp
 										</label>
 									</div>
@@ -174,7 +174,7 @@ export default function UserViewModal({ user, onClose, onEdit }: UserViewModalPr
 
 					{user.created_at && (
 						<div className="mt-6 pt-6 border-t">
-							<div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-600">
+							<div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-300">
 								<div>
 									<span className="font-medium">Cadastrado em:</span>{' '}
 									{new Date(user.created_at).toLocaleString('pt-BR')}
@@ -190,16 +190,16 @@ export default function UserViewModal({ user, onClose, onEdit }: UserViewModalPr
 					)}
 				</div>
 
-				<div className="p-6 border-t bg-[#E3D9CD] flex justify-end gap-3">
+				<div className="p-6 border-t bg-[#2d2823] flex justify-end gap-3">
 					<button
 						onClick={onClose}
-						className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
+						className="px-4 py-2 border border-gray-600 rounded-lg text-gray-200 hover:bg-gray-100 transition-colors"
 					>
 						Fechar
 					</button>
 					<button
 						onClick={onEdit}
-						className="px-4 py-2 bg-[#4E7FC6] text-white rounded-lg hover:bg-[#26364D] transition-colors"
+						className="px-4 py-2 bg-[#6B9FE8] text-white rounded-lg hover:bg-[#4E7FC6] transition-colors"
 					>
 						Editar Usuário
 					</button>

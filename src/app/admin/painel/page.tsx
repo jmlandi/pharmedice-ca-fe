@@ -111,7 +111,7 @@ function AdminPainelContent() {
 
 	return (
 <PageTransition>
-			<div className="min-h-screen bg-[#F5F2ED]">
+			<div className="min-h-screen bg-[#252220]">
 				<PainelHeader
 					title="Painel Administrativo"
 					userName={user?.primeiro_nome || ''}

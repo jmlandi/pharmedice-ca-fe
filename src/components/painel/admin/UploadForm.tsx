@@ -66,14 +66,14 @@ export default function UploadForm({ onUploadSuccess }: UploadFormProps) {
 	};
 
 	return (
-		<div className="bg-[#F5F2ED] rounded-lg shadow-md p-6">
-			<h3 className="text-lg font-semibold text-gray-900 mb-6">
+		<div className="bg-[#252220] rounded-lg shadow-md p-6">
+			<h3 className="text-lg font-semibold text-gray-100 mb-6">
 				Novo Laudo Técnico
 			</h3>
 
 			<form onSubmit={handleSubmit} className="space-y-4">
 				<div>
-					<label className="block text-sm font-medium text-gray-700 mb-1">
+					<label className="block text-sm font-medium text-gray-200 mb-1">
 						Título
 					</label>
 					<input
@@ -82,13 +82,13 @@ export default function UploadForm({ onUploadSuccess }: UploadFormProps) {
 						onChange={(e) =>
 							setFormData((prev) => ({ ...prev, titulo: e.target.value }))
 						}
-						className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4E7FC6] focus:border-transparent"
+						className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-[#6B9FE8] focus:border-transparent"
 						placeholder="Título do laudo"
 					/>
 				</div>
 
 				<div>
-					<label className="block text-sm font-medium text-gray-700 mb-1">
+					<label className="block text-sm font-medium text-gray-200 mb-1">
 						Descrição
 					</label>
 					<textarea
@@ -97,13 +97,13 @@ export default function UploadForm({ onUploadSuccess }: UploadFormProps) {
 							setFormData((prev) => ({ ...prev, descricao: e.target.value }))
 						}
 						rows={3}
-						className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4E7FC6] focus:border-transparent"
+						className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-[#6B9FE8] focus:border-transparent"
 						placeholder="Descrição do laudo"
 					/>
 				</div>
 
 				<div>
-					<label className="block text-sm font-medium text-gray-700 mb-1">
+					<label className="block text-sm font-medium text-gray-200 mb-1">
 						Arquivo PDF
 					</label>
 					<input
@@ -111,9 +111,9 @@ export default function UploadForm({ onUploadSuccess }: UploadFormProps) {
 						type="file"
 						accept="application/pdf"
 						onChange={handleFileChange}
-						className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4E7FC6] focus:border-transparent"
+						className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-[#6B9FE8] focus:border-transparent"
 					/>
-					<p className="text-xs text-gray-500 mt-1">
+					<p className="text-xs text-gray-400 mt-1">
 						Apenas arquivos PDF (máximo 10MB)
 					</p>
 				</div>
@@ -121,7 +121,7 @@ export default function UploadForm({ onUploadSuccess }: UploadFormProps) {
 				<button
 					type="submit"
 					disabled={isUploading}
-					className="w-full bg-[#4E7FC6] text-white py-2 px-4 rounded-lg hover:bg-[#26364D] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+					className="w-full bg-[#6B9FE8] text-white py-2 px-4 rounded-lg hover:bg-[#4E7FC6] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
 				>
 					{isUploading ? 'Enviando...' : 'Enviar Laudo'}
 				</button>

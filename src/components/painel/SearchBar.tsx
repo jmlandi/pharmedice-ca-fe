@@ -24,7 +24,7 @@ export default function SearchBar({
 					value={value}
 					onChange={(e) => onChange(e.target.value)}
 					onKeyPress={(e) => e.key === 'Enter' && onSearch()}
-					className="w-full px-4 py-2 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4E7FC6] focus:border-transparent"
+					className="w-full px-4 py-2 pl-10 border border-gray-600 rounded-lg focus:ring-2 focus:ring-[#6B9FE8] focus:border-transparent"
 				/>
 				<Image
 					src="/icons/search.svg"
@@ -36,7 +36,7 @@ export default function SearchBar({
 			</div>
 			<button
 				onClick={onSearch}
-				className="px-6 py-2 bg-[#4E7FC6] text-white rounded-lg hover:bg-[#26364D] transition-colors"
+				className="px-6 py-2 bg-[#6B9FE8] text-white rounded-lg hover:bg-[#4E7FC6] transition-colors"
 			>
 				Buscar
 			</button>

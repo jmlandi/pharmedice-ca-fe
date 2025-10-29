@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 export default function AdminHome() {
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-[#E3D9CD] to-[#DED1C1]">
+		<div className="min-h-screen bg-gradient-to-br from-[#2d2823] to-[#3a3530]">
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 				{/* Header */}
 				<div className="text-center mb-12">
@@ -18,10 +18,10 @@ export default function AdminHome() {
 							className="h-12 w-auto"
 						/>
 					</div>
-					<h1 className="text-4xl font-bold text-gray-900 mb-4">
+					<h1 className="text-4xl font-bold text-gray-100 mb-4">
 						Área Administrativa
 					</h1>
-					<p className="text-xl text-gray-600 max-w-2xl mx-auto">
+					<p className="text-xl text-gray-300 max-w-2xl mx-auto">
 						Gerencie usuários, produtos e pedidos da plataforma Pharmedice
 					</p>
 				</div>
@@ -29,11 +29,11 @@ export default function AdminHome() {
 				{/* Cards de Ações */}
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
 					{/* Login Card */}
-					<div className="bg-[#F5F2ED] rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+					<div className="bg-[#252220] rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
 						<div className="p-6">
-							<div className="flex items-center justify-center w-12 h-12 bg-[#DED1C1] rounded-lg mb-4">
+							<div className="flex items-center justify-center w-12 h-12 bg-[#3a3530] rounded-lg mb-4">
 								<svg
-									className="w-6 h-6 text-[#4E7FC6]"
+									className="w-6 h-6 text-[#6B9FE8]"
 									fill="none"
 									stroke="currentColor"
 									viewBox="0 0 24 24"
@@ -46,15 +46,15 @@ export default function AdminHome() {
 									/>
 								</svg>
 							</div>
-							<h3 className="text-lg font-semibold text-gray-900 mb-2">
+							<h3 className="text-lg font-semibold text-gray-100 mb-2">
 								Login Administrativo
 							</h3>
-							<p className="text-gray-600 mb-4">
+							<p className="text-gray-300 mb-4">
 								Acesse sua conta administrativa para gerenciar a plataforma
 							</p>
 							<Link
 								href="/admin/entrar"
-								className="inline-flex items-center px-4 py-2 bg-[#4E7FC6] text-white font-medium rounded-lg hover:bg-[#26364D] transition-colors"
+								className="inline-flex items-center px-4 py-2 bg-[#6B9FE8] text-white font-medium rounded-lg hover:bg-[#4E7FC6] transition-colors"
 							>
 								Fazer Login
 								<svg
@@ -75,7 +75,7 @@ export default function AdminHome() {
 					</div>
 
 					{/* Signup Card */}
-					<div className="bg-[#F5F2ED] rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+					<div className="bg-[#252220] rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
 						<div className="p-6">
 							<div className="flex items-center justify-center w-12 h-12 bg-green-100 rounded-lg mb-4">
 								<svg
@@ -92,10 +92,10 @@ export default function AdminHome() {
 									/>
 								</svg>
 							</div>
-							<h3 className="text-lg font-semibold text-gray-900 mb-2">
+							<h3 className="text-lg font-semibold text-gray-100 mb-2">
 								Criar Conta
 							</h3>
-							<p className="text-gray-600 mb-4">
+							<p className="text-gray-300 mb-4">
 								Registre-se como administrador da Pharmedice
 							</p>
 							<Link
@@ -121,7 +121,7 @@ export default function AdminHome() {
 					</div>
 
 					{/* Dashboard Preview Card */}
-					<div className="bg-[#F5F2ED] rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+					<div className="bg-[#252220] rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
 						<div className="p-6">
 							<div className="flex items-center justify-center w-12 h-12 bg-purple-100 rounded-lg mb-4">
 								<svg
@@ -138,10 +138,10 @@ export default function AdminHome() {
 									/>
 								</svg>
 							</div>
-							<h3 className="text-lg font-semibold text-gray-900 mb-2">
+							<h3 className="text-lg font-semibold text-gray-100 mb-2">
 								Dashboard (Preview)
 							</h3>
-							<p className="text-gray-600 mb-4">
+							<p className="text-gray-300 mb-4">
 								Visualize como será o painel administrativo
 							</p>
 							<Link
@@ -168,16 +168,16 @@ export default function AdminHome() {
 				</div>
 
 				{/* Info Section */}
-				<div className="bg-[#F5F2ED] rounded-xl shadow-lg p-8 mb-8">
-					<h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+				<div className="bg-[#252220] rounded-xl shadow-lg p-8 mb-8">
+					<h2 className="text-2xl font-bold text-gray-100 mb-6 text-center">
 						Recursos da Área Administrativa
 					</h2>
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 						<div className="space-y-4">
 							<div className="flex items-start space-x-3">
-								<div className="flex-shrink-0 w-6 h-6 bg-[#DED1C1] rounded-full flex items-center justify-center mt-1">
+								<div className="flex-shrink-0 w-6 h-6 bg-[#3a3530] rounded-full flex items-center justify-center mt-1">
 									<svg
-										className="w-3 h-3 text-[#4E7FC6]"
+										className="w-3 h-3 text-[#6B9FE8]"
 										fill="currentColor"
 										viewBox="0 0 20 20"
 									>
@@ -189,18 +189,18 @@ export default function AdminHome() {
 									</svg>
 								</div>
 								<div>
-									<h3 className="font-semibold text-gray-900">
+									<h3 className="font-semibold text-gray-100">
 										Gerenciamento de Usuários
 									</h3>
-									<p className="text-gray-600">
+									<p className="text-gray-300">
 										Visualize, edite e gerencie contas de clientes
 									</p>
 								</div>
 							</div>
 							<div className="flex items-start space-x-3">
-								<div className="flex-shrink-0 w-6 h-6 bg-[#DED1C1] rounded-full flex items-center justify-center mt-1">
+								<div className="flex-shrink-0 w-6 h-6 bg-[#3a3530] rounded-full flex items-center justify-center mt-1">
 									<svg
-										className="w-3 h-3 text-[#4E7FC6]"
+										className="w-3 h-3 text-[#6B9FE8]"
 										fill="currentColor"
 										viewBox="0 0 20 20"
 									>
@@ -212,18 +212,18 @@ export default function AdminHome() {
 									</svg>
 								</div>
 								<div>
-									<h3 className="font-semibold text-gray-900">
+									<h3 className="font-semibold text-gray-100">
 										Controle de Produtos
 									</h3>
-									<p className="text-gray-600">
+									<p className="text-gray-300">
 										Adicione, edite e gerencie o catálogo de produtos
 									</p>
 								</div>
 							</div>
 							<div className="flex items-start space-x-3">
-								<div className="flex-shrink-0 w-6 h-6 bg-[#DED1C1] rounded-full flex items-center justify-center mt-1">
+								<div className="flex-shrink-0 w-6 h-6 bg-[#3a3530] rounded-full flex items-center justify-center mt-1">
 									<svg
-										className="w-3 h-3 text-[#4E7FC6]"
+										className="w-3 h-3 text-[#6B9FE8]"
 										fill="currentColor"
 										viewBox="0 0 20 20"
 									>
@@ -235,10 +235,10 @@ export default function AdminHome() {
 									</svg>
 								</div>
 								<div>
-									<h3 className="font-semibold text-gray-900">
+									<h3 className="font-semibold text-gray-100">
 										Gestão de Pedidos
 									</h3>
-									<p className="text-gray-600">
+									<p className="text-gray-300">
 										Processe e acompanhe todos os pedidos da plataforma
 									</p>
 								</div>
@@ -246,9 +246,9 @@ export default function AdminHome() {
 						</div>
 						<div className="space-y-4">
 							<div className="flex items-start space-x-3">
-								<div className="flex-shrink-0 w-6 h-6 bg-[#DED1C1] rounded-full flex items-center justify-center mt-1">
+								<div className="flex-shrink-0 w-6 h-6 bg-[#3a3530] rounded-full flex items-center justify-center mt-1">
 									<svg
-										className="w-3 h-3 text-[#4E7FC6]"
+										className="w-3 h-3 text-[#6B9FE8]"
 										fill="currentColor"
 										viewBox="0 0 20 20"
 									>
@@ -260,18 +260,18 @@ export default function AdminHome() {
 									</svg>
 								</div>
 								<div>
-									<h3 className="font-semibold text-gray-900">
+									<h3 className="font-semibold text-gray-100">
 										Relatórios e Analytics
 									</h3>
-									<p className="text-gray-600">
+									<p className="text-gray-300">
 										Visualize estatísticas e relatórios detalhados
 									</p>
 								</div>
 							</div>
 							<div className="flex items-start space-x-3">
-								<div className="flex-shrink-0 w-6 h-6 bg-[#DED1C1] rounded-full flex items-center justify-center mt-1">
+								<div className="flex-shrink-0 w-6 h-6 bg-[#3a3530] rounded-full flex items-center justify-center mt-1">
 									<svg
-										className="w-3 h-3 text-[#4E7FC6]"
+										className="w-3 h-3 text-[#6B9FE8]"
 										fill="currentColor"
 										viewBox="0 0 20 20"
 									>
@@ -283,18 +283,18 @@ export default function AdminHome() {
 									</svg>
 								</div>
 								<div>
-									<h3 className="font-semibold text-gray-900">
+									<h3 className="font-semibold text-gray-100">
 										Configurações do Sistema
 									</h3>
-									<p className="text-gray-600">
+									<p className="text-gray-300">
 										Gerencie configurações e preferências da plataforma
 									</p>
 								</div>
 							</div>
 							<div className="flex items-start space-x-3">
-								<div className="flex-shrink-0 w-6 h-6 bg-[#DED1C1] rounded-full flex items-center justify-center mt-1">
+								<div className="flex-shrink-0 w-6 h-6 bg-[#3a3530] rounded-full flex items-center justify-center mt-1">
 									<svg
-										className="w-3 h-3 text-[#4E7FC6]"
+										className="w-3 h-3 text-[#6B9FE8]"
 										fill="currentColor"
 										viewBox="0 0 20 20"
 									>
@@ -306,10 +306,10 @@ export default function AdminHome() {
 									</svg>
 								</div>
 								<div>
-									<h3 className="font-semibold text-gray-900">
+									<h3 className="font-semibold text-gray-100">
 										Segurança Avançada
 									</h3>
-									<p className="text-gray-600">
+									<p className="text-gray-300">
 										Acesso restrito apenas para domínios corporativos
 									</p>
 								</div>
@@ -319,10 +319,10 @@ export default function AdminHome() {
 				</div>
 
 				{/* Security Notice */}
-				<div className="bg-[#E3D9CD] border border-blue-200 rounded-lg p-6">
+				<div className="bg-[#2d2823] border border-blue-200 rounded-lg p-6">
 					<div className="flex items-start space-x-3">
 						<svg
-							className="flex-shrink-0 w-6 h-6 text-[#4E7FC6] mt-1"
+							className="flex-shrink-0 w-6 h-6 text-[#6B9FE8] mt-1"
 							fill="none"
 							stroke="currentColor"
 							viewBox="0 0 24 24"

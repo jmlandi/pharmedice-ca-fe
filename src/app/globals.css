@@ -1,15 +1,15 @@
 @import 'tailwindcss';
 
 :root {
-	--background: #F5F2ED;
-	--foreground: #838383;
-	--pharmedice-blue: #4E7FC6;
-	--pharmedice-dark-blue: #26364D;
-	--pharmedice-light-blue: #4E7FC6;
-	--pharmedice-neutral-gray: #CCCCCC;
-	--pharmedice-beige-yellow: #DED1C1;
-	--pharmedice-beige-gray: #E3D9CD;
-	--pharmedice-beige-light: #F5F2ED;
+	--background: #1a1a1a;
+	--foreground: #e0e0e0;
+	--pharmedice-blue: #6B9FE8;
+	--pharmedice-dark-blue: #4E7FC6;
+	--pharmedice-light-blue: #8BB4F0;
+	--pharmedice-neutral-gray: #444444;
+	--pharmedice-beige-yellow: #3a3530;
+	--pharmedice-beige-gray: #2d2823;
+	--pharmedice-beige-light: #252220;
 	--font-montserrat: 'var(--font-montserrat)', Arial, Helvetica, sans-serif;
 	--font-montserrat-alternates:
 		'var(--font-montserrat-alternates)', Arial, Helvetica, sans-serif;
@@ -22,7 +22,7 @@
 	--font-mono: var(--font-montserrat-alternates);
 }
 
-body {
+body {	
 	background: var(--background);
 	color: var(--foreground);
 	font-family: var(--font-montserrat);
@@ -56,7 +56,7 @@ button:disabled,
 }
 
 .animate-shimmer {
-	background: linear-gradient(90deg, #E3D9CD 25%, #CCCCCC 50%, #E3D9CD 75%);
+	background: linear-gradient(90deg, #2d2823 25%, #444444 50%, #2d2823 75%);
 	background-size: 200% 100%;
 	animation: shimmer 1.5s infinite;
 }

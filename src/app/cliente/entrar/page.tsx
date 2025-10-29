@@ -142,7 +142,7 @@ function LoginForm() {
 			<div className="flex justify-end">
 				<Link
 					href="/cliente/esqueci-senha"
-					className="text-xs text-[#4E7FC6] hover:opacity-70 transition-opacity duration-200"
+					className="text-xs text-[#6B9FE8] hover:opacity-70 transition-opacity duration-200"
 				>
 					Esqueceu sua senha?
 				</Link>
@@ -157,10 +157,10 @@ function LoginForm() {
 				{/* Divisor */}
 				<div className="relative my-2">
 					<div className="absolute inset-0 flex items-center">
-						<div className="w-full border-t border-gray-300"></div>
+						<div className="w-full border-t border-gray-600"></div>
 					</div>
 					<div className="relative flex justify-center text-sm">
-						<span className="px-2 bg-[#F5F2ED] text-gray-500">Ou</span>
+						<span className="px-2 bg-[#252220] text-gray-400">Ou</span>
 					</div>
 				</div>
 
@@ -174,7 +174,7 @@ function LoginForm() {
 export default function LoginPage() {
 	const navigationLinks = (
 		<div className="space-y-2 w-full text-center">
-			<p className="text-sm text-[#4E7FC6]">
+			<p className="text-sm text-[#6B9FE8]">
 				Não tem uma conta?{' '}
 				<Link href="/cliente/cadastro" className="underline hover:opacity-70">
 					Cadastre-se!

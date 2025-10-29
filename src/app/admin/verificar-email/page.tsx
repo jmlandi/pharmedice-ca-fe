@@ -191,7 +191,7 @@ function AdminEmailVerificationContent() {
 							/>
 						</svg>
 					</div>
-					<h2 className="text-xl font-bold text-[#4E7FC6]">
+					<h2 className="text-xl font-bold text-[#6B9FE8]">
 						Verificando E-mail Administrativo...
 					</h2>
 					<p className="text-sm text-foreground">
@@ -227,18 +227,18 @@ function AdminEmailVerificationContent() {
 					</h2>
 					<p className="text-sm text-foreground">{message}</p>
 					{email && (
-						<p className="text-xs text-[#4E7FC6] font-semibold">
+						<p className="text-xs text-[#6B9FE8] font-semibold">
 							🛡️ Admin: {email}
 						</p>
 					)}
-					<p className="text-xs text-gray-500">
+					<p className="text-xs text-gray-400">
 						Redirecionando para o painel administrativo...
 					</p>
 				</div>
 
 				<Link
 					href="/admin/painel"
-					className="w-full h-12 flex items-center justify-center text-sm font-bold bg-[#4E7FC6] text-white rounded-3xl hover:bg-[#26364D] transition-all duration-200"
+					className="w-full h-12 flex items-center justify-center text-sm font-bold bg-[#6B9FE8] text-white rounded-3xl hover:bg-[#4E7FC6] transition-all duration-200"
 				>
 					Acessar Painel Administrativo
 				</Link>
@@ -270,7 +270,7 @@ function AdminEmailVerificationContent() {
 						E-mail Administrativo Já Verificado
 					</h2>
 					<p className="text-sm text-foreground">{message}</p>
-					<p className="text-xs text-gray-500">
+					<p className="text-xs text-gray-400">
 						Suas credenciais administrativas já foram confirmadas. Você pode
 						fazer login normalmente.
 					</p>
@@ -278,7 +278,7 @@ function AdminEmailVerificationContent() {
 
 				<Link
 					href="/admin/entrar"
-					className="w-full h-12 flex items-center justify-center text-sm font-bold bg-[#4E7FC6] text-white rounded-3xl hover:bg-[#26364D] transition-all duration-200"
+					className="w-full h-12 flex items-center justify-center text-sm font-bold bg-[#6B9FE8] text-white rounded-3xl hover:bg-[#4E7FC6] transition-all duration-200"
 				>
 					Login Administrativo
 				</Link>
@@ -336,7 +336,7 @@ function AdminEmailVerificationContent() {
 
 				<Link
 					href="/admin/entrar"
-					className="w-full h-12 flex items-center justify-center text-sm font-bold bg-[#4E7FC6] text-white rounded-3xl hover:bg-[#26364D] transition-all duration-200"
+					className="w-full h-12 flex items-center justify-center text-sm font-bold bg-[#6B9FE8] text-white rounded-3xl hover:bg-[#4E7FC6] transition-all duration-200"
 				>
 					Login Administrativo
 				</Link>
@@ -363,13 +363,13 @@ function LoadingScreen() {
 export default function AdminEmailVerificationPage() {
 	const navigationLinks = (
 		<div className="flex flex-col gap-2 text-center">
-			<p className="text-sm text-[#4E7FC6]">
+			<p className="text-sm text-[#6B9FE8]">
 				Problemas com verificação?{' '}
 				<Link href="/admin/entrar" className="underline hover:opacity-70">
 					Login administrativo
 				</Link>
 			</p>
-			<p className="text-sm text-[#4E7FC6]">
+			<p className="text-sm text-[#6B9FE8]">
 				Não recebeu o e-mail?{' '}
 				<Link
 					href="/admin/esqueci-senha"

@@ -108,10 +108,10 @@ onRefresh,
 <>
 			<div className="mb-6 flex justify-between items-center">
 				<div>
-					<h2 className="text-2xl font-bold text-gray-900 mb-2">
+					<h2 className="text-2xl font-bold text-gray-100 mb-2">
 						Gerenciar Laudos
 					</h2>
-					<p className="text-gray-600">
+					<p className="text-gray-300">
 						Visualize, baixe e gerencie todos os laudos do sistema
 					</p>
 				</div>
@@ -145,8 +145,8 @@ onRefresh,
 
 			{loading || isSearching ? (
 <div className="flex justify-center items-center py-12">
-					<div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#4E7FC6]"></div>
-					<span className="ml-2 text-gray-600">
+					<div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#6B9FE8]"></div>
+					<span className="ml-2 text-gray-300">
 						{isSearching ? 'Buscando...' : 'Carregando...'}
 					</span>
 				</div>
@@ -159,12 +159,12 @@ onRefresh,
 						height={64}
 						className="mx-auto mb-4 opacity-50"
 					/>
-					<h3 className="text-lg font-medium text-gray-900 mb-2">
+					<h3 className="text-lg font-medium text-gray-100 mb-2">
 						{searchTerm
 							? 'Nenhum laudo encontrado'
 							: 'Nenhum laudo cadastrado'}
 					</h3>
-					<p className="text-gray-600">
+					<p className="text-gray-300">
 						{searchTerm
 							? 'Tente buscar com outros termos.'
 							: 'Comece enviando um novo laudo usando o formulário ao lado.'}
