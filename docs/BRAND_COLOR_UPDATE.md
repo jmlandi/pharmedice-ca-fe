@@ -9,9 +9,9 @@ This document summarizes the brand color palette implementation across the Pharm
 |------------|----------|-------|
 | Dark Blue | `#26364D` | Primary hover states, dark accents |
 | Light Blue | `#4E7FC6` | Primary brand color, buttons, links, icons |
-| Neutral Gray | `#CCCCCC` | Secondary backgrounds, shimmer effects |
-| Bege Amarelado | `#DED1C1` | Soft backgrounds, gradients |
-| Bege Acinzentado | `#E3D9CD` | Loading states, subtle backgrounds |
+| Neutral Gray | `#CCCCCC` | Skeleton loaders, shimmer effects, secondary elements |
+| Bege Amarelado | `#DED1C1` | Soft backgrounds, button hover states |
+| Bege Acinzentado | `#E3D9CD` | Form inputs, breadcrumb buttons, filter buttons |
 | Bege Claro | `#F5F2ED` | Main backgrounds, card backgrounds, content areas |
 
 ## Changes Made
@@ -80,6 +80,8 @@ Updated colors in both cliente and admin sections:
 | `#3b5aa1` | `#26364D` | Hover/active states |
 | `#ffffff` | `#F5F2ED` | Background and card colors |
 | `bg-white` | `bg-[#F5F2ED]` | Tailwind class replacement |
+| `bg-gray-100` | `bg-[#E3D9CD]` | Form inputs, breadcrumb buttons |
+| `bg-gray-200` | `bg-[#CCCCCC]` or `bg-[#DED1C1]` | Skeleton loaders, hover states |
 | `blue-600` | `#4E7FC6` | Tailwind utility replacement |
 | `blue-700` | `#26364D` | Tailwind hover replacement |
 | `blue-50` | `#E3D9CD` | Light backgrounds |
@@ -129,9 +131,20 @@ Total: **32 files** changed
    - Update CSS background variable
    - Creates more cohesive branded appearance
 
+5. **docs: Update documentation with beige background changes** (c415adb)
+   - Updated documentation with light beige additions
+
+6. **feat: Replace gray backgrounds with brand beige colors** (54f9909)
+   - Replace breadcrumb buttons with beige colors
+   - Update form input backgrounds to beige
+   - Replace skeleton loaders with neutral gray
+   - Consistent warm color scheme throughout
+
 ## Notes
 
 - All color changes maintain existing layout structures
 - No functional changes were made, only visual styling updates
 - The color palette is now centralized in CSS variables for easier future updates
+- Gray utility classes replaced with brand beige for consistency
+- Form inputs and interactive elements now use warm beige tones
 - Status and semantic colors (success, warning, error) remain unchanged for UX clarity
