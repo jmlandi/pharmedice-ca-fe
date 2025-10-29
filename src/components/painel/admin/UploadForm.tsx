@@ -82,7 +82,7 @@ export default function UploadForm({ onUploadSuccess }: UploadFormProps) {
 						onChange={(e) =>
 							setFormData((prev) => ({ ...prev, titulo: e.target.value }))
 						}
-						className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+						className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4E7FC6] focus:border-transparent"
 						placeholder="Título do laudo"
 					/>
 				</div>
@@ -97,7 +97,7 @@ export default function UploadForm({ onUploadSuccess }: UploadFormProps) {
 							setFormData((prev) => ({ ...prev, descricao: e.target.value }))
 						}
 						rows={3}
-						className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+						className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4E7FC6] focus:border-transparent"
 						placeholder="Descrição do laudo"
 					/>
 				</div>
@@ -111,7 +111,7 @@ export default function UploadForm({ onUploadSuccess }: UploadFormProps) {
 						type="file"
 						accept="application/pdf"
 						onChange={handleFileChange}
-						className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+						className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4E7FC6] focus:border-transparent"
 					/>
 					<p className="text-xs text-gray-500 mt-1">
 						Apenas arquivos PDF (máximo 10MB)
@@ -121,7 +121,7 @@ export default function UploadForm({ onUploadSuccess }: UploadFormProps) {
 				<button
 					type="submit"
 					disabled={isUploading}
-					className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+					className="w-full bg-[#4E7FC6] text-white py-2 px-4 rounded-lg hover:bg-[#26364D] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
 				>
 					{isUploading ? 'Enviando...' : 'Enviar Laudo'}
 				</button>

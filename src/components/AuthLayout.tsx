@@ -71,21 +71,19 @@ export default function AuthLayout({
 					{/* logo and title */}
 					<PageTransition>
 						<div className="flex-shrink-0 flex flex-col items-center">
-							<OptimizedImage
-								src="/icons/pharmedice-logo.svg"
-								alt="Logo da Pharmédice"
-								width={150}
-								height={150}
-								className="mb-5"
-								priority={true}
-							/>
-							<h1 className="text-2xl font-bold text-center mb-2 text-[#527BC6]">
-								{title}
-							</h1>
-						</div>
-					</PageTransition>
-
-					{/* auth form */}
+						<OptimizedImage
+							src="/icons/pharmedice-logo.svg"
+							alt="Logo da Pharmédice"
+							width={150}
+							height={150}
+							className="mb-5"
+							priority={true}
+						/>
+						<h1 className="text-2xl font-bold text-center mb-2 text-[#4E7FC6]">
+							{title}
+						</h1>
+					</div>
+				</PageTransition>					{/* auth form */}
 					<PageTransition className="flex-1 flex items-center justify-center w-full max-w-[450px]">
 						<div className="w-full m-1 border-0 p-4 rounded-3xl shadow-lg bg-white">
 							{children}

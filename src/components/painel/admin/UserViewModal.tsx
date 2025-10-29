@@ -36,7 +36,7 @@ export default function UserViewModal({ user, onClose, onEdit }: UserViewModalPr
 								className="rounded-full"
 							/>
 						) : (
-							<div className="h-20 w-20 rounded-full bg-blue-600 flex items-center justify-center text-white text-2xl font-semibold">
+							<div className="h-20 w-20 rounded-full bg-[#4E7FC6] flex items-center justify-center text-white text-2xl font-semibold">
 								{user.primeiro_nome[0]}{user.segundo_nome?.[0]}
 							</div>
 						)}
@@ -135,7 +135,7 @@ export default function UserViewModal({ user, onClose, onEdit }: UserViewModalPr
 											type="checkbox"
 											checked={user.aceite_comunicacoes_email}
 											disabled
-											className="h-4 w-4 text-blue-600 rounded"
+											className="h-4 w-4 text-[#4E7FC6] rounded"
 										/>
 										<label className="ml-2 text-sm text-gray-700">
 											Email
@@ -148,7 +148,7 @@ export default function UserViewModal({ user, onClose, onEdit }: UserViewModalPr
 											type="checkbox"
 											checked={user.aceite_comunicacoes_sms}
 											disabled
-											className="h-4 w-4 text-blue-600 rounded"
+											className="h-4 w-4 text-[#4E7FC6] rounded"
 										/>
 										<label className="ml-2 text-sm text-gray-700">
 											SMS
@@ -161,7 +161,7 @@ export default function UserViewModal({ user, onClose, onEdit }: UserViewModalPr
 											type="checkbox"
 											checked={user.aceite_comunicacoes_whatsapp}
 											disabled
-											className="h-4 w-4 text-blue-600 rounded"
+											className="h-4 w-4 text-[#4E7FC6] rounded"
 										/>
 										<label className="ml-2 text-sm text-gray-700">
 											WhatsApp
@@ -199,7 +199,7 @@ export default function UserViewModal({ user, onClose, onEdit }: UserViewModalPr
 					</button>
 					<button
 						onClick={onEdit}
-						className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+						className="px-4 py-2 bg-[#4E7FC6] text-white rounded-lg hover:bg-[#26364D] transition-colors"
 					>
 						Editar Usuário
 					</button>

@@ -188,7 +188,7 @@ function AdminResetPasswordForm() {
 							/>
 						</svg>
 					</div>
-					<h2 className="text-xl font-bold text-[#527BC6]">
+					<h2 className="text-xl font-bold text-[#4E7FC6]">
 						Senha Redefinida!
 					</h2>
 					<p className="text-sm text-foreground">
@@ -199,7 +199,7 @@ function AdminResetPasswordForm() {
 
 				<Link
 					href="/admin/entrar"
-					className="w-full h-12 flex items-center justify-center text-sm font-bold bg-[#527BC6] text-white rounded-3xl hover:bg-[#3b5aa1] hover:cursor-pointer transition-all duration-200"
+					className="w-full h-12 flex items-center justify-center text-sm font-bold bg-[#4E7FC6] text-white rounded-3xl hover:bg-[#26364D] hover:cursor-pointer transition-all duration-200"
 				>
 					Fazer Login Administrativo
 				</Link>
@@ -214,7 +214,7 @@ function AdminResetPasswordForm() {
 			className="flex flex-col gap-4 w-[300px] md:w-full md:max-w-[420px] md:p-1"
 		>
 			<div className="flex flex-col gap-4 text-center mb-2">
-				<h2 className="text-xl font-bold text-[#527BC6]">
+				<h2 className="text-xl font-bold text-[#4E7FC6]">
 					Redefinir Senha Administrativa
 				</h2>
 				<p className="text-sm text-foreground">
@@ -222,7 +222,7 @@ function AdminResetPasswordForm() {
 					seja segura e cumpra todos os requisitos.
 				</p>
 				{email && (
-					<p className="text-xs text-[#527BC6] font-semibold">Admin: {email}</p>
+					<p className="text-xs text-[#4E7FC6] font-semibold">Admin: {email}</p>
 				)}
 			</div>
 
@@ -291,13 +291,13 @@ function LoadingScreen() {
 export default function AdminResetPasswordPage() {
 	const navigationLinks = (
 		<div className="flex flex-col gap-2 text-center">
-			<p className="text-sm text-[#527BC6]">
+			<p className="text-sm text-[#4E7FC6]">
 				Lembrou sua senha?{' '}
 				<Link href="/admin/entrar" className="underline hover:opacity-70">
 					Voltar ao login
 				</Link>
 			</p>
-			<p className="text-sm text-[#527BC6]">
+			<p className="text-sm text-[#4E7FC6]">
 				Problemas de acesso?{' '}
 				<Link
 					href="/admin/esqueci-senha"

@@ -5,7 +5,7 @@ import AuthLayout from '@/components/AuthLayout';
 
 export default function PrivacyPolicyPage() {
 	const navigationLinks = (
-		<div className="flex flex-col gap-2 text-sm text-[#527BC6] w-full text-center">
+		<div className="flex flex-col gap-2 text-sm text-[#4E7FC6] w-full text-center">
 			<p>
 				<Link href="/cliente/cadastro" className="underline hover:opacity-70">
 					Voltar ao Cadastro de Cliente
@@ -22,7 +22,7 @@ export default function PrivacyPolicyPage() {
 			<div className="max-h-[500px] overflow-y-auto pr-2">
 				<div className="space-y-6 text-sm text-gray-700 leading-relaxed">
 					<div>
-						<h2 className="text-lg font-semibold text-[#527BC6] mb-3">
+						<h2 className="text-lg font-semibold text-[#4E7FC6] mb-3">
 							1. Informações que Coletamos
 						</h2>
 						<p className="mb-3">
@@ -41,7 +41,7 @@ export default function PrivacyPolicyPage() {
 					</div>
 
 					<div>
-						<h2 className="text-lg font-semibold text-[#527BC6] mb-3">
+						<h2 className="text-lg font-semibold text-[#4E7FC6] mb-3">
 							2. Como Utilizamos suas Informações
 						</h2>
 						<p className="mb-3">Utilizamos as informações coletadas para:</p>
@@ -59,7 +59,7 @@ export default function PrivacyPolicyPage() {
 					</div>
 
 					<div>
-						<h2 className="text-lg font-semibold text-[#527BC6] mb-3">
+						<h2 className="text-lg font-semibold text-[#4E7FC6] mb-3">
 							3. Compartilhamento de Informações
 						</h2>
 						<p className="mb-3">
@@ -79,7 +79,7 @@ export default function PrivacyPolicyPage() {
 					</div>
 
 					<div>
-						<h2 className="text-lg font-semibold text-[#527BC6] mb-3">
+						<h2 className="text-lg font-semibold text-[#4E7FC6] mb-3">
 							4. Segurança das Informações
 						</h2>
 						<p>
@@ -92,7 +92,7 @@ export default function PrivacyPolicyPage() {
 					</div>
 
 					<div>
-						<h2 className="text-lg font-semibold text-[#527BC6] mb-3">
+						<h2 className="text-lg font-semibold text-[#4E7FC6] mb-3">
 							5. Seus Direitos
 						</h2>
 						<p className="mb-3">
@@ -109,7 +109,7 @@ export default function PrivacyPolicyPage() {
 					</div>
 
 					<div>
-						<h2 className="text-lg font-semibold text-[#527BC6] mb-3">
+						<h2 className="text-lg font-semibold text-[#4E7FC6] mb-3">
 							6. Cookies e Tecnologias Similares
 						</h2>
 						<p>
@@ -121,7 +121,7 @@ export default function PrivacyPolicyPage() {
 					</div>
 
 					<div>
-						<h2 className="text-lg font-semibold text-[#527BC6] mb-3">
+						<h2 className="text-lg font-semibold text-[#4E7FC6] mb-3">
 							7. Retenção de Dados
 						</h2>
 						<p>
@@ -132,7 +132,7 @@ export default function PrivacyPolicyPage() {
 					</div>
 
 					<div>
-						<h2 className="text-lg font-semibold text-[#527BC6] mb-3">
+						<h2 className="text-lg font-semibold text-[#4E7FC6] mb-3">
 							8. Alterações nesta Política
 						</h2>
 						<p>
@@ -143,7 +143,7 @@ export default function PrivacyPolicyPage() {
 					</div>
 
 					<div>
-						<h2 className="text-lg font-semibold text-[#527BC6] mb-3">
+						<h2 className="text-lg font-semibold text-[#4E7FC6] mb-3">
 							9. Contato
 						</h2>
 						<p>
@@ -153,7 +153,7 @@ export default function PrivacyPolicyPage() {
 						</p>
 					</div>
 
-					<div className="bg-gray-50 p-4 rounded-lg border-l-4 border-[#527BC6]">
+					<div className="bg-gray-50 p-4 rounded-lg border-l-4 border-[#4E7FC6]">
 						<p className="text-xs text-gray-600">
 							<strong>Última atualização:</strong>{' '}
 							{new Date().toLocaleDateString('pt-BR')}

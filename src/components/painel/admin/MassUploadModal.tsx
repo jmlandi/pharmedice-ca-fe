@@ -196,7 +196,7 @@ export default function MassUploadModal({
 							multiple
 							onChange={handleFileSelect}
 							disabled={uploading}
-							className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50"
+							className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4E7FC6] focus:border-transparent disabled:opacity-50"
 						/>
 						<p className="text-xs text-gray-500 mt-1">
 							Selecione múltiplos arquivos PDF (máximo 10MB cada)
@@ -233,7 +233,7 @@ export default function MassUploadModal({
 										</div>
 										<div className="flex items-center gap-2">
 											{fileData.uploading && (
-												<div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-600"></div>
+												<div className="animate-spin rounded-full h-5 w-5 border-b-2 border-[#4E7FC6]"></div>
 											)}
 											{fileData.uploaded && (
 												<svg
@@ -301,7 +301,7 @@ export default function MassUploadModal({
 														handleMetadataChange(index, 'titulo', e.target.value)
 													}
 													disabled={uploading}
-													className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50"
+													className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4E7FC6] focus:border-transparent disabled:opacity-50"
 													placeholder="Título do laudo"
 												/>
 											</div>
@@ -320,7 +320,7 @@ export default function MassUploadModal({
 													}
 													disabled={uploading}
 													rows={2}
-													className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50"
+													className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4E7FC6] focus:border-transparent disabled:opacity-50"
 													placeholder="Descrição do laudo"
 												/>
 											</div>
@@ -377,7 +377,7 @@ export default function MassUploadModal({
 						<button
 							onClick={handleUpload}
 							disabled={uploading || files.length === 0}
-							className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+							className="px-4 py-2 bg-[#4E7FC6] text-white rounded-lg hover:bg-[#26364D] disabled:opacity-50 disabled:cursor-not-allowed"
 						>
 							{uploading ? 'Enviando...' : `Enviar ${files.length} Laudo(s)`}
 						</button>

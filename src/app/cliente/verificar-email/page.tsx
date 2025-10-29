@@ -190,7 +190,7 @@ function EmailVerificationContent() {
 							/>
 						</svg>
 					</div>
-					<h2 className="text-xl font-bold text-[#527BC6]">
+					<h2 className="text-xl font-bold text-[#4E7FC6]">
 						Verificando E-mail...
 					</h2>
 					<p className="text-sm text-foreground">
@@ -226,7 +226,7 @@ function EmailVerificationContent() {
 					</h2>
 					<p className="text-sm text-foreground">{message}</p>
 					{email && (
-						<p className="text-xs text-[#527BC6] font-semibold">✅ {email}</p>
+						<p className="text-xs text-[#4E7FC6] font-semibold">✅ {email}</p>
 					)}
 					<p className="text-xs text-gray-500">
 						Redirecionando para seu painel em alguns segundos...
@@ -235,7 +235,7 @@ function EmailVerificationContent() {
 
 				<Link
 					href="/cliente/painel"
-					className="w-full h-12 flex items-center justify-center text-sm font-bold bg-[#527BC6] text-white rounded-3xl hover:bg-[#3b5aa1] transition-all duration-200"
+					className="w-full h-12 flex items-center justify-center text-sm font-bold bg-[#4E7FC6] text-white rounded-3xl hover:bg-[#26364D] transition-all duration-200"
 				>
 					Ir para Meu Painel
 				</Link>
@@ -275,7 +275,7 @@ function EmailVerificationContent() {
 
 				<Link
 					href="/cliente/entrar"
-					className="w-full h-12 flex items-center justify-center text-sm font-bold bg-[#527BC6] text-white rounded-3xl hover:bg-[#3b5aa1] transition-all duration-200"
+					className="w-full h-12 flex items-center justify-center text-sm font-bold bg-[#4E7FC6] text-white rounded-3xl hover:bg-[#26364D] transition-all duration-200"
 				>
 					Fazer Login
 				</Link>
@@ -328,7 +328,7 @@ function EmailVerificationContent() {
 
 				<Link
 					href="/cliente/entrar"
-					className="w-full h-12 flex items-center justify-center text-sm font-bold bg-[#527BC6] text-white rounded-3xl hover:bg-[#3b5aa1] transition-all duration-200"
+					className="w-full h-12 flex items-center justify-center text-sm font-bold bg-[#4E7FC6] text-white rounded-3xl hover:bg-[#26364D] transition-all duration-200"
 				>
 					Voltar ao Login
 				</Link>
@@ -355,13 +355,13 @@ function LoadingScreen() {
 export default function ClienteVerificarEmailPage() {
 	const navigationLinks = (
 		<div className="flex flex-col gap-2 text-center">
-			<p className="text-sm text-[#527BC6]">
+			<p className="text-sm text-[#4E7FC6]">
 				Problemas com verificação?{' '}
 				<Link href="/cliente/entrar" className="underline hover:opacity-70">
 					Ir para login
 				</Link>
 			</p>
-			<p className="text-sm text-[#527BC6]">
+			<p className="text-sm text-[#4E7FC6]">
 				Não recebeu o e-mail?{' '}
 				<Link
 					href="/cliente/reenviar-verificacao"

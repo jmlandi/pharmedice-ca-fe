@@ -35,7 +35,7 @@ export default function FormField({
 					height={16}
 					className="h-full w-auto"
 				/>
-				<p className="text-[#527BC6] font-bold text-md">{label}:</p>
+				<p className="text-[#4E7FC6] font-bold text-md">{label}:</p>
 			</label>
 			<input
 				type={type}
@@ -43,7 +43,7 @@ export default function FormField({
 				value={value}
 				onChange={(e) => onChange(e.target.value)}
 				maxLength={maxLength}
-				className={`w-full px-4 py-2 border-none bg-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#527BC6] transition-all duration-200 ${
+				className={`w-full px-4 py-2 border-none bg-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#4E7FC6] transition-all duration-200 ${
 					error ? 'ring-2 ring-red-400' : ''
 				}`}
 			/>

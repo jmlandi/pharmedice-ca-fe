@@ -559,14 +559,14 @@ function AdminSignupForm() {
 							onChange={(e) =>
 								handleInputChange('accept_terms_of_use', e.target.checked)
 							}
-							className="rounded border-gray-300 text-[#527BC6] focus:ring-[#527BC6] mt-0.5"
+							className="rounded border-gray-300 text-[#4E7FC6] focus:ring-[#4E7FC6] mt-0.5"
 						/>
 						<span>
 							Li e aceito os{' '}
 							<a
 								href="/termos-uso"
 								target="_blank"
-								className="text-[#527BC6] underline hover:opacity-70"
+								className="text-[#4E7FC6] underline hover:opacity-70"
 							>
 								Termos de Uso
 							</a>{' '}
@@ -586,14 +586,14 @@ function AdminSignupForm() {
 							onChange={(e) =>
 								handleInputChange('accept_privacy_policy', e.target.checked)
 							}
-							className="rounded border-gray-300 text-[#527BC6] focus:ring-[#527BC6] mt-0.5"
+							className="rounded border-gray-300 text-[#4E7FC6] focus:ring-[#4E7FC6] mt-0.5"
 						/>
 						<span>
 							Li e aceito a{' '}
 							<a
 								href="/politica-privacidade"
 								target="_blank"
-								className="text-[#527BC6] underline hover:opacity-70"
+								className="text-[#4E7FC6] underline hover:opacity-70"
 							>
 								Política de Privacidade
 							</a>{' '}

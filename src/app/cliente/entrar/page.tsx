@@ -142,7 +142,7 @@ function LoginForm() {
 			<div className="flex justify-end">
 				<Link
 					href="/cliente/esqueci-senha"
-					className="text-xs text-[#527BC6] hover:opacity-70 transition-opacity duration-200"
+					className="text-xs text-[#4E7FC6] hover:opacity-70 transition-opacity duration-200"
 				>
 					Esqueceu sua senha?
 				</Link>
@@ -174,7 +174,7 @@ function LoginForm() {
 export default function LoginPage() {
 	const navigationLinks = (
 		<div className="space-y-2 w-full text-center">
-			<p className="text-sm text-[#527BC6]">
+			<p className="text-sm text-[#4E7FC6]">
 				Não tem uma conta?{' '}
 				<Link href="/cliente/cadastro" className="underline hover:opacity-70">
 					Cadastre-se!
