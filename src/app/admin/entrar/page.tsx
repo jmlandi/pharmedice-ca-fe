@@ -180,7 +180,7 @@ function AdminLoginForm() {
 						<div className="w-full border-t border-gray-300"></div>
 					</div>
 					<div className="relative flex justify-center text-sm">
-						<span className="px-2 bg-white text-gray-500">Ou</span>
+						<span className="px-2 bg-[#F5F2ED] text-gray-500">Ou</span>
 					</div>
 				</div>
 

@@ -88,12 +88,12 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 
 	if (loading && users.length === 0) {
 		return (
-			<div className="bg-white rounded-lg shadow-md p-8">
+			<div className="bg-[#F5F2ED] rounded-lg shadow-md p-8">
 				<div className="animate-pulse space-y-4">
-					<div className="h-4 bg-gray-200 rounded w-1/4"></div>
+					<div className="h-4 bg-[#CCCCCC] rounded w-1/4"></div>
 					<div className="space-y-3">
 						{[1, 2, 3, 4, 5].map((i) => (
-							<div key={i} className="h-16 bg-gray-200 rounded"></div>
+							<div key={i} className="h-16 bg-[#CCCCCC] rounded"></div>
 						))}
 					</div>
 				</div>
@@ -102,7 +102,7 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 	}
 
 	return (
-		<div className="bg-white rounded-lg shadow-md">
+		<div className="bg-[#F5F2ED] rounded-lg shadow-md">
 			<div className="p-6 border-b">
 				<h2 className="text-2xl font-bold text-gray-900 mb-4">Gerenciar Usuários</h2>
 				
@@ -115,7 +115,7 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 								value={searchInput}
 								onChange={(e) => setSearchInput(e.target.value)}
 								onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-								className="w-full px-4 py-2 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+								className="w-full px-4 py-2 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4E7FC6] focus:border-transparent"
 							/>
 							<svg
 								className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
@@ -133,7 +133,7 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 						</div>
 						<button
 							onClick={handleSearch}
-							className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+							className="px-6 py-2 bg-[#4E7FC6] text-white rounded-lg hover:bg-[#26364D] transition-colors"
 						>
 							Buscar
 						</button>
@@ -144,8 +144,8 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 							onClick={() => handleTypeFilterChange('all')}
 							className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
 								userTypeFilter === 'all'
-									? 'bg-blue-600 text-white'
-									: 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+									? 'bg-[#4E7FC6] text-white'
+									: 'bg-[#E3D9CD] text-gray-700 hover:bg-[#DED1C1]'
 							}`}
 						>
 							Todos
@@ -154,8 +154,8 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 							onClick={() => handleTypeFilterChange('administrador')}
 							className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
 								userTypeFilter === 'administrador'
-									? 'bg-blue-600 text-white'
-									: 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+									? 'bg-[#4E7FC6] text-white'
+									: 'bg-[#E3D9CD] text-gray-700 hover:bg-[#DED1C1]'
 							}`}
 						>
 							Administradores
@@ -164,8 +164,8 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 							onClick={() => handleTypeFilterChange('usuario')}
 							className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
 								userTypeFilter === 'usuario'
-									? 'bg-blue-600 text-white'
-									: 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+									? 'bg-[#4E7FC6] text-white'
+									: 'bg-[#E3D9CD] text-gray-700 hover:bg-[#DED1C1]'
 							}`}
 						>
 							Clientes
@@ -194,7 +194,7 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 
 			<div className="overflow-x-auto">
 				<table className="min-w-full divide-y divide-gray-200">
-					<thead className="bg-gray-50">
+					<thead className="bg-[#E3D9CD]">
 						<tr>
 							<th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
 								Usuário
@@ -213,7 +213,7 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 							</th>
 						</tr>
 					</thead>
-					<tbody className="bg-white divide-y divide-gray-200">
+					<tbody className="bg-[#F5F2ED] divide-y divide-gray-200">
 						{users.length === 0 ? (
 							<tr>
 								<td colSpan={5} className="px-6 py-8 text-center text-gray-500">
@@ -222,7 +222,7 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 							</tr>
 						) : (
 							users.map((user) => (
-								<tr key={user.id} className="hover:bg-gray-50 transition-colors">
+								<tr key={user.id} className="hover:bg-[#E3D9CD] transition-colors">
 									<td className="px-6 py-4 whitespace-nowrap">
 										<div className="flex items-center">
 											{user.avatar ? (
@@ -234,7 +234,7 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 													className="rounded-full"
 												/>
 											) : (
-												<div className="h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-semibold">
+												<div className="h-10 w-10 rounded-full bg-[#4E7FC6] flex items-center justify-center text-white font-semibold">
 													{user.primeiro_nome[0]}{user.segundo_nome?.[0]}
 												</div>
 											)}
@@ -303,7 +303,7 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 									<td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
 										<button
 											onClick={() => onViewUser(user)}
-											className="text-blue-600 hover:text-blue-900 mr-3"
+											className="text-[#4E7FC6] hover:text-[#26364D] mr-3"
 											title="Visualizar"
 										>
 											<svg className="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">

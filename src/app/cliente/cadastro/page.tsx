@@ -371,7 +371,7 @@ function SignupForm() {
 			className="flex flex-col gap-4 w-[300px] md:w-full md:max-w-[420px] md:p-1 max-h-[80vh] overflow-y-auto"
 		>
 			{/* <div className="flex flex-col gap-2 mb-2">
-				<p className="w-full text-center font-extralight text-white bg-[#527BC6] rounded-lg p-2">
+				<p className="w-full text-center font-extralight text-white bg-[#4E7FC6] rounded-lg p-2">
 					Crie sua conta informando os dados abaixo!
 				</p>
 			</div> */}
@@ -490,7 +490,7 @@ function SignupForm() {
 						onChange={(e) =>
 							handleInputChange('accept_email_communications', e.target.checked)
 						}
-						className="rounded border-gray-300 text-[#527BC6] focus:ring-[#527BC6]"
+						className="rounded border-gray-300 text-[#4E7FC6] focus:ring-[#4E7FC6]"
 					/>
 					Aceito receber comunicações por e-mail
 				</label>
@@ -502,7 +502,7 @@ function SignupForm() {
 						onChange={(e) =>
 							handleInputChange('accept_sms_communications', e.target.checked)
 						}
-						className="rounded border-gray-300 text-[#527BC6] focus:ring-[#527BC6]"
+						className="rounded border-gray-300 text-[#4E7FC6] focus:ring-[#4E7FC6]"
 					/>
 					Aceito receber comunicações por SMS
 				</label>
@@ -517,7 +517,7 @@ function SignupForm() {
 								e.target.checked
 							)
 						}
-						className="rounded border-gray-300 text-[#527BC6] focus:ring-[#527BC6]"
+						className="rounded border-gray-300 text-[#4E7FC6] focus:ring-[#4E7FC6]"
 					/>
 					Aceito receber comunicações por WhatsApp
 				</label>
@@ -536,14 +536,14 @@ function SignupForm() {
 						onChange={(e) =>
 							handleInputChange('accept_terms_of_use', e.target.checked)
 						}
-						className="rounded border-gray-300 text-[#527BC6] focus:ring-[#527BC6] mt-0.5"
+						className="rounded border-gray-300 text-[#4E7FC6] focus:ring-[#4E7FC6] mt-0.5"
 					/>
 					<span>
 						Li e aceito os{' '}
 						<a
 							href="/termos-uso"
 							target="_blank"
-							className="text-[#527BC6] underline hover:opacity-70"
+							className="text-[#4E7FC6] underline hover:opacity-70"
 						>
 							Termos de Uso
 						</a>{' '}
@@ -563,14 +563,14 @@ function SignupForm() {
 						onChange={(e) =>
 							handleInputChange('accept_privacy_policy', e.target.checked)
 						}
-						className="rounded border-gray-300 text-[#527BC6] focus:ring-[#527BC6] mt-0.5"
+						className="rounded border-gray-300 text-[#4E7FC6] focus:ring-[#4E7FC6] mt-0.5"
 					/>
 					<span>
 						Li e aceito a{' '}
 						<a
 							href="/politica-privacidade"
 							target="_blank"
-							className="text-[#527BC6] underline hover:opacity-70"
+							className="text-[#4E7FC6] underline hover:opacity-70"
 						>
 							Política de Privacidade
 						</a>{' '}
@@ -593,7 +593,7 @@ function SignupForm() {
 
 export default function SignupPage() {
 	const navigationLinks = (
-		<p className="text-sm text-[#527BC6] w-full text-center">
+		<p className="text-sm text-[#4E7FC6] w-full text-center">
 			Já tem uma conta?{' '}
 			<Link href="/cliente/entrar" className="underline hover:opacity-70">
 				Faça login!

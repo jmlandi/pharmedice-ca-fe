@@ -12,7 +12,7 @@ interface UserViewModalProps {
 export default function UserViewModal({ user, onClose, onEdit }: UserViewModalProps) {
 	return (
 		<div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-			<div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+			<div className="bg-[#F5F2ED] rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
 				<div className="p-6 border-b flex items-center justify-between">
 					<h2 className="text-2xl font-bold text-gray-900">Detalhes do Usuário</h2>
 					<button
@@ -36,7 +36,7 @@ export default function UserViewModal({ user, onClose, onEdit }: UserViewModalPr
 								className="rounded-full"
 							/>
 						) : (
-							<div className="h-20 w-20 rounded-full bg-blue-600 flex items-center justify-center text-white text-2xl font-semibold">
+							<div className="h-20 w-20 rounded-full bg-[#4E7FC6] flex items-center justify-center text-white text-2xl font-semibold">
 								{user.primeiro_nome[0]}{user.segundo_nome?.[0]}
 							</div>
 						)}
@@ -135,7 +135,7 @@ export default function UserViewModal({ user, onClose, onEdit }: UserViewModalPr
 											type="checkbox"
 											checked={user.aceite_comunicacoes_email}
 											disabled
-											className="h-4 w-4 text-blue-600 rounded"
+											className="h-4 w-4 text-[#4E7FC6] rounded"
 										/>
 										<label className="ml-2 text-sm text-gray-700">
 											Email
@@ -148,7 +148,7 @@ export default function UserViewModal({ user, onClose, onEdit }: UserViewModalPr
 											type="checkbox"
 											checked={user.aceite_comunicacoes_sms}
 											disabled
-											className="h-4 w-4 text-blue-600 rounded"
+											className="h-4 w-4 text-[#4E7FC6] rounded"
 										/>
 										<label className="ml-2 text-sm text-gray-700">
 											SMS
@@ -161,7 +161,7 @@ export default function UserViewModal({ user, onClose, onEdit }: UserViewModalPr
 											type="checkbox"
 											checked={user.aceite_comunicacoes_whatsapp}
 											disabled
-											className="h-4 w-4 text-blue-600 rounded"
+											className="h-4 w-4 text-[#4E7FC6] rounded"
 										/>
 										<label className="ml-2 text-sm text-gray-700">
 											WhatsApp
@@ -190,7 +190,7 @@ export default function UserViewModal({ user, onClose, onEdit }: UserViewModalPr
 					)}
 				</div>
 
-				<div className="p-6 border-t bg-gray-50 flex justify-end gap-3">
+				<div className="p-6 border-t bg-[#E3D9CD] flex justify-end gap-3">
 					<button
 						onClick={onClose}
 						className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
@@ -199,7 +199,7 @@ export default function UserViewModal({ user, onClose, onEdit }: UserViewModalPr
 					</button>
 					<button
 						onClick={onEdit}
-						className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+						className="px-4 py-2 bg-[#4E7FC6] text-white rounded-lg hover:bg-[#26364D] transition-colors"
 					>
 						Editar Usuário
 					</button>

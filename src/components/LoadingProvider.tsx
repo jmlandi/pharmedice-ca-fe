@@ -33,10 +33,10 @@ function TopLoadingBar({
 			className={`fixed top-0 left-0 right-0 z-50 h-1 bg-transparent transition-opacity duration-300 ${isLoading ? 'opacity-100' : 'opacity-0'}`}
 		>
 			<div
-				className="h-full bg-gradient-to-r from-[#527BC6] via-blue-400 to-[#527BC6] transition-all duration-300 ease-out shadow-lg relative overflow-hidden"
+				className="h-full bg-gradient-to-r from-[#4E7FC6] via-blue-400 to-[#4E7FC6] transition-all duration-300 ease-out shadow-lg relative overflow-hidden"
 				style={{
 					width: `${progress}%`,
-					boxShadow: '0 0 10px rgba(82, 123, 198, 0.6)',
+					boxShadow: '0 0 10px rgba(78, 127, 198, 0.6)',
 				}}
 			>
 				{/* Animated shine effect */}

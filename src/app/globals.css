@@ -1,9 +1,15 @@
 @import 'tailwindcss';
 
 :root {
-	--background: #ffffff;
+	--background: #F5F2ED;
 	--foreground: #838383;
-	--pharmedice-blue: #527bc6;
+	--pharmedice-blue: #4E7FC6;
+	--pharmedice-dark-blue: #26364D;
+	--pharmedice-light-blue: #4E7FC6;
+	--pharmedice-neutral-gray: #CCCCCC;
+	--pharmedice-beige-yellow: #DED1C1;
+	--pharmedice-beige-gray: #E3D9CD;
+	--pharmedice-beige-light: #F5F2ED;
 	--font-montserrat: 'var(--font-montserrat)', Arial, Helvetica, sans-serif;
 	--font-montserrat-alternates:
 		'var(--font-montserrat-alternates)', Arial, Helvetica, sans-serif;
@@ -37,7 +43,7 @@ body {
 }
 
 .animate-shimmer {
-	background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+	background: linear-gradient(90deg, #E3D9CD 25%, #CCCCCC 50%, #E3D9CD 75%);
 	background-size: 200% 100%;
 	animation: shimmer 1.5s infinite;
 }
@@ -62,9 +68,9 @@ body {
 	background: linear-gradient(
 		90deg,
 		var(--pharmedice-blue) 0%,
-		rgba(82, 123, 198, 0.8) 25%,
-		rgba(82, 123, 198, 1) 50%,
-		rgba(82, 123, 198, 0.8) 75%,
+		rgba(78, 127, 198, 0.8) 25%,
+		rgba(78, 127, 198, 1) 50%,
+		rgba(78, 127, 198, 0.8) 75%,
 		var(--pharmedice-blue) 100%
 	);
 	background-size: 200% 100%;

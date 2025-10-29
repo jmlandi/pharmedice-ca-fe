@@ -173,7 +173,7 @@ function ResetPasswordForm() {
 							/>
 						</svg>
 					</div>
-					<h2 className="text-xl font-bold text-[#527BC6]">
+					<h2 className="text-xl font-bold text-[#4E7FC6]">
 						Senha Redefinida!
 					</h2>
 					<p className="text-sm text-foreground">
@@ -184,7 +184,7 @@ function ResetPasswordForm() {
 
 				<Link
 					href="/cliente/entrar"
-					className="w-full h-12 flex items-center justify-center text-sm font-bold bg-[#527BC6] text-white rounded-3xl hover:bg-[#3b5aa1] hover:cursor-pointer transition-all duration-200"
+					className="w-full h-12 flex items-center justify-center text-sm font-bold bg-[#4E7FC6] text-white rounded-3xl hover:bg-[#26364D] hover:cursor-pointer transition-all duration-200"
 				>
 					Fazer Login
 				</Link>
@@ -199,13 +199,13 @@ function ResetPasswordForm() {
 			className="flex flex-col gap-4 w-[300px] md:w-full md:max-w-[420px] md:p-1"
 		>
 			<div className="flex flex-col gap-4 text-center mb-2">
-				<h2 className="text-xl font-bold text-[#527BC6]">Redefinir Senha</h2>
+				<h2 className="text-xl font-bold text-[#4E7FC6]">Redefinir Senha</h2>
 				<p className="text-sm text-foreground">
 					Digite sua nova senha abaixo. Certifique-se de que seja segura e
 					cumpra todos os requisitos.
 				</p>
 				{email && (
-					<p className="text-xs text-[#527BC6] font-semibold">
+					<p className="text-xs text-[#4E7FC6] font-semibold">
 						E-mail: {email}
 					</p>
 				)}
@@ -273,13 +273,13 @@ function LoadingScreen() {
 export default function ResetPasswordPage() {
 	const navigationLinks = (
 		<div className="flex flex-col gap-2 text-center">
-			<p className="text-sm text-[#527BC6]">
+			<p className="text-sm text-[#4E7FC6]">
 				Lembrou sua senha?{' '}
 				<Link href="/cliente/entrar" className="underline hover:opacity-70">
 					Voltar ao login
 				</Link>
 			</p>
-			<p className="text-sm text-[#527BC6]">
+			<p className="text-sm text-[#4E7FC6]">
 				Problemas de acesso?{' '}
 				<Link
 					href="/cliente/esqueci-senha"

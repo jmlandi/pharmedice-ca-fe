@@ -104,8 +104,8 @@ export default function UserEditModal({ user, onClose, onSuccess }: UserEditModa
 
 	return (
 		<div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-			<div className="bg-white rounded-lg shadow-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
-				<div className="p-6 border-b flex items-center justify-between sticky top-0 bg-white z-10">
+			<div className="bg-[#F5F2ED] rounded-lg shadow-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+				<div className="p-6 border-b flex items-center justify-between sticky top-0 bg-[#F5F2ED] z-10">
 					<h2 className="text-2xl font-bold text-gray-900">Editar Usuário</h2>
 					<button
 						onClick={onClose}
@@ -128,7 +128,7 @@ export default function UserEditModal({ user, onClose, onSuccess }: UserEditModa
 								type="text"
 								value={formData.primeiro_nome || ''}
 								onChange={(e) => handleChange('primeiro_nome', e.target.value)}
-								className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+								className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#4E7FC6] focus:border-transparent ${
 									errors.primeiro_nome ? 'border-red-500' : 'border-gray-300'
 								}`}
 								disabled={loading}
@@ -146,7 +146,7 @@ export default function UserEditModal({ user, onClose, onSuccess }: UserEditModa
 								type="text"
 								value={formData.segundo_nome || ''}
 								onChange={(e) => handleChange('segundo_nome', e.target.value)}
-								className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+								className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#4E7FC6] focus:border-transparent ${
 									errors.segundo_nome ? 'border-red-500' : 'border-gray-300'
 								}`}
 								disabled={loading}
@@ -164,7 +164,7 @@ export default function UserEditModal({ user, onClose, onSuccess }: UserEditModa
 								type="text"
 								value={formData.apelido || ''}
 								onChange={(e) => handleChange('apelido', e.target.value)}
-								className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+								className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4E7FC6] focus:border-transparent"
 								disabled={loading}
 							/>
 						</div>
@@ -177,7 +177,7 @@ export default function UserEditModal({ user, onClose, onSuccess }: UserEditModa
 								type="email"
 								value={formData.email || ''}
 								onChange={(e) => handleChange('email', e.target.value)}
-								className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+								className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#4E7FC6] focus:border-transparent ${
 									errors.email ? 'border-red-500' : 'border-gray-300'
 								}`}
 								disabled={loading}
@@ -195,7 +195,7 @@ export default function UserEditModal({ user, onClose, onSuccess }: UserEditModa
 								type="tel"
 								value={formData.telefone || ''}
 								onChange={(e) => handleChange('telefone', e.target.value)}
-								className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+								className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4E7FC6] focus:border-transparent"
 								disabled={loading}
 								placeholder="(00) 00000-0000"
 							/>
@@ -209,7 +209,7 @@ export default function UserEditModal({ user, onClose, onSuccess }: UserEditModa
 								type="text"
 								value={formData.numero_documento || ''}
 								onChange={(e) => handleChange('numero_documento', e.target.value)}
-								className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+								className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4E7FC6] focus:border-transparent"
 								disabled={loading}
 								placeholder="000.000.000-00"
 							/>
@@ -223,7 +223,7 @@ export default function UserEditModal({ user, onClose, onSuccess }: UserEditModa
 								type="date"
 								value={formData.data_nascimento || ''}
 								onChange={(e) => handleChange('data_nascimento', e.target.value)}
-								className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+								className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4E7FC6] focus:border-transparent"
 								disabled={loading}
 							/>
 						</div>
@@ -235,7 +235,7 @@ export default function UserEditModal({ user, onClose, onSuccess }: UserEditModa
 							<select
 								value={formData.tipo_usuario || 'usuario'}
 								onChange={(e) => handleChange('tipo_usuario', e.target.value as 'administrador' | 'usuario')}
-								className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+								className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4E7FC6] focus:border-transparent"
 								disabled={loading}
 							>
 								<option value="usuario">Cliente</option>
@@ -248,7 +248,7 @@ export default function UserEditModal({ user, onClose, onSuccess }: UserEditModa
 						<button
 							type="button"
 							onClick={() => setShowPasswordField(!showPasswordField)}
-							className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+							className="text-[#4E7FC6] hover:text-blue-700 text-sm font-medium"
 						>
 							{showPasswordField ? '− Cancelar alteração de senha' : '+ Alterar senha'}
 						</button>
@@ -262,7 +262,7 @@ export default function UserEditModal({ user, onClose, onSuccess }: UserEditModa
 									type="password"
 									value={formData.senha || ''}
 									onChange={(e) => handleChange('senha', e.target.value)}
-									className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+									className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#4E7FC6] focus:border-transparent ${
 										errors.senha ? 'border-red-500' : 'border-gray-300'
 									}`}
 									disabled={loading}
@@ -288,7 +288,7 @@ export default function UserEditModal({ user, onClose, onSuccess }: UserEditModa
 									type="checkbox"
 									checked={formData.aceite_comunicacoes_email || false}
 									onChange={(e) => handleChange('aceite_comunicacoes_email', e.target.checked)}
-									className="h-4 w-4 text-blue-600 rounded focus:ring-blue-500"
+									className="h-4 w-4 text-[#4E7FC6] rounded focus:ring-[#4E7FC6]"
 									disabled={loading}
 								/>
 								<label className="ml-2 text-sm text-gray-700">
@@ -300,7 +300,7 @@ export default function UserEditModal({ user, onClose, onSuccess }: UserEditModa
 									type="checkbox"
 									checked={formData.aceite_comunicacoes_sms || false}
 									onChange={(e) => handleChange('aceite_comunicacoes_sms', e.target.checked)}
-									className="h-4 w-4 text-blue-600 rounded focus:ring-blue-500"
+									className="h-4 w-4 text-[#4E7FC6] rounded focus:ring-[#4E7FC6]"
 									disabled={loading}
 								/>
 								<label className="ml-2 text-sm text-gray-700">
@@ -312,7 +312,7 @@ export default function UserEditModal({ user, onClose, onSuccess }: UserEditModa
 									type="checkbox"
 									checked={formData.aceite_comunicacoes_whatsapp || false}
 									onChange={(e) => handleChange('aceite_comunicacoes_whatsapp', e.target.checked)}
-									className="h-4 w-4 text-blue-600 rounded focus:ring-blue-500"
+									className="h-4 w-4 text-[#4E7FC6] rounded focus:ring-[#4E7FC6]"
 									disabled={loading}
 								/>
 								<label className="ml-2 text-sm text-gray-700">
@@ -322,7 +322,7 @@ export default function UserEditModal({ user, onClose, onSuccess }: UserEditModa
 						</div>
 					</div>
 
-					<div className="mt-6 pt-6 border-t bg-gray-50 -mx-6 px-6 py-4 flex justify-end gap-3 sticky bottom-0">
+					<div className="mt-6 pt-6 border-t bg-[#E3D9CD] -mx-6 px-6 py-4 flex justify-end gap-3 sticky bottom-0">
 						<button
 							type="button"
 							onClick={onClose}
@@ -333,7 +333,7 @@ export default function UserEditModal({ user, onClose, onSuccess }: UserEditModa
 						</button>
 						<button
 							type="submit"
-							className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+							className="px-6 py-2 bg-[#4E7FC6] text-white rounded-lg hover:bg-[#26364D] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
 							disabled={loading}
 						>
 							{loading && (

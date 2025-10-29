@@ -41,7 +41,7 @@ export default function AuthLayout({
 				{isExternalLink ? (
 					<a
 						href={backLink || defaultBackUrl}
-						className="w-[100%] bg-gray-100 hover:bg-gray-200 text-foreground rounded-4xl px-5 py-1 flex flex-row gap-1 transition-all duration-200"
+						className="w-[100%] bg-[#E3D9CD] hover:bg-[#DED1C1] text-foreground rounded-4xl px-5 py-1 flex flex-row gap-1 transition-all duration-200"
 					>
 						<Image
 							src="/icons/arrow.svg"
@@ -55,7 +55,7 @@ export default function AuthLayout({
 				) : (
 					<Link
 						href={backLink}
-						className="w-[100%] bg-gray-100 hover:bg-gray-200 text-foreground rounded-4xl px-5 py-1 flex flex-row gap-1 transition-all duration-200"
+						className="w-[100%] bg-[#E3D9CD] hover:bg-[#DED1C1] text-foreground rounded-4xl px-5 py-1 flex flex-row gap-1 transition-all duration-200"
 					>
 						<Image
 							src="/icons/arrow.svg"
@@ -71,23 +71,21 @@ export default function AuthLayout({
 					{/* logo and title */}
 					<PageTransition>
 						<div className="flex-shrink-0 flex flex-col items-center">
-							<OptimizedImage
-								src="/icons/pharmedice-logo.svg"
-								alt="Logo da Pharmédice"
-								width={150}
-								height={150}
-								className="mb-5"
-								priority={true}
-							/>
-							<h1 className="text-2xl font-bold text-center mb-2 text-[#527BC6]">
-								{title}
-							</h1>
-						</div>
-					</PageTransition>
-
-					{/* auth form */}
+						<OptimizedImage
+							src="/icons/pharmedice-logo.svg"
+							alt="Logo da Pharmédice"
+							width={150}
+							height={150}
+							className="mb-5"
+							priority={true}
+						/>
+						<h1 className="text-2xl font-bold text-center mb-2 text-[#4E7FC6]">
+							{title}
+						</h1>
+					</div>
+				</PageTransition>					{/* auth form */}
 					<PageTransition className="flex-1 flex items-center justify-center w-full max-w-[450px]">
-						<div className="w-full m-1 border-0 p-4 rounded-3xl shadow-lg bg-white">
+						<div className="w-full m-1 border-0 p-4 rounded-3xl shadow-lg bg-[#F5F2ED]">
 							{children}
 						</div>
 					</PageTransition>

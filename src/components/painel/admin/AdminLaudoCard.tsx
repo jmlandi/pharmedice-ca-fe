@@ -16,7 +16,7 @@ export default function AdminLaudoCard({
 	onDownload,
 }: AdminLaudoCardProps) {
 	return (
-		<div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+		<div className="bg-[#F5F2ED] rounded-lg shadow-md p-6 border border-gray-200">
 			<div className="flex items-start justify-between mb-4">
 				<div className="flex-1">
 					<h3 className="text-lg font-semibold text-gray-900 mb-2">
@@ -38,7 +38,7 @@ export default function AdminLaudoCard({
 						alt="Laudo"
 						width={24}
 						height={24}
-						className="text-blue-600"
+						className="text-[#4E7FC6]"
 					/>
 				</div>
 			</div>
@@ -46,7 +46,7 @@ export default function AdminLaudoCard({
 			<div className="flex gap-2">
 				<button
 					onClick={() => onDownload(laudo.id)}
-					className="flex items-center gap-2 px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition-colors"
+					className="flex items-center gap-2 px-3 py-1 bg-[#4E7FC6] text-white text-sm rounded hover:bg-[#26364D] transition-colors"
 				>
 					<Image
 						src="/icons/download.svg"
