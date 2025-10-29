@@ -638,7 +638,11 @@ function AdminSignupForm() {
 
 export default function AdminSignup() {
 	return (
-		<AuthLayout title="Cadastro Administrativo">
+		<AuthLayout
+			title="Cadastro Administrativo"
+			backLink="/admin/entrar"
+			backLabel="Voltar para o login"
+		>
 			<AdminSignupForm />
 		</AuthLayout>
 	);
