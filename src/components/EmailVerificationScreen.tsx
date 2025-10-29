@@ -176,7 +176,7 @@ export default function EmailVerificationScreen({
 					{/* Botão para verificar manualmente */}
 					<button
 						onClick={handleCheckVerification}
-						className="w-full px-4 py-2 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700 transition-colors"
+						className="w-full px-4 py-2 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700 transition-colors cursor-pointer"
 					>
 						✓ Já verifiquei meu e-mail
 					</button>
@@ -184,7 +184,7 @@ export default function EmailVerificationScreen({
 					{/* Link para voltar ao login */}
 					<button
 						onClick={handleLogout}
-						className="w-full text-sm text-gray-500 hover:text-gray-700 transition-colors"
+						className="w-full text-sm text-gray-500 hover:text-gray-700 transition-colors cursor-pointer"
 					>
 						Voltar ao login
 					</button>

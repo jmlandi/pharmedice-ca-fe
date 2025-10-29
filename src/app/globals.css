@@ -32,6 +32,19 @@ body {
 	transition: all 0.3s ease-in-out;
 }
 
+/* Cursor pointer for interactive elements */
+button:not(:disabled),
+a,
+[role="button"]:not([aria-disabled="true"]),
+.cursor-pointer {
+	cursor: pointer;
+}
+
+button:disabled,
+[aria-disabled="true"] {
+	cursor: not-allowed;
+}
+
 /* Loading animations */
 @keyframes shimmer {
 	0% {
