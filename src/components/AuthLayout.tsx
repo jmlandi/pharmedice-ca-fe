@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import OptimizedImage from './OptimizedImage';
 import PageTransition from './PageTransition';
 
@@ -6,13 +7,21 @@ interface AuthLayoutProps {
 	children: React.ReactNode;
 	title: string;
 	navigationLinks?: React.ReactNode;
+	backLink?: string;
+	backLabel?: string;
 }
 
 export default function AuthLayout({
 	children,
 	title,
 	navigationLinks,
+	backLink,
+	backLabel,
 }: AuthLayoutProps) {
+	const defaultBackUrl = 'https://pharmedice.com.br';
+	const displayBackLabel = backLabel || 'Retorne para o site';
+	const isExternalLink = !backLink || backLink.startsWith('http');
+
 	return (
 		<main className="w-full min-h-screen flex flex-col md:flex-row">
 			{/* main image - fixed on desktop */}
@@ -28,20 +37,36 @@ export default function AuthLayout({
 			</div>
 			{/* auth area */}
 			<div className="flex flex-col w-full md:ml-[60vw] md:w-[40vw] justify-start items-center min-h-screen p-5 gap-5 md:px-8 md:py-6 overflow-y-auto">
-				{/* back to main site button */}
-				<a
-					href="https://pharmedice.com.br"
-					className="w-[100%] bg-gray-100 hover:bg-gray-200 text-foreground rounded-4xl px-5 py-1 flex flex-row gap-1 transition-all duration-200"
-				>
-					<Image
-						src="/icons/arrow.svg"
-						alt="Ícone de seta para esquerda"
-						width={16}
-						height={16}
-						className=""
-					/>
-					<p className="">Retorne para o site</p>
-				</a>
+				{/* back button with breadcrumb support */}
+				{isExternalLink ? (
+					<a
+						href={backLink || defaultBackUrl}
+						className="w-[100%] bg-gray-100 hover:bg-gray-200 text-foreground rounded-4xl px-5 py-1 flex flex-row gap-1 transition-all duration-200"
+					>
+						<Image
+							src="/icons/arrow.svg"
+							alt="Ícone de seta para esquerda"
+							width={16}
+							height={16}
+							className=""
+						/>
+						<p className="">{displayBackLabel}</p>
+					</a>
+				) : (
+					<Link
+						href={backLink}
+						className="w-[100%] bg-gray-100 hover:bg-gray-200 text-foreground rounded-4xl px-5 py-1 flex flex-row gap-1 transition-all duration-200"
+					>
+						<Image
+							src="/icons/arrow.svg"
+							alt="Ícone de seta para esquerda"
+							width={16}
+							height={16}
+							className=""
+						/>
+						<p className="">{displayBackLabel}</p>
+					</Link>
+				)}
 				<div className="flex flex-col justify-around items-center h-full w-full py-4">
 					{/* logo and title */}
 					<PageTransition>
