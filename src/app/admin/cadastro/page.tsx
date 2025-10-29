@@ -513,7 +513,7 @@ function AdminSignupForm() {
 									e.target.checked
 								)
 							}
-							className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+							className="rounded border-gray-300 text-[#4E7FC6] focus:ring-[#4E7FC6]"
 						/>
 						Aceito receber comunicações por e-mail
 					</label>
@@ -525,7 +525,7 @@ function AdminSignupForm() {
 							onChange={(e) =>
 								handleInputChange('accept_sms_communications', e.target.checked)
 							}
-							className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+							className="rounded border-gray-300 text-[#4E7FC6] focus:ring-[#4E7FC6]"
 						/>
 						Aceito receber comunicações por SMS
 					</label>
@@ -540,7 +540,7 @@ function AdminSignupForm() {
 									e.target.checked
 								)
 							}
-							className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+							className="rounded border-gray-300 text-[#4E7FC6] focus:ring-[#4E7FC6]"
 						/>
 						Aceito receber comunicações por WhatsApp
 					</label>
@@ -619,15 +619,15 @@ function AdminSignupForm() {
 					</span>
 					<Link
 						href="/admin/entrar"
-						className="text-blue-600 hover:text-blue-500 font-medium transition-colors"
+						className="text-[#4E7FC6] hover:text-[#26364D] font-medium transition-colors"
 					>
 						Fazer login
 					</Link>
 				</div>
 			</form>
 
-			<div className="mt-6 p-4 bg-blue-50 rounded-lg">
-				<p className="text-sm text-blue-700">
+			<div className="mt-6 p-4 bg-[#E3D9CD] rounded-lg">
+				<p className="text-sm text-[#26364D]">
 					<strong>Nota:</strong> Apenas colaboradores com e-mail corporativo
 					(@pharmedice.com.br) podem criar contas administrativas.
 				</p>

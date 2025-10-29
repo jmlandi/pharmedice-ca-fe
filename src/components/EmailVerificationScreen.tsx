@@ -108,11 +108,11 @@ export default function EmailVerificationScreen({
 	};
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+		<div className="min-h-screen bg-gradient-to-br from-[#E3D9CD] to-[#DED1C1] flex items-center justify-center p-4">
 			<div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
 				{/* Logo da Pharmedice */}
 				<div className="text-center mb-8">
-					<div className="mx-auto w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+					<div className="mx-auto w-20 h-20 bg-[#DED1C1] rounded-full flex items-center justify-center mb-4">
 						<Image
 							src="/icons/pharmedice-logo.svg"
 							alt="Pharmedice"
@@ -127,14 +127,14 @@ export default function EmailVerificationScreen({
 					<p className="text-gray-600 text-sm">
 						Enviamos um link de verificação para
 					</p>
-					<p className="text-blue-600 font-medium text-sm">{user?.email}</p>
+					<p className="text-[#4E7FC6] font-medium text-sm">{user?.email}</p>
 				</div>
 
 				{/* Ícone de email */}
 				<div className="text-center mb-6">
-					<div className="mx-auto w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mb-4">
+					<div className="mx-auto w-16 h-16 bg-[#E3D9CD] rounded-full flex items-center justify-center mb-4">
 						<svg
-							className="w-8 h-8 text-blue-500"
+							className="w-8 h-8 text-[#4E7FC6]"
 							fill="none"
 							stroke="currentColor"
 							viewBox="0 0 24 24"
