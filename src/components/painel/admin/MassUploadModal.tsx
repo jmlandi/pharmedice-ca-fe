@@ -156,7 +156,7 @@ export default function MassUploadModal({
 
 	return (
 		<div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-			<div className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] flex flex-col">
+			<div className="bg-[#F5F2ED] rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] flex flex-col">
 				{/* Header */}
 				<div className="flex items-center justify-between p-6 border-b">
 					<h2 className="text-2xl font-bold text-gray-900">
@@ -219,7 +219,7 @@ export default function MassUploadModal({
 											? 'bg-red-50 border-red-200'
 											: fileData.uploading
 											? 'bg-blue-50 border-blue-200'
-											: 'bg-white border-gray-200'
+											: 'bg-[#F5F2ED] border-gray-200'
 									}`}
 								>
 									<div className="flex items-start justify-between mb-3">

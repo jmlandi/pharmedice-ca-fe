@@ -109,7 +109,7 @@ export default function EmailVerificationScreen({
 
 	return (
 		<div className="min-h-screen bg-gradient-to-br from-[#E3D9CD] to-[#DED1C1] flex items-center justify-center p-4">
-			<div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
+			<div className="bg-[#F5F2ED] rounded-2xl shadow-xl p-8 w-full max-w-md">
 				{/* Logo da Pharmedice */}
 				<div className="text-center mb-8">
 					<div className="mx-auto w-20 h-20 bg-[#DED1C1] rounded-full flex items-center justify-center mb-4">

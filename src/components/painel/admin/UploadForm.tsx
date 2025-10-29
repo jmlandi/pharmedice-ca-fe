@@ -66,7 +66,7 @@ export default function UploadForm({ onUploadSuccess }: UploadFormProps) {
 	};
 
 	return (
-		<div className="bg-white rounded-lg shadow-md p-6">
+		<div className="bg-[#F5F2ED] rounded-lg shadow-md p-6">
 			<h3 className="text-lg font-semibold text-gray-900 mb-6">
 				Novo Laudo Técnico
 			</h3>

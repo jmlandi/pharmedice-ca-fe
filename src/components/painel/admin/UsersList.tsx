@@ -88,7 +88,7 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 
 	if (loading && users.length === 0) {
 		return (
-			<div className="bg-white rounded-lg shadow-md p-8">
+			<div className="bg-[#F5F2ED] rounded-lg shadow-md p-8">
 				<div className="animate-pulse space-y-4">
 					<div className="h-4 bg-gray-200 rounded w-1/4"></div>
 					<div className="space-y-3">
@@ -102,7 +102,7 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 	}
 
 	return (
-		<div className="bg-white rounded-lg shadow-md">
+		<div className="bg-[#F5F2ED] rounded-lg shadow-md">
 			<div className="p-6 border-b">
 				<h2 className="text-2xl font-bold text-gray-900 mb-4">Gerenciar Usuários</h2>
 				
@@ -213,7 +213,7 @@ export default function UsersList({ onEditUser, onViewUser }: UsersListProps) {
 							</th>
 						</tr>
 					</thead>
-					<tbody className="bg-white divide-y divide-gray-200">
+					<tbody className="bg-[#F5F2ED] divide-y divide-gray-200">
 						{users.length === 0 ? (
 							<tr>
 								<td colSpan={5} className="px-6 py-8 text-center text-gray-500">

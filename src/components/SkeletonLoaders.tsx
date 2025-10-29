@@ -49,7 +49,7 @@ export function AuthLayoutSkeleton() {
 					</div>
 
 					{/* Form container skeleton */}
-					<div className="flex-1 flex items-center justify-center w-full max-w-[450px] m-1 border-0 p-4 rounded-3xl shadow-lg bg-white">
+					<div className="flex-1 flex items-center justify-center w-full max-w-[450px] m-1 border-0 p-4 rounded-3xl shadow-lg bg-[#F5F2ED]">
 						<FormSkeleton />
 					</div>
 
@@ -67,7 +67,7 @@ export function DashboardSkeleton() {
 	return (
 		<main className="min-h-screen flex flex-col md:flex-row">
 			{/* Mobile header skeleton */}
-			<header className="sticky top-0 z-20 flex items-center justify-between bg-white px-4 py-3 shadow md:hidden">
+			<header className="sticky top-0 z-20 flex items-center justify-between bg-[#F5F2ED] px-4 py-3 shadow md:hidden">
 				<div className="flex items-center gap-3 animate-pulse">
 					<div className="w-10 h-10 bg-gray-200 rounded"></div>
 					<div className="h-6 bg-gray-200 rounded w-32"></div>

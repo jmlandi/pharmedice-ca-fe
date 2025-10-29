@@ -29,7 +29,7 @@ export default function AdminHome() {
 				{/* Cards de Ações */}
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
 					{/* Login Card */}
-					<div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+					<div className="bg-[#F5F2ED] rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
 						<div className="p-6">
 							<div className="flex items-center justify-center w-12 h-12 bg-[#DED1C1] rounded-lg mb-4">
 								<svg
@@ -75,7 +75,7 @@ export default function AdminHome() {
 					</div>
 
 					{/* Signup Card */}
-					<div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+					<div className="bg-[#F5F2ED] rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
 						<div className="p-6">
 							<div className="flex items-center justify-center w-12 h-12 bg-green-100 rounded-lg mb-4">
 								<svg
@@ -121,7 +121,7 @@ export default function AdminHome() {
 					</div>
 
 					{/* Dashboard Preview Card */}
-					<div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+					<div className="bg-[#F5F2ED] rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
 						<div className="p-6">
 							<div className="flex items-center justify-center w-12 h-12 bg-purple-100 rounded-lg mb-4">
 								<svg
@@ -168,7 +168,7 @@ export default function AdminHome() {
 				</div>
 
 				{/* Info Section */}
-				<div className="bg-white rounded-xl shadow-lg p-8 mb-8">
+				<div className="bg-[#F5F2ED] rounded-xl shadow-lg p-8 mb-8">
 					<h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
 						Recursos da Área Administrativa
 					</h2>

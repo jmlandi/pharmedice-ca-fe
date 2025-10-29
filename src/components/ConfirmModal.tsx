@@ -115,8 +115,8 @@ export default function ConfirmModal({
 
 			{/* Modal */}
 			<div className="flex min-h-full items-center justify-center p-4">
-				<div className="relative transform overflow-hidden rounded-3xl bg-white shadow-xl transition-all w-full max-w-md">
-					<div className="bg-white px-6 py-6">
+				<div className="relative transform overflow-hidden rounded-3xl bg-[#F5F2ED] shadow-xl transition-all w-full max-w-md">
+					<div className="bg-[#F5F2ED] px-6 py-6">
 						<div className="flex items-start gap-4">
 							<div className="flex-shrink-0 mt-1">{icon}</div>
 							<div className="flex-1">
@@ -137,7 +137,7 @@ export default function ConfirmModal({
 						<button
 							type="button"
 							onClick={onCancel}
-							className="w-full sm:w-auto px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-2xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--pharmedice-blue)] transition-all duration-200"
+							className="w-full sm:w-auto px-4 py-2 text-sm font-medium text-gray-700 bg-[#F5F2ED] border border-gray-300 rounded-2xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--pharmedice-blue)] transition-all duration-200"
 						>
 							{cancelText}
 						</button>

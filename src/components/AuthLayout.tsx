@@ -85,7 +85,7 @@ export default function AuthLayout({
 					</div>
 				</PageTransition>					{/* auth form */}
 					<PageTransition className="flex-1 flex items-center justify-center w-full max-w-[450px]">
-						<div className="w-full m-1 border-0 p-4 rounded-3xl shadow-lg bg-white">
+						<div className="w-full m-1 border-0 p-4 rounded-3xl shadow-lg bg-[#F5F2ED]">
 							{children}
 						</div>
 					</PageTransition>
