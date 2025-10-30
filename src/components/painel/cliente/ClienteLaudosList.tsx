@@ -70,32 +70,22 @@ export default function ClienteLaudosList({
 
 	const handleDownload = async (laudoId: string) => {
 		try {
-			const laudo = filteredLaudos.find(l => l.id === laudoId);
-			const blob = await LaudosService.download(laudoId);
-			
-			// Cria um objeto URL para o blob
-			const url = window.URL.createObjectURL(blob);
-			const a = document.createElement('a');
-			a.style.display = 'none';
-			a.href = url;
-			
-			// Usa o nome do arquivo original ou um nome baseado no título
-			const fileName = laudo 
-				? `${laudo.titulo.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.pdf`
-				: `laudo_${laudoId}.pdf`;
-			a.download = fileName;
-			
-			document.body.appendChild(a);
-			a.click();
-			
-			// Limpa recursos
-			window.URL.revokeObjectURL(url);
-			document.body.removeChild(a);
-			
+			// Usando o método recomendado pela documentação: window.open
+			LaudosService.downloadDireto(laudoId);
 			showSuccess('Download iniciado!');
 		} catch (error) {
 			console.error('Erro ao fazer download:', error);
 			showError('Erro ao fazer download do laudo. Tente novamente.');
+		}
+	};
+
+	const handleVisualizar = async (laudoId: string) => {
+		try {
+			// Usando o método recomendado pela documentação: window.open
+			LaudosService.visualizarDireto(laudoId);
+		} catch (error) {
+			console.error('Erro ao visualizar laudo:', error);
+			showError('Erro ao visualizar laudo. Tente novamente.');
 		}
 	};
 
@@ -152,6 +142,7 @@ export default function ClienteLaudosList({
 								key={laudo.id}
 								laudo={laudo}
 								onDownload={handleDownload}
+								onVisualizar={handleVisualizar}
 							/>
 						))}
 					</div>

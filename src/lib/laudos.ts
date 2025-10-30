@@ -91,7 +91,7 @@ export class LaudosService {
 		}
 	}
 
-	// Download de laudo
+	// Download de laudo - Agora retorna o arquivo PDF diretamente
 	static async download(id: string): Promise<Blob> {
 		const response = await api.get(`/laudos/${id}/download`, {
 			responseType: 'blob',
@@ -103,10 +103,40 @@ export class LaudosService {
 		return response.data;
 	}
 
-	// Obter URL de download (alternativo)
+	// Visualizar laudo - Retorna o arquivo PDF para visualização inline
+	static async visualizar(id: string): Promise<Blob> {
+		const response = await api.get(`/laudos/${id}/visualizar`, {
+			responseType: 'blob',
+			headers: {
+				'Accept': 'application/pdf',
+			},
+		});
+
+		return response.data;
+	}
+
+	// Obter URL de download direto (abre em nova aba)
 	static getDownloadUrl(id: string): string {
 		const token = localStorage.getItem('token');
-		return `http://54.82.6.59:8000/api/laudos/${id}/download?token=${token}`;
+		return `${api.defaults.baseURL}laudos/${id}/download?token=${token}`;
+	}
+
+	// Obter URL de visualização direta (abre PDF em nova aba)
+	static getVisualizarUrl(id: string): string {
+		const token = localStorage.getItem('token');
+		return `${api.defaults.baseURL}laudos/${id}/visualizar?token=${token}`;
+	}
+
+	// Download direto via window.open (recomendado pela documentação)
+	static downloadDireto(id: string): void {
+		const url = this.getDownloadUrl(id);
+		window.open(url, '_blank');
+	}
+
+	// Visualizar direto via window.open (recomendado pela documentação)
+	static visualizarDireto(id: string): void {
+		const url = this.getVisualizarUrl(id);
+		window.open(url, '_blank');
 	}
 
 	// Validar arquivo antes do upload
