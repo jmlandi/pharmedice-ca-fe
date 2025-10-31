@@ -18,7 +18,7 @@ export default function GoogleLoginButton({
 			<button
 				onClick={loginWithGoogle}
 				disabled={loading}
-				className={`w-full flex items-center justify-center gap-3 px-4 py-3 border border-gray-300 rounded-lg shadow-sm bg-[#F5F2ED] hover:bg-[#E3D9CD] disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer ${className}`}
+				className={`w-full flex items-center justify-center gap-3 px-4 py-3 border border-gray-300 rounded-lg shadow-sm bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer ${className}`}
 				type="button"
 			>
 				{loading ? (

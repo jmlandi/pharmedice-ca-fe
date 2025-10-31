@@ -142,9 +142,9 @@ function LoginForm() {
 			<div className="flex justify-end">
 				<Link
 					href="/cliente/esqueci-senha"
-					className="text-xs text-[#B8ADA0] hover:text-[#A39789] transition-opacity duration-200"
+					className="text-xs text-gray-500 hover:text-gray-700 transition-opacity duration-200"
 				>
-					Esqueceu sua senha?
+					Esqueci minha senha
 				</Link>
 			</div>
 
@@ -160,7 +160,7 @@ function LoginForm() {
 						<div className="w-full border-t border-gray-300"></div>
 					</div>
 					<div className="relative flex justify-center text-sm">
-						<span className="px-2 bg-[#F5F2ED] text-gray-500">Ou</span>
+						<span className="px-2 bg-white text-gray-500">Ou</span>
 					</div>
 				</div>
 
@@ -174,10 +174,15 @@ function LoginForm() {
 export default function LoginPage() {
 	const navigationLinks = (
 		<div className="space-y-2 w-full text-center">
-			<p className="text-sm text-[#B8ADA0]">
+			<p className="text-sm text-gray-500">
 				Não tem uma conta?{' '}
 				<Link href="/cliente/cadastro" className="underline hover:opacity-70">
 					Cadastre-se!
+				</Link>
+			</p>
+			<p className="text-xs text-gray-400">
+				<Link href="/admin/entrar" className="hover:text-gray-600 transition-colors">
+					Acesso administrativo
 				</Link>
 			</p>
 		</div>

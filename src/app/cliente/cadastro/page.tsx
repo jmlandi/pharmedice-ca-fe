@@ -593,12 +593,19 @@ function SignupForm() {
 
 export default function SignupPage() {
 	const navigationLinks = (
-		<p className="text-sm text-[#4E7FC6] w-full text-center">
-			Já tem uma conta?{' '}
-			<Link href="/cliente/entrar" className="underline hover:opacity-70">
-				Faça login!
-			</Link>
-		</p>
+		<div className="space-y-2 w-full text-center">
+			<p className="text-sm text-[#4E7FC6]">
+				Já tem uma conta?{' '}
+				<Link href="/cliente/entrar" className="underline hover:opacity-70">
+					Faça login!
+				</Link>
+			</p>
+			<p className="text-xs text-gray-400">
+				<Link href="/admin/entrar" className="hover:text-gray-600 transition-colors">
+					Acesso administrativo
+				</Link>
+			</p>
+		</div>
 	);
 
 	return (

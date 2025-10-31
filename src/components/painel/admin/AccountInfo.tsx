@@ -8,7 +8,7 @@ export default function AccountInfo() {
 	if (!user) return null;
 
 	return (
-		<div className="bg-[#F5F2ED] rounded-lg shadow-md p-6">
+		<div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
 			<h2 className="text-2xl font-bold text-gray-900 mb-6">Minha Conta</h2>
 
 			<div className="space-y-4">

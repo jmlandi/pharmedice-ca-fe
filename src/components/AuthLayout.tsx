@@ -41,7 +41,7 @@ export default function AuthLayout({
 				{isExternalLink ? (
 					<a
 						href={backLink || defaultBackUrl}
-						className="w-[100%] bg-[#E3D9CD] hover:bg-[#DED1C1] text-foreground rounded-4xl px-5 py-1 flex flex-row gap-1 transition-all duration-200 cursor-pointer"
+						className="w-[100%] bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-4xl px-5 py-1 flex flex-row gap-1 transition-all duration-200 cursor-pointer"
 					>
 						<Image
 							src="/icons/arrow.svg"
@@ -55,7 +55,7 @@ export default function AuthLayout({
 				) : (
 					<Link
 						href={backLink}
-						className="w-[100%] bg-[#E3D9CD] hover:bg-[#DED1C1] text-foreground rounded-4xl px-5 py-1 flex flex-row gap-1 transition-all duration-200 cursor-pointer"
+						className="w-[100%] bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-4xl px-5 py-1 flex flex-row gap-1 transition-all duration-200 cursor-pointer"
 					>
 						<Image
 							src="/icons/arrow.svg"
@@ -85,7 +85,7 @@ export default function AuthLayout({
 					</div>
 				</PageTransition>					{/* auth form */}
 					<PageTransition className="flex-1 flex items-center justify-center w-full max-w-[450px]">
-						<div className="w-full m-1 border-0 p-4 rounded-3xl shadow-lg bg-[#F5F2ED]">
+						<div className="w-full m-1 p-4 rounded-3xl shadow-lg bg-white border border-gray-200">
 							{children}
 						</div>
 					</PageTransition>

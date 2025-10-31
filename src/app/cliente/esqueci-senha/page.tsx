@@ -123,7 +123,7 @@ function ForgotPasswordForm() {
 				<div className="flex flex-col gap-4">
 					<div className="w-20 h-20 bg-[#26364D] rounded-full flex items-center justify-center mx-auto mb-4">
 						<svg
-							className="w-10 h-10 text-[#F5F2ED]"
+							className="w-10 h-10 text-white"
 							fill="none"
 							stroke="currentColor"
 							viewBox="0 0 24 24"
@@ -217,6 +217,11 @@ export default function ForgotPasswordPage() {
 				Ainda não tem uma conta?{' '}
 				<Link href="/cliente/cadastro" className="underline hover:opacity-70">
 					Cadastre-se aqui
+				</Link>
+			</p>
+			<p className="text-xs text-gray-400">
+				<Link href="/admin/entrar" className="hover:text-gray-600 transition-colors">
+					Acesso administrativo
 				</Link>
 			</p>
 		</div>
