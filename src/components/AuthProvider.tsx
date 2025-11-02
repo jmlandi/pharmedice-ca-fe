@@ -22,6 +22,7 @@ interface AuthContextType {
 	registerAdmin: (data: RegisterData) => Promise<void>;
 	logout: () => Promise<void>;
 	refreshUser: () => Promise<void>;
+	updateUser: (updatedUser: User) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -141,6 +142,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
 		}
 	};
 
+	const updateUser = (updatedUser: User) => {
+		setUser(updatedUser);
+	};
+
 	const contextValue: AuthContextType = {
 		user,
 		isLoading,
@@ -153,6 +158,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 		registerAdmin,
 		logout,
 		refreshUser,
+		updateUser,
 	};
 
 	return (

@@ -32,6 +32,20 @@ export interface ChangePasswordData {
 	nova_senha_confirmation: string;
 }
 
+// Interface para atualização de perfil próprio
+export interface UpdateProfileData {
+	primeiro_nome?: string;
+	segundo_nome?: string;
+	apelido?: string;
+	email?: string;
+	telefone?: string;
+	numero_documento?: string;
+	data_nascimento?: string;
+	aceite_comunicacoes_email?: boolean;
+	aceite_comunicacoes_sms?: boolean;
+	aceite_comunicacoes_whatsapp?: boolean;
+}
+
 export class AuthService {
 	// Login
 	static async login(data: LoginData): Promise<LoginResponse> {
@@ -218,5 +232,18 @@ export class AuthService {
 				response.data.mensagem || 'Erro ao reenviar email de verificação'
 			);
 		}
+	}
+
+	// Atualizar perfil próprio
+	static async updateProfile(data: UpdateProfileData): Promise<User> {
+		const response = await api.put<ApiResponse<User>>('/auth/perfil', data);
+
+		if (response.data.sucesso && response.data.dados) {
+			// Atualizar dados do usuário no localStorage
+			localStorage.setItem('user', JSON.stringify(response.data.dados));
+			return response.data.dados;
+		}
+
+		throw new Error(response.data.mensagem || 'Erro ao atualizar perfil');
 	}
 }
