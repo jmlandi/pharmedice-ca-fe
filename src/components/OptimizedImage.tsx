@@ -15,6 +15,7 @@ interface OptimizedImageProps {
 	sizes?: string;
 	placeholder?: 'blur' | 'empty';
 	blurDataURL?: string;
+	fallbackSrc?: string; // Imagem de fallback para exibir enquanto carrega
 }
 
 // Skeleton loader component
@@ -60,6 +61,7 @@ export default function OptimizedImage({
 	sizes,
 	placeholder = 'empty',
 	blurDataURL,
+	fallbackSrc,
 }: OptimizedImageProps) {
 	const [isLoading, setIsLoading] = useState(true);
 	const [hasError, setHasError] = useState(false);
@@ -107,13 +109,30 @@ export default function OptimizedImage({
 
 	return (
 		<div className="relative">
-			{isLoading && (
+			{/* Fallback image - shows immediately if provided */}
+			{isLoading && fallbackSrc && (
+				<Image
+					src={fallbackSrc}
+					alt={alt}
+					width={fill ? undefined : width}
+					height={fill ? undefined : height}
+					fill={fill}
+					sizes={sizes}
+					priority={true}
+					className={`absolute inset-0 z-20 ${className}`}
+				/>
+			)}
+			
+			{/* Skeleton loader - only shows if no fallback image */}
+			{isLoading && !fallbackSrc && (
 				<ImageSkeleton
 					className={`absolute inset-0 z-10 ${className}`}
 					width={width}
 					height={height}
 				/>
 			)}
+			
+			{/* Main image */}
 			<Image
 				src={src}
 				alt={alt}
@@ -124,7 +143,7 @@ export default function OptimizedImage({
 				priority={priority}
 				placeholder={placeholder}
 				blurDataURL={blurDataURL}
-				className={`transition-opacity duration-300 ${isLoading ? 'opacity-0' : 'opacity-100'} ${className}`}
+				className={`transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'} ${className}`}
 				onLoadStart={handleLoadStart}
 				onLoad={handleLoadComplete}
 				onError={handleError}

@@ -32,6 +32,7 @@ export default function AuthLayout({
 				width={800}
 				height={600}
 				priority={true}
+				fallbackSrc="/images/cientist.png"
 				className="w-screen md:w-full h-auto md:h-screen object-cover"
 			/>
 			</div>
